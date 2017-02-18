@@ -99,4 +99,8 @@
         Beep()
         MessageBox.Show("This feature has been implemented, but it doesn't work yet. Hooray!", "Derp", MessageBoxButtons.OK, MessageBoxIcon.Question)
     End Sub
+
+    Private Sub StuffButton1_Click(sender As Object, e As EventArgs) Handles StuffButton1.Click
+        MessageBox.Show("( ͡° ͜ʖ ͡°)")
+    End Sub
 End Class
