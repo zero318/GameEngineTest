@@ -42,6 +42,7 @@ Partial Class MainWindow
         Me.AboutMenuStrip = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
+        Me.StuffButton1 = New System.Windows.Forms.Button()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -171,11 +172,21 @@ Partial Class MainWindow
         '
         Me.OpenFileDialog.FileName = "OpenFileDialog1"
         '
+        'StuffButton1
+        '
+        Me.StuffButton1.Location = New System.Drawing.Point(566, 392)
+        Me.StuffButton1.Name = "StuffButton1"
+        Me.StuffButton1.Size = New System.Drawing.Size(392, 159)
+        Me.StuffButton1.TabIndex = 4
+        Me.StuffButton1.Text = "Run Stuff Test"
+        Me.StuffButton1.UseVisualStyleBackColor = True
+        '
         'MainWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1000, 636)
+        Me.Controls.Add(Me.StuffButton1)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -210,4 +221,5 @@ Partial Class MainWindow
     Friend WithEvents SettingsUserInterfaceMenuStrip As ToolStripMenuItem
     Friend WithEvents SaveFileDialog As SaveFileDialog
     Friend WithEvents OpenFileDialog As OpenFileDialog
+    Friend WithEvents StuffButton1 As Button
 End Class
