@@ -107,4 +107,8 @@
     Private Sub ThreadingTest_Click(sender As Object, e As EventArgs) Handles ThreadingTest.Click
 
     End Sub
+
+    Public Sub ThreadingInputBeepTest()
+
+    End Sub
 End Class

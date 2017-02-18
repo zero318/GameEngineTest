@@ -44,6 +44,7 @@ Partial Class MainWindow
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.StuffButton1 = New System.Windows.Forms.Button()
         Me.ThreadingTest = New System.Windows.Forms.Button()
+        Me.StupidLabel1 = New System.Windows.Forms.Label()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -191,11 +192,21 @@ Partial Class MainWindow
         Me.ThreadingTest.Text = "Threading Test"
         Me.ThreadingTest.UseVisualStyleBackColor = True
         '
+        'StupidLabel1
+        '
+        Me.StupidLabel1.AutoSize = True
+        Me.StupidLabel1.Location = New System.Drawing.Point(86, 237)
+        Me.StupidLabel1.Name = "StupidLabel1"
+        Me.StupidLabel1.Size = New System.Drawing.Size(102, 32)
+        Me.StupidLabel1.TabIndex = 6
+        Me.StupidLabel1.Text = "Label1"
+        '
         'MainWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1000, 636)
+        Me.Controls.Add(Me.StupidLabel1)
         Me.Controls.Add(Me.ThreadingTest)
         Me.Controls.Add(Me.StuffButton1)
         Me.Controls.Add(Me.StatusStrip)
@@ -234,4 +245,5 @@ Partial Class MainWindow
     Friend WithEvents OpenFileDialog As OpenFileDialog
     Friend WithEvents StuffButton1 As Button
     Friend WithEvents ThreadingTest As Button
+    Friend WithEvents StupidLabel1 As Label
 End Class
