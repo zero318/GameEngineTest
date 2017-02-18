@@ -101,6 +101,6 @@
     End Sub
 
     Private Sub StuffButton1_Click(sender As Object, e As EventArgs) Handles StuffButton1.Click
-        MessageBox.Show("( ͡° ͜ʖ ͡°)")
+        MessageBox.Show("I <3 Paige ^_^")
     End Sub
 End Class
