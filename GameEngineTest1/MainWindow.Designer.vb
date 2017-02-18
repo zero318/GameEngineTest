@@ -43,6 +43,7 @@ Partial Class MainWindow
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.StuffButton1 = New System.Windows.Forms.Button()
+        Me.ThreadingTest = New System.Windows.Forms.Button()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -181,11 +182,21 @@ Partial Class MainWindow
         Me.StuffButton1.Text = "Run Stuff Test"
         Me.StuffButton1.UseVisualStyleBackColor = True
         '
+        'ThreadingTest
+        '
+        Me.ThreadingTest.Location = New System.Drawing.Point(551, 120)
+        Me.ThreadingTest.Name = "ThreadingTest"
+        Me.ThreadingTest.Size = New System.Drawing.Size(384, 171)
+        Me.ThreadingTest.TabIndex = 5
+        Me.ThreadingTest.Text = "Threading Test"
+        Me.ThreadingTest.UseVisualStyleBackColor = True
+        '
         'MainWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1000, 636)
+        Me.Controls.Add(Me.ThreadingTest)
         Me.Controls.Add(Me.StuffButton1)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.MenuStrip1)
@@ -222,4 +233,5 @@ Partial Class MainWindow
     Friend WithEvents SaveFileDialog As SaveFileDialog
     Friend WithEvents OpenFileDialog As OpenFileDialog
     Friend WithEvents StuffButton1 As Button
+    Friend WithEvents ThreadingTest As Button
 End Class

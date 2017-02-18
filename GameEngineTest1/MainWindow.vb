@@ -103,4 +103,8 @@
     Private Sub StuffButton1_Click(sender As Object, e As EventArgs) Handles StuffButton1.Click
         MessageBox.Show("I <3 Paige ^_^")
     End Sub
+
+    Private Sub ThreadingTest_Click(sender As Object, e As EventArgs) Handles ThreadingTest.Click
+
+    End Sub
 End Class
