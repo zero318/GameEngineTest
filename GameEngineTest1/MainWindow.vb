@@ -9,7 +9,7 @@
     Dim CountingThread2 As Threading.Thread
     Friend CThread1Active As Boolean = False
     Friend CThread2Active As Boolean = False
-    Private Sub MainWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub MainWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load 'This replaces some placeholder text at runtime
         DebugStatusLabel.Text = "DEBUG: " & DebugEnabled
         MultithreadingStatusLabel.Text = "Multithreading: " & MultithreadingEnabled
         If DebugEnabled = False Then
@@ -18,8 +18,11 @@
         End If
         CheckForIllegalCrossThreadCalls = False
     End Sub
+    '**************************************
+    'This comment starts the section that loads all the menus that do nothing yet. :P
+    '**************************************
     Private Sub DebugDebugMenuMenuStrip_Click(sender As Object, e As EventArgs) Handles DebugDebugMenuMenuStrip.Click
-        DebugMenu.ShowDialog()
+        DebugMenu.ShowDialog() 'This loads the DebugMenu.vb form
         DebugStatusLabel.Text = "DEBUG: " & DebugEnabled
         MultithreadingStatusLabel.Text = "Multithreading: " & MultithreadingEnabled
     End Sub
@@ -29,7 +32,7 @@
             CrapNotFound()
         Else
             BrokenCrap()
-            SaveFileDialog.ShowDialog()
+            SaveFileDialog.ShowDialog() 'This loads the Save dialog
         End If
     End Sub
 
@@ -38,7 +41,7 @@
             CrapNotFound()
         Else
             BrokenCrap()
-            OpenFileDialog.ShowDialog()
+            OpenFileDialog.ShowDialog() 'This loads the Open dialog
         End If
     End Sub
 
@@ -51,7 +54,7 @@
             CrapNotFound()
         Else
             BrokenCrap()
-            InputSettings.ShowDialog()
+            InputSettings.ShowDialog() 'This loads the InputSettings.vb form
         End If
     End Sub
 
@@ -60,7 +63,7 @@
             CrapNotFound()
         Else
             BrokenCrap()
-            GraphicsSettings.ShowDialog()
+            GraphicsSettings.ShowDialog() 'This loads the GraphicsSettings.vb form
         End If
     End Sub
 
@@ -69,7 +72,7 @@
             CrapNotFound()
         Else
             BrokenCrap()
-            AudioSettings.ShowDialog()
+            AudioSettings.ShowDialog() 'This loads the AudioSettings.vb form
         End If
     End Sub
 
@@ -78,7 +81,7 @@
             CrapNotFound()
         Else
             BrokenCrap()
-            PathsSettings.ShowDialog()
+            PathsSettings.ShowDialog() 'This loads the PathsSettings.vb form
         End If
     End Sub
 
@@ -87,12 +90,12 @@
             CrapNotFound()
         Else
             BrokenCrap()
-            UserInterfaceSettings.ShowDialog()
+            UserInterfaceSettings.ShowDialog() 'This loads the UserInterfaceSettings.vb form
         End If
     End Sub
 
     Private Sub AboutMenuStrip_Click(sender As Object, e As EventArgs) Handles AboutMenuStrip.Click
-        AboutThisCrap.ShowDialog()
+        AboutThisCrap.ShowDialog() 'This loads the AboutThisCrap.vb form
     End Sub
 
     Private Sub CrapNotFound()
@@ -104,17 +107,23 @@
         Beep()
         MessageBox.Show("This feature has been implemented, but it doesn't work yet. Hooray!", "Derp", MessageBoxButtons.OK, MessageBoxIcon.Question)
     End Sub
+    '**************************************
+    'This comment ends the section that loads all the menus that do nothing yet. :P
+    '**************************************
 
+    '**************************************
+    'This comment starts the section that handles the thread buttons and stuff.
+    '**************************************
     Private Sub StuffButton1_Click(sender As Object, e As EventArgs) Handles StuffButton1.Click
         Try
             If MultithreadingEnabled = True Then
                 If CThread2Active = False Then
                     CountingThread2 = New Threading.Thread(AddressOf countup2)
-                    CountingThread2.Start()
+                    CountingThread2.Start() 'I'm still not sure how this works, but it does.
                     CThread2Active = True
                 End If
             Else
-                countup2()
+                countup2() 'This is the not multithreaded version
             End If
         Catch ex As Exception
 
