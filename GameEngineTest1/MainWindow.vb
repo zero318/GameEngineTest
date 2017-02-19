@@ -106,27 +106,35 @@
     End Sub
 
     Private Sub StuffButton1_Click(sender As Object, e As EventArgs) Handles StuffButton1.Click
-        If MultithreadingEnabled = True Then
-            If CThread2Active = False Then
-                CountingThread2 = New Threading.Thread(AddressOf countup2)
-                CountingThread2.Start()
-                CThread2Active = True
+        Try
+            If MultithreadingEnabled = True Then
+                If CThread2Active = False Then
+                    CountingThread2 = New Threading.Thread(AddressOf countup2)
+                    CountingThread2.Start()
+                    CThread2Active = True
+                End If
+            Else
+                countup2()
             End If
-        Else
-            countup2()
-        End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub ThreadingTest_Click(sender As Object, e As EventArgs) Handles ThreadingTest.Click
-        If MultithreadingEnabled = True Then
-            If CThread1Active = False Then
-                CountingThread1 = New Threading.Thread(AddressOf countup)
-                CountingThread1.Start()
-                CThread1Active = True
+        Try
+            If MultithreadingEnabled = True Then
+                If CThread1Active = False Then
+                    CountingThread1 = New Threading.Thread(AddressOf countup)
+                    CountingThread1.Start()
+                    CThread1Active = True
+                End If
+            Else
+                countup()
             End If
-        Else
-            countup()
-        End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Public Sub ThreadingInputBeepTest()
