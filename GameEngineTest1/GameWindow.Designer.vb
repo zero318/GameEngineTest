@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class GameWindow
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class GameWindow
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Megaman = New System.Windows.Forms.PictureBox()
         Me.ThreadCountLabel = New System.Windows.Forms.Label()
@@ -33,7 +33,7 @@ Partial Class GameWindow
         '
         Me.Megaman.BackColor = System.Drawing.Color.Transparent
         Me.Megaman.Image = Global.GameEngineTest1.My.Resources.Resources.Standing1
-        Me.Megaman.Location = New System.Drawing.Point(99, 323)
+        Me.Megaman.Location = New System.Drawing.Point(0, 462)
         Me.Megaman.Name = "Megaman"
         Me.Megaman.Size = New System.Drawing.Size(100, 100)
         Me.Megaman.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
