@@ -43,7 +43,7 @@ Partial Class GameWindow
         'ThreadCountLabel
         '
         Me.ThreadCountLabel.AutoSize = True
-        Me.ThreadCountLabel.Location = New System.Drawing.Point(79, 115)
+        Me.ThreadCountLabel.Location = New System.Drawing.Point(12, 9)
         Me.ThreadCountLabel.Name = "ThreadCountLabel"
         Me.ThreadCountLabel.Size = New System.Drawing.Size(102, 32)
         Me.ThreadCountLabel.TabIndex = 1

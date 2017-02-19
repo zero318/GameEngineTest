@@ -3,7 +3,7 @@ Public Class GameWindow
     Dim Test1 As Integer
     Dim Test2 As Integer
     Dim TimerInterval As Integer = 100
-    Dim TimerStartDelay As Integer = 1000
+    Dim TimerStartDelay As Integer = 0
     Dim ThreadCountTimerCall As New TimerCallback(AddressOf UpdateThreadCount)
     Dim ThreadCountTimer As New Timer(ThreadCountTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Dim RightHeld As Boolean
@@ -11,7 +11,7 @@ Public Class GameWindow
     Dim MegamanLeft As Boolean
     Dim MegamanXVelocity As Double
     Dim MegamanYVelocity As Double
-    Dim MegamanAnimation As Byte
+    Dim MegamanAnimation As Byte = 6
     Dim MegamanAnimationFrame As Byte
     Dim MegamanAnimationTimerCall As New TimerCallback(AddressOf AnimateMegaman)
     Dim MegamanAnimationTimer As New Timer(MegamanAnimationTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
@@ -123,7 +123,7 @@ Public Class GameWindow
                 Else
                     'tmrPhysics.Enabled = True   'Starts the physics engine
                     'Beep() 'This was used for debugging to provide feedback when the physics engine started. Then I decided I liked it.
-                    If Megaman.Top > (GameArea.Height - Megaman.Height) Then   'If spawning in midair...
+                    If Megaman.Top < (GameArea.Height - Megaman.Height) Then   'If spawning in midair...
                         MegamanAnimationFrame = 5
                         MegamanAnimation = 4    'Jump right
                     Else    'If spawning on the ground...
@@ -156,7 +156,7 @@ Public Class GameWindow
                 Else
                     'tmrPhysics.Enabled = True   'Starts the physics engine
                     'Beep() 'This was used for debugging to provide feedback when the physics engine started. Then I decided I liked it.
-                    If Megaman.Top > (GameArea.Height - Megaman.Height) Then   'If spawning in midair...
+                    If Megaman.Top < (GameArea.Height - Megaman.Height) Then   'If spawning in midair...
                         MegamanAnimationFrame = 5
                         MegamanAnimation = 5    'Jump left
                     Else    'If spawning on the ground...
