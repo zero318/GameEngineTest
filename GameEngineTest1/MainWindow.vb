@@ -5,6 +5,10 @@
     Friend MissingCrapEnabled As Boolean = False
     Friend InternalAudioLevel As Byte = 100
     Friend AudioEnabled As Boolean = True
+    Dim CountingThread1 As Threading.Thread
+    Dim CountingThread2 As Threading.Thread
+    Friend CThread1Active As Boolean = False
+    Friend CThread2Active As Boolean = False
     Private Sub MainWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DebugStatusLabel.Text = "DEBUG: " & DebugEnabled
         MultithreadingStatusLabel.Text = "Multithreading: " & MultithreadingEnabled
@@ -12,6 +16,7 @@
             DebugMenuStrip.Visible = False
             DebugMenuStrip.Enabled = False
         End If
+        CheckForIllegalCrossThreadCalls = False
     End Sub
     Private Sub DebugDebugMenuMenuStrip_Click(sender As Object, e As EventArgs) Handles DebugDebugMenuMenuStrip.Click
         DebugMenu.ShowDialog()
@@ -101,14 +106,58 @@
     End Sub
 
     Private Sub StuffButton1_Click(sender As Object, e As EventArgs) Handles StuffButton1.Click
-        MessageBox.Show("I <3 Paige ^_^")
+        If MultithreadingEnabled = True Then
+            If CThread2Active = False Then
+                CountingThread2 = New Threading.Thread(AddressOf countup2)
+                CountingThread2.Start()
+                CThread2Active = True
+            End If
+        Else
+            countup2()
+        End If
     End Sub
 
     Private Sub ThreadingTest_Click(sender As Object, e As EventArgs) Handles ThreadingTest.Click
-
+        If MultithreadingEnabled = True Then
+            If CThread1Active = False Then
+                CountingThread1 = New Threading.Thread(AddressOf countup)
+                CountingThread1.Start()
+                CThread1Active = True
+            End If
+        Else
+            countup()
+        End If
     End Sub
 
     Public Sub ThreadingInputBeepTest()
 
+    End Sub
+
+    Private Sub countup()
+        Try
+            Dim i As Integer
+            Do Until i = 1000
+                i = i + 1
+                Label1.Text = i
+                Refresh()
+            Loop
+            CThread1Active = False
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub countup2()
+        Try
+            Dim i2 As Integer
+            Do Until i2 = 1000
+                i2 = i2 + 1
+                Label2.Text = i2
+                Refresh()
+            Loop
+            CThread2Active = False
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class
