@@ -22,21 +22,22 @@ Partial Class GameWindow
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.MegaManTestBox = New System.Windows.Forms.PictureBox()
+        Me.Megaman = New System.Windows.Forms.PictureBox()
         Me.ThreadCountLabel = New System.Windows.Forms.Label()
-        CType(Me.MegaManTestBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Megaman, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'MegaManTestBox
+        'Megaman
         '
-        Me.MegaManTestBox.BackColor = System.Drawing.Color.Transparent
-        Me.MegaManTestBox.Image = Global.GameEngineTest1.My.Resources.Resources.Standing1
-        Me.MegaManTestBox.Location = New System.Drawing.Point(109, 397)
-        Me.MegaManTestBox.Name = "MegaManTestBox"
-        Me.MegaManTestBox.Size = New System.Drawing.Size(100, 100)
-        Me.MegaManTestBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.MegaManTestBox.TabIndex = 0
-        Me.MegaManTestBox.TabStop = False
+        Me.Megaman.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Megaman.BackColor = System.Drawing.Color.Transparent
+        Me.Megaman.Image = Global.GameEngineTest1.My.Resources.Resources.Standing1
+        Me.Megaman.Location = New System.Drawing.Point(109, 397)
+        Me.Megaman.Name = "Megaman"
+        Me.Megaman.Size = New System.Drawing.Size(100, 100)
+        Me.Megaman.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.Megaman.TabIndex = 0
+        Me.Megaman.TabStop = False
         '
         'ThreadCountLabel
         '
@@ -53,19 +54,19 @@ Partial Class GameWindow
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(968, 562)
         Me.Controls.Add(Me.ThreadCountLabel)
-        Me.Controls.Add(Me.MegaManTestBox)
+        Me.Controls.Add(Me.Megaman)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "GameWindow"
         Me.Text = "GameWindow"
-        CType(Me.MegaManTestBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Megaman, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents MegaManTestBox As PictureBox
+    Friend WithEvents Megaman As PictureBox
     Friend WithEvents ThreadCountLabel As Label
 End Class
