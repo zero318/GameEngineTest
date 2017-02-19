@@ -160,4 +160,8 @@
 
         End Try
     End Sub
+
+    Private Sub MainWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+
+    End Sub
 End Class
