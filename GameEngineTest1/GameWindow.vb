@@ -9,6 +9,7 @@ Public Class GameWindow
     Dim ThreadCountTimer As New Timer(ThreadCountTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Dim RightHeld As Boolean
     Dim LeftHeld As Boolean
+    'UGH. I'm going to need to be able to run at least 10-15 of all these things at once for each sprite on screen. No wonder old systems were so limited on sprites.
     Dim MegamanLeft As Boolean
     Dim MegamanXVelocity As Double
     Dim MegamanYVelocity As Double
