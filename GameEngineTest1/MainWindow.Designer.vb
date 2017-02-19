@@ -47,6 +47,7 @@ Partial Class MainWindow
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.KeyLabel = New System.Windows.Forms.Label()
+        Me.StartButton = New System.Windows.Forms.Button()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -180,7 +181,7 @@ Partial Class MainWindow
         '
         'StuffButton1
         '
-        Me.StuffButton1.Location = New System.Drawing.Point(565, 392)
+        Me.StuffButton1.Location = New System.Drawing.Point(604, 225)
         Me.StuffButton1.Margin = New System.Windows.Forms.Padding(2)
         Me.StuffButton1.Name = "StuffButton1"
         Me.StuffButton1.Size = New System.Drawing.Size(392, 160)
@@ -190,7 +191,7 @@ Partial Class MainWindow
         '
         'ThreadingTest
         '
-        Me.ThreadingTest.Location = New System.Drawing.Point(565, 120)
+        Me.ThreadingTest.Location = New System.Drawing.Point(604, 51)
         Me.ThreadingTest.Margin = New System.Windows.Forms.Padding(2)
         Me.ThreadingTest.Name = "ThreadingTest"
         Me.ThreadingTest.Size = New System.Drawing.Size(385, 170)
@@ -201,7 +202,7 @@ Partial Class MainWindow
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(115, 148)
+        Me.Label1.Location = New System.Drawing.Point(497, 121)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(102, 32)
         Me.Label1.TabIndex = 6
@@ -210,7 +211,7 @@ Partial Class MainWindow
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(111, 335)
+        Me.Label2.Location = New System.Drawing.Point(497, 290)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(102, 32)
         Me.Label2.TabIndex = 7
@@ -219,17 +220,27 @@ Partial Class MainWindow
         'KeyLabel
         '
         Me.KeyLabel.AutoSize = True
-        Me.KeyLabel.Location = New System.Drawing.Point(86, 485)
+        Me.KeyLabel.Location = New System.Drawing.Point(37, 121)
         Me.KeyLabel.Name = "KeyLabel"
         Me.KeyLabel.Size = New System.Drawing.Size(102, 32)
         Me.KeyLabel.TabIndex = 8
         Me.KeyLabel.Text = "Label3"
+        '
+        'StartButton
+        '
+        Me.StartButton.Location = New System.Drawing.Point(247, 428)
+        Me.StartButton.Name = "StartButton"
+        Me.StartButton.Size = New System.Drawing.Size(435, 133)
+        Me.StartButton.TabIndex = 9
+        Me.StartButton.Text = "Try Starting a Game Thing"
+        Me.StartButton.UseVisualStyleBackColor = True
         '
         'MainWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1000, 635)
+        Me.Controls.Add(Me.StartButton)
         Me.Controls.Add(Me.KeyLabel)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -276,4 +287,5 @@ Partial Class MainWindow
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents KeyLabel As Label
+    Friend WithEvents StartButton As Button
 End Class
