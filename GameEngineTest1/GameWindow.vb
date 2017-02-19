@@ -1,12 +1,11 @@
-﻿Public Class GameWindow
+﻿Imports System.Threading
+Public Class GameWindow
     Dim Test1 As Integer
     Dim Test2 As Integer
     Dim TimerInterval As Integer = 100
     Dim TimerStartDelay As Integer = 1000
-    Dim PhysicsTimerCall As New Threading.TimerCallback(AddressOf MoveYoCrap)
-    Dim PhysicsTimer As New Threading.Timer(PhysicsTimerCall, vbNull, TimerStartDelay, TimerInterval)
-    Dim ThreadCountTimerCall As New Threading.TimerCallback(AddressOf UpdateThreadCount)
-    Dim ThreadCountTimer As New Threading.Timer(ThreadCountTimerCall, vbNull, TimerStartDelay, TimerInterval)
+    Dim ThreadCountTimerCall As New TimerCallback(AddressOf UpdateThreadCount)
+    Dim ThreadCountTimer As New Timer(ThreadCountTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Dim RightHeld As Boolean
     Dim LeftHeld As Boolean
     Dim MegamanLeft As Boolean
@@ -14,10 +13,14 @@
     Dim MegamanYVelocity As Double
     Dim MegamanAnimation As Byte
     Dim MegamanAnimationFrame As Byte
-    Dim MegamanAnimationTimerCall As New Threading.TimerCallback(AddressOf AnimateMegaman)
-    Dim MegamanAnimationTimer As New Threading.Timer(MegamanAnimationTimerCall, vbNull, TimerStartDelay, TimerInterval)
+    Dim MegamanAnimationTimerCall As New TimerCallback(AddressOf AnimateMegaman)
+    Dim MegamanAnimationTimer As New Timer(MegamanAnimationTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
+    Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MoveYoCrap)
+    Dim MegamanPhysicsTimer As New Timer(MegamanMegamanPhysicsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        MegamanPhysicsTimer.Change(TimerStartDelay, TimerInterval)
+        ThreadCountTimer.Change(TimerStartDelay, TimerInterval)
+        MegamanAnimationTimer.Change(TimerStartDelay, TimerInterval)
     End Sub
     Private Sub MoveYoCrap()
         If MegamanXVelocity <> 0 Then  'If horizontal motion is not 0...
@@ -183,7 +186,7 @@
                 MegamanLeft = True
             Case Keys.Up
                 If Megaman.Top = (GameArea.Height - Megaman.Height) Then   'If the player is on the ground...
-                    MegamanYVelocity = -9.8
+                    MegamanYVelocity = -39.2
                     If MegamanAnimation < 4 AndAlso MegamanLeft = False Then  'If the player isn't jumping and is facing right...
                         MegamanAnimationFrame = 1
                         MegamanAnimation = 4    'Jump right
