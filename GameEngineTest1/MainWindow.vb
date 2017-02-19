@@ -1,6 +1,6 @@
 ﻿Public Class MainWindow
-    Friend DebugEnabled As Boolean = True 'Thiis variable merely controls whether the user can access the debug menu.
-    Friend MultithreadingEnabled As Boolean = True
+    Friend DebugEnabled As Boolean = True 'This variable merely controls whether the user can access the debug menu.
+    Friend MultithreadingEnabled As Boolean = True '
     Friend DebugHUDEnabled As Boolean = False
     Friend MissingCrapEnabled As Boolean = False
     Friend InternalAudioLevel As Byte = 100
