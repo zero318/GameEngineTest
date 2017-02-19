@@ -1,5 +1,5 @@
 ﻿Imports System.Threading
-Imports System.Drawing
+Imports System.Drawing 'This will let me make rectangles and crap.
 Public Class GameWindow
     Dim Test1 As Integer
     Dim Test2 As Integer
@@ -16,14 +16,20 @@ Public Class GameWindow
     Dim MegamanAnimationFrame As Byte
     Dim MegamanAnimationTimerCall As New TimerCallback(AddressOf AnimateMegaman)
     Dim MegamanAnimationTimer As New Timer(MegamanAnimationTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
-    Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MoveYoCrap)
+    Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanPhysics)
     Dim MegamanPhysicsTimer As New Timer(MegamanMegamanPhysicsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MegamanPhysicsTimer.Change(TimerStartDelay, TimerInterval)
-        ThreadCountTimer.Change(TimerStartDelay, TimerInterval)
         MegamanAnimationTimer.Change(TimerStartDelay, TimerInterval)
+        If MainWindow.DebugHUDEnabled = True Then
+            ThreadCountTimer.Change(TimerStartDelay, TimerInterval)
+        Else
+            ThreadCountLabel.Visible = False
+            ThreadCountTimer.Dispose()
+        End If
+        'Make some rectangles and crap here for collision.
     End Sub
-    Private Sub MoveYoCrap()
+    Private Sub MegamanPhysics()
         If MegamanXVelocity <> 0 Then  'If horizontal motion is not 0...
             If MegamanXVelocity > 0 AndAlso Megaman.Left < GameArea.Width Then   'If the player is not out of bounds to the right...
                 Megaman.Left = Megaman.Left + MegamanXVelocity
@@ -198,9 +204,6 @@ Public Class GameWindow
                 End If
         End Select
     End Sub
-    Private Sub GameWindow_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
-
-    End Sub
     Private Sub GameWindow_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
         Select Case e.KeyCode   'Detects the released keys...
             Case Keys.Right 'If right was released...
@@ -219,8 +222,5 @@ Public Class GameWindow
                 MegamanAnimation = 1    'Stand left
             End If
         End If
-    End Sub
-    Private Sub GameWindow_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles MyBase.PreviewKeyDown
-
     End Sub
 End Class
