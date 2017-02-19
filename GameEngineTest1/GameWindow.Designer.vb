@@ -24,15 +24,16 @@ Partial Class GameWindow
     Private Sub InitializeComponent()
         Me.Megaman = New System.Windows.Forms.PictureBox()
         Me.ThreadCountLabel = New System.Windows.Forms.Label()
+        Me.GameArea = New System.Windows.Forms.Panel()
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GameArea.SuspendLayout()
         Me.SuspendLayout()
         '
         'Megaman
         '
-        Me.Megaman.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Megaman.BackColor = System.Drawing.Color.Transparent
         Me.Megaman.Image = Global.GameEngineTest1.My.Resources.Resources.Standing1
-        Me.Megaman.Location = New System.Drawing.Point(109, 397)
+        Me.Megaman.Location = New System.Drawing.Point(99, 323)
         Me.Megaman.Name = "Megaman"
         Me.Megaman.Size = New System.Drawing.Size(100, 100)
         Me.Megaman.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -42,19 +43,30 @@ Partial Class GameWindow
         'ThreadCountLabel
         '
         Me.ThreadCountLabel.AutoSize = True
-        Me.ThreadCountLabel.Location = New System.Drawing.Point(216, 107)
+        Me.ThreadCountLabel.Location = New System.Drawing.Point(79, 115)
         Me.ThreadCountLabel.Name = "ThreadCountLabel"
         Me.ThreadCountLabel.Size = New System.Drawing.Size(102, 32)
         Me.ThreadCountLabel.TabIndex = 1
         Me.ThreadCountLabel.Text = "Label1"
+        '
+        'GameArea
+        '
+        Me.GameArea.BackColor = System.Drawing.Color.Transparent
+        Me.GameArea.Controls.Add(Me.Megaman)
+        Me.GameArea.Controls.Add(Me.ThreadCountLabel)
+        Me.GameArea.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GameArea.Location = New System.Drawing.Point(0, 0)
+        Me.GameArea.Name = "GameArea"
+        Me.GameArea.Size = New System.Drawing.Size(968, 562)
+        Me.GameArea.TabIndex = 2
         '
         'GameWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(968, 562)
-        Me.Controls.Add(Me.ThreadCountLabel)
-        Me.Controls.Add(Me.Megaman)
+        Me.Controls.Add(Me.GameArea)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.MaximizeBox = False
@@ -62,11 +74,13 @@ Partial Class GameWindow
         Me.Name = "GameWindow"
         Me.Text = "GameWindow"
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GameArea.ResumeLayout(False)
+        Me.GameArea.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents Megaman As PictureBox
     Friend WithEvents ThreadCountLabel As Label
+    Friend WithEvents GameArea As Panel
 End Class
