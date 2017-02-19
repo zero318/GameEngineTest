@@ -190,4 +190,8 @@
     Private Sub MainWindow_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles MyBase.PreviewKeyDown
 
     End Sub
+
+    Private Sub StartButton_Click(sender As Object, e As EventArgs) Handles StartButton.Click
+        GameWindow.ShowDialog()
+    End Sub
 End Class
