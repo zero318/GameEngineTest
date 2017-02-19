@@ -25,6 +25,7 @@ Partial Class GameWindow
         Me.Megaman = New System.Windows.Forms.PictureBox()
         Me.ThreadCountLabel = New System.Windows.Forms.Label()
         Me.GameArea = New System.Windows.Forms.Panel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GameArea.SuspendLayout()
         Me.SuspendLayout()
@@ -52,6 +53,7 @@ Partial Class GameWindow
         'GameArea
         '
         Me.GameArea.BackColor = System.Drawing.Color.Transparent
+        Me.GameArea.Controls.Add(Me.Panel1)
         Me.GameArea.Controls.Add(Me.Megaman)
         Me.GameArea.Controls.Add(Me.ThreadCountLabel)
         Me.GameArea.Dock = System.Windows.Forms.DockStyle.Fill
@@ -59,6 +61,14 @@ Partial Class GameWindow
         Me.GameArea.Name = "GameArea"
         Me.GameArea.Size = New System.Drawing.Size(968, 562)
         Me.GameArea.TabIndex = 2
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.Red
+        Me.Panel1.Location = New System.Drawing.Point(768, 512)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(200, 50)
+        Me.Panel1.TabIndex = 2
         '
         'GameWindow
         '
@@ -83,4 +93,5 @@ Partial Class GameWindow
     Friend WithEvents Megaman As PictureBox
     Friend WithEvents ThreadCountLabel As Label
     Friend WithEvents GameArea As Panel
+    Friend WithEvents Panel1 As Panel
 End Class

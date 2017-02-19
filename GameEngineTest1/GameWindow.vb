@@ -1,4 +1,5 @@
 ﻿Imports System.Threading
+Imports System.Drawing
 Public Class GameWindow
     Dim Test1 As Integer
     Dim Test2 As Integer
@@ -66,7 +67,7 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub UpdateThreadCount()
-        Threading.ThreadPool.GetAvailableThreads(Test1, Test2)
+        ThreadPool.GetAvailableThreads(Test1, Test2)
         ThreadCountLabel.Text = Test1 & " " & Test2
     End Sub
     Private Sub AnimateMegaman()
