@@ -96,19 +96,19 @@ Partial Class MainWindow
         'FileSaveMenuStrip
         '
         Me.FileSaveMenuStrip.Name = "FileSaveMenuStrip"
-        Me.FileSaveMenuStrip.Size = New System.Drawing.Size(327, 46)
+        Me.FileSaveMenuStrip.Size = New System.Drawing.Size(198, 46)
         Me.FileSaveMenuStrip.Text = "Sa&ve"
         '
         'FileLoadMenuStrip
         '
         Me.FileLoadMenuStrip.Name = "FileLoadMenuStrip"
-        Me.FileLoadMenuStrip.Size = New System.Drawing.Size(327, 46)
+        Me.FileLoadMenuStrip.Size = New System.Drawing.Size(198, 46)
         Me.FileLoadMenuStrip.Text = "&Load"
         '
         'FileExitMenuStrip
         '
         Me.FileExitMenuStrip.Name = "FileExitMenuStrip"
-        Me.FileExitMenuStrip.Size = New System.Drawing.Size(327, 46)
+        Me.FileExitMenuStrip.Size = New System.Drawing.Size(198, 46)
         Me.FileExitMenuStrip.Text = "E&xit"
         '
         'SettingsMenuStrip
@@ -181,7 +181,7 @@ Partial Class MainWindow
         'StuffButton1
         '
         Me.StuffButton1.Location = New System.Drawing.Point(565, 392)
-        Me.StuffButton1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.StuffButton1.Margin = New System.Windows.Forms.Padding(2)
         Me.StuffButton1.Name = "StuffButton1"
         Me.StuffButton1.Size = New System.Drawing.Size(392, 160)
         Me.StuffButton1.TabIndex = 4
@@ -191,7 +191,7 @@ Partial Class MainWindow
         'ThreadingTest
         '
         Me.ThreadingTest.Location = New System.Drawing.Point(565, 120)
-        Me.ThreadingTest.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ThreadingTest.Margin = New System.Windows.Forms.Padding(2)
         Me.ThreadingTest.Name = "ThreadingTest"
         Me.ThreadingTest.Size = New System.Drawing.Size(385, 170)
         Me.ThreadingTest.TabIndex = 5
@@ -240,7 +240,7 @@ Partial Class MainWindow
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "MainWindow"
         Me.Text = "Game Engine Test 1"
         Me.StatusStrip.ResumeLayout(False)

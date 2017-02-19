@@ -210,7 +210,122 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\SR IMages.zip" />
     <None Include="Resources\TextFileTest1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jumping1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jumping2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jumping3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jumping4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jumping5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jumping6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jumping7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r0.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r3.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r4.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r5.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r6.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r7.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r8.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r9.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standing1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standing2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standing3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WarpIn1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WarpIn2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WarpIn3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WarpIn4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WarpIn5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WarpIn6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WarpIn7.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

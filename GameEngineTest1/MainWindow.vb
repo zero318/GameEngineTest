@@ -7,6 +7,7 @@
     Friend AudioEnabled As Boolean = True
     Dim CountingThread1 As Threading.Thread
     Dim CountingThread2 As Threading.Thread
+    Friend KeyboardInputThreas As Threading.Thread
     Friend CThread1Active As Boolean = False
     Friend CThread2Active As Boolean = False
     Private Sub MainWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load 'This replaces some placeholder text at runtime
@@ -180,5 +181,13 @@
 
     Private Sub MainWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         KeyLabel.Text = Convert.ToChar(e.KeyCode)
+    End Sub
+
+    Friend Sub KeyboardInputSub(e As KeyEventArgs)
+        KeyLabel.Text = Convert.ToChar(e.KeyCode)
+    End Sub
+
+    Private Sub MainWindow_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles MyBase.PreviewKeyDown
+
     End Sub
 End Class
