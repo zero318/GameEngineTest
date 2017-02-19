@@ -1,9 +1,9 @@
 ﻿Public Class MainWindow
     Friend DebugEnabled As Boolean = True 'This variable merely controls whether the user can access the debug menu.
     Friend MultithreadingEnabled As Boolean = True '
-    Friend DebugHUDEnabled As Boolean = False
-    Friend MissingCrapEnabled As Boolean = False
-    Friend InternalAudioLevel As Byte = 100
+    Friend DebugHUDEnabled As Boolean = False 'This does nothing. :D
+    Friend MissingCrapEnabled As Boolean = False 'This lets us get into all the broken/empty menus.
+    Friend InternalAudioLevel As Byte = 100 'This does nothing. :D
     Friend AudioEnabled As Boolean = True
     Dim CountingThread1 As Threading.Thread
     Dim CountingThread2 As Threading.Thread
