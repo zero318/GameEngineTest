@@ -46,6 +46,7 @@ Partial Class MainWindow
         Me.ThreadingTest = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.KeyLabel = New System.Windows.Forms.Label()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -95,19 +96,19 @@ Partial Class MainWindow
         'FileSaveMenuStrip
         '
         Me.FileSaveMenuStrip.Name = "FileSaveMenuStrip"
-        Me.FileSaveMenuStrip.Size = New System.Drawing.Size(198, 46)
+        Me.FileSaveMenuStrip.Size = New System.Drawing.Size(327, 46)
         Me.FileSaveMenuStrip.Text = "Sa&ve"
         '
         'FileLoadMenuStrip
         '
         Me.FileLoadMenuStrip.Name = "FileLoadMenuStrip"
-        Me.FileLoadMenuStrip.Size = New System.Drawing.Size(198, 46)
+        Me.FileLoadMenuStrip.Size = New System.Drawing.Size(327, 46)
         Me.FileLoadMenuStrip.Text = "&Load"
         '
         'FileExitMenuStrip
         '
         Me.FileExitMenuStrip.Name = "FileExitMenuStrip"
-        Me.FileExitMenuStrip.Size = New System.Drawing.Size(198, 46)
+        Me.FileExitMenuStrip.Size = New System.Drawing.Size(327, 46)
         Me.FileExitMenuStrip.Text = "E&xit"
         '
         'SettingsMenuStrip
@@ -215,11 +216,21 @@ Partial Class MainWindow
         Me.Label2.TabIndex = 7
         Me.Label2.Text = "Label2"
         '
+        'KeyLabel
+        '
+        Me.KeyLabel.AutoSize = True
+        Me.KeyLabel.Location = New System.Drawing.Point(86, 485)
+        Me.KeyLabel.Name = "KeyLabel"
+        Me.KeyLabel.Size = New System.Drawing.Size(102, 32)
+        Me.KeyLabel.TabIndex = 8
+        Me.KeyLabel.Text = "Label3"
+        '
         'MainWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1000, 635)
+        Me.Controls.Add(Me.KeyLabel)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ThreadingTest)
@@ -227,6 +238,7 @@ Partial Class MainWindow
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "MainWindow"
@@ -263,4 +275,5 @@ Partial Class MainWindow
     Friend WithEvents ThreadingTest As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents KeyLabel As Label
 End Class

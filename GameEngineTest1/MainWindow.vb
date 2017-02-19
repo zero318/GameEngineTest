@@ -179,6 +179,6 @@
     End Sub
 
     Private Sub MainWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-
+        KeyLabel.Text = Convert.ToChar(e.KeyCode)
     End Sub
 End Class
