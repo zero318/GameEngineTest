@@ -27,7 +27,6 @@
         DebugStatusLabel.Text = "DEBUG: " & DebugEnabled
         MultithreadingStatusLabel.Text = "Multithreading: " & MultithreadingEnabled
     End Sub
-
     Private Sub FileSaveMenuStrip_Click(sender As Object, e As EventArgs) Handles FileSaveMenuStrip.Click
         If MissingCrapEnabled = False Then
             CrapNotFound()
@@ -36,7 +35,6 @@
             SaveFileDialog.ShowDialog() 'This loads the Save dialog
         End If
     End Sub
-
     Private Sub FileLoadMenuStrip_Click(sender As Object, e As EventArgs) Handles FileLoadMenuStrip.Click
         If MissingCrapEnabled = False Then
             CrapNotFound()
@@ -45,11 +43,9 @@
             OpenFileDialog.ShowDialog() 'This loads the Open dialog
         End If
     End Sub
-
     Private Sub FileExitMenuStrip_Click(sender As Object, e As EventArgs) Handles FileExitMenuStrip.Click
         Application.Exit()
     End Sub
-
     Private Sub SettingsInputMenuStrip_Click(sender As Object, e As EventArgs) Handles SettingsInputMenuStrip.Click
         If MissingCrapEnabled = False Then
             CrapNotFound()
@@ -58,7 +54,6 @@
             InputSettings.ShowDialog() 'This loads the InputSettings.vb form
         End If
     End Sub
-
     Private Sub SettingsGraphicsMenuStrip_Click(sender As Object, e As EventArgs) Handles SettingsGraphicsMenuStrip.Click
         If MissingCrapEnabled = False Then
             CrapNotFound()
@@ -67,7 +62,6 @@
             GraphicsSettings.ShowDialog() 'This loads the GraphicsSettings.vb form
         End If
     End Sub
-
     Private Sub SettingsAudioMenuStrip_Click(sender As Object, e As EventArgs) Handles SettingsAudioMenuStrip.Click
         If MissingCrapEnabled = False Then
             CrapNotFound()
@@ -76,7 +70,6 @@
             AudioSettings.ShowDialog() 'This loads the AudioSettings.vb form
         End If
     End Sub
-
     Private Sub SettingsPathsMenuStrip_Click(sender As Object, e As EventArgs) Handles SettingsPathsMenuStrip.Click
         If MissingCrapEnabled = False Then
             CrapNotFound()
@@ -85,7 +78,6 @@
             PathsSettings.ShowDialog() 'This loads the PathsSettings.vb form
         End If
     End Sub
-
     Private Sub SettingsUserInterfaceMenuStrip_Click(sender As Object, e As EventArgs) Handles SettingsUserInterfaceMenuStrip.Click
         If MissingCrapEnabled = False Then
             CrapNotFound()
@@ -94,16 +86,13 @@
             UserInterfaceSettings.ShowDialog() 'This loads the UserInterfaceSettings.vb form
         End If
     End Sub
-
     Private Sub AboutMenuStrip_Click(sender As Object, e As EventArgs) Handles AboutMenuStrip.Click
         AboutThisCrap.ShowDialog() 'This loads the AboutThisCrap.vb form
     End Sub
-
     Private Sub CrapNotFound()
         Beep()
         MessageBox.Show("This feature hasn't been implemented yet! Since this is only a prototype build, all features are subject to change.", "404 Crap Not Found", MessageBoxButtons.OK, MessageBoxIcon.Question)
     End Sub
-
     Private Sub BrokenCrap()
         Beep()
         MessageBox.Show("This feature has been implemented, but it doesn't work yet. Hooray!", "Derp", MessageBoxButtons.OK, MessageBoxIcon.Question)
@@ -127,10 +116,8 @@
                 countup2() 'This is the not multithreaded version
             End If
         Catch ex As Exception
-
         End Try
     End Sub
-
     Private Sub ThreadingTest_Click(sender As Object, e As EventArgs) Handles ThreadingTest.Click
         Try
             If MultithreadingEnabled = True Then
@@ -146,11 +133,6 @@
 
         End Try
     End Sub
-
-    Public Sub ThreadingInputBeepTest()
-
-    End Sub
-
     Private Sub countup()
         Try
             Dim i As Integer
@@ -161,10 +143,8 @@
             Loop
             CThread1Active = False
         Catch ex As Exception
-
         End Try
     End Sub
-
     Private Sub countup2()
         Try
             Dim i2 As Integer
@@ -175,22 +155,14 @@
             Loop
             CThread2Active = False
         Catch ex As Exception
-
         End Try
     End Sub
-
     Private Sub MainWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         KeyLabel.Text = Convert.ToChar(e.KeyCode)
     End Sub
-
     Friend Sub KeyboardInputSub(e As KeyEventArgs)
         KeyLabel.Text = Convert.ToChar(e.KeyCode)
     End Sub
-
-    Private Sub MainWindow_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles MyBase.PreviewKeyDown
-
-    End Sub
-
     Private Sub StartButton_Click(sender As Object, e As EventArgs) Handles StartButton.Click
         GameWindow.ShowDialog()
     End Sub
