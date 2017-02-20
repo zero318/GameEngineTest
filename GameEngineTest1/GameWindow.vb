@@ -1,6 +1,6 @@
 ﻿Imports System.Threading
-Imports System.Drawing 'This will let me make rectangles and crap.
 Public Class GameWindow
+    Dim GamePath As String = My.Application.Info.DirectoryPath
     Dim Test1 As Integer
     Dim Test2 As Integer
     Dim TimerInterval As Integer = 100
@@ -10,25 +10,30 @@ Public Class GameWindow
     Dim RightHeld As Boolean
     Dim LeftHeld As Boolean
     'UGH. I'm going to need to be able to run at least 10-15 of all these things at once for each sprite on screen. No wonder old systems were so limited on sprites.
+    Dim MegamanRectangle As New RectangleF(50, 400, 100, 100)
+    Dim MegamanRectangleImage As Image
     Dim MegamanLeft As Boolean
     Dim MegamanXVelocity As Double
     Dim MegamanYVelocity As Double
     Dim MegamanAnimation As Byte = 6
-    Dim MegamanAnimationFrame As Byte
-    Dim MegamanAnimationTimerCall As New TimerCallback(AddressOf AnimateMegaman)
+    Dim MegamanAnimationFrame As Byte = 1
+    Dim MegamanAnimationTimerCall As New TimerCallback(AddressOf AnimateMegamanRectangle)
     Dim MegamanAnimationTimer As New Timer(MegamanAnimationTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
-    Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanPhysics)
+    Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
     Dim MegamanPhysicsTimer As New Timer(MegamanMegamanPhysicsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'MegamanPhysicsTimer.Change(TimerStartDelay, TimerInterval)
+        'MegamanAnimationTimer.Change(TimerStartDelay, TimerInterval)
         MegamanPhysicsTimer.Change(TimerStartDelay, TimerInterval)
         MegamanAnimationTimer.Change(TimerStartDelay, TimerInterval)
-        If MainWindow.DebugHUDEnabled = True Then
-            ThreadCountTimer.Change(TimerStartDelay, TimerInterval)
-        Else
-            ThreadCountLabel.Visible = False
-            ThreadCountTimer.Dispose()
-        End If
+        'If MainWindow.DebugHUDEnabled = True Then
+        ThreadCountTimer.Change(TimerStartDelay, TimerInterval)
+        'Else
+        '    ThreadCountLabel.Visible = False
+        '    ThreadCountTimer.Dispose()
+        'End If
         'Make some rectangles and crap here for collision.
+        Megaman.Dispose()
     End Sub
     Private Sub MegamanPhysics()
         If MegamanXVelocity <> 0 Then  'If horizontal motion is not 0...
@@ -74,8 +79,9 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub UpdateThreadCount()
-        ThreadPool.GetAvailableThreads(Test1, Test2)
-        ThreadCountLabel.Text = Test1 & " " & Test2
+        'ThreadPool.GetAvailableThreads(Test1, Test2)
+        'ThreadCountLabel.Text = Test1 & " " & Test2
+        ThreadCountLabel.Text = "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame
     End Sub
     Private Sub AnimateMegaman()
         Select Case MegamanAnimation
@@ -193,7 +199,17 @@ Public Class GameWindow
                 End If
                 MegamanLeft = True
             Case Keys.Up
-                If Megaman.Top = (GameArea.Height - Megaman.Height) Then   'If the player is on the ground...
+                'If Megaman.Top = (GameArea.Height - Megaman.Height) Then   'If the player is on the ground...
+                '    MegamanYVelocity = -39.2
+                '    If MegamanAnimation < 4 AndAlso MegamanLeft = False Then  'If the player isn't jumping and is facing right...
+                '        MegamanAnimationFrame = 1
+                '        MegamanAnimation = 4    'Jump right
+                '    ElseIf MegamanAnimation < 4 AndAlso MegamanLeft = True Then   'If the player isn't jumping and is facing left...
+                '        MegamanAnimationFrame = 1
+                '        MegamanAnimation = 5    'Jump left
+                '    End If
+                'End If
+                If MegamanRectangle.Y = (GameArea.Height - MegamanRectangle.Height) Then   'If the player is on the ground...
                     MegamanYVelocity = -39.2
                     If MegamanAnimation < 4 AndAlso MegamanLeft = False Then  'If the player isn't jumping and is facing right...
                         MegamanAnimationFrame = 1
@@ -223,5 +239,153 @@ Public Class GameWindow
                 MegamanAnimation = 1    'Stand left
             End If
         End If
+    End Sub
+    Private Sub GameWindow_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles Me.Paint
+        e.Graphics.DrawRectangle(Pens.Black, Rectangle.Round(MegamanRectangle))
+        'e.Graphics.FillRectangle(Brushes.Red, MegamanRectangle)
+        If Not MegamanRectangleImage Is Nothing Then
+            e.Graphics.DrawImage(MegamanRectangleImage, MegamanRectangle.X, MegamanRectangle.Y, MegamanRectangle.Width, MegamanRectangle.Height)
+        End If
+    End Sub
+    Private Sub MegamanRectanglePhysics()
+        If MegamanXVelocity <> 0 Then  'If horizontal motion is not 0...
+            If MegamanXVelocity > 0 AndAlso MegamanRectangle.X < GameArea.Width Then   'If the player is not out of bounds to the right...
+                MegamanRectangle.X = MegamanRectangle.X + MegamanXVelocity
+                If MegamanRectangle.X > GameArea.Width Then   'If the player was moved out of bounds to the right...
+                    MegamanRectangle.X = GameArea.Width
+                    MegamanAnimationFrame = 1
+                    MegamanAnimation = 0    'Stand right
+                End If
+            ElseIf MegamanXVelocity < 0 AndAlso MegamanRectangle.X > 0 Then  'If the player is not out of bounds to the left...
+                MegamanRectangle.X = MegamanRectangle.X + MegamanXVelocity
+                If MegamanRectangle.X < 0 Then    'If the player was moved out of bounds to the left...
+                    MegamanRectangle.X = 0
+                    MegamanAnimationFrame = 1
+                    MegamanAnimation = 1    'Stand left
+                End If
+            End If
+        End If
+        If MegamanAnimation <> 6 AndAlso MegamanAnimation <> 9 Then 'If vertical motion is not 0...
+            MegamanRectangle.Y = MegamanRectangle.Y + MegamanYVelocity    'Calculates the new position
+            MegamanYVelocity = MegamanYVelocity + 9.8   'Applies gravity to the vertical velocity. 9.8m/s is actually the acceleration caused by the gravity of the earth. PHYSICS! :D
+            If MegamanRectangle.Y > (GameArea.Height - Megaman.Height) Then   'If the player is out of bounds under the bottom...
+                MegamanRectangle.Y = (GameArea.Height - Megaman.Height)
+                If MegamanLeft = False Then   'If the player is facing right...
+                    If RightHeld = False Then    'If the player is not holding right...
+                        MegamanAnimationFrame = 1
+                        MegamanAnimation = 0    'Stand right
+                    Else    'If the player is holding right...
+                        MegamanAnimation = 2    'Run right
+                    End If
+                Else    'If the player is facing left...
+                    If LeftHeld = False Then 'If the player is not holding left...
+                        MegamanAnimationFrame = 1
+                        MegamanAnimation = 1    'Stand left
+                    Else    'If the player is holding left...
+                        MegamanAnimation = 3    'Run left
+                    End If
+                End If
+            ElseIf MegamanRectangle.Y < 0 Then 'If the player is out of bounds above the top...
+                MegamanRectangle.Y = 0
+            End If
+        End If
+    End Sub
+    Friend Sub AnimateMegamanRectangle()
+        Select Case MegamanAnimation
+            Case = 0    'Standing Right
+                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Standing" & MegamanAnimationFrame & ".png")   'This dyamically reads a variable and parses its value into the resource call. This saves time by skipping several false case checks on higer numbered frames.
+                If MegamanAnimationFrame < 3 Then   'Increments and resets the frame counter.
+                    MegamanAnimationFrame += 1
+                Else
+                    MegamanAnimationFrame = 1
+                End If
+            Case = 1    'Standing Left
+                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Standing" & MegamanAnimationFrame & ".png")   'This dyamically reads a variable and parses its value into the resource call. This saves time by skipping several false case checks on higer numbered frames.
+                MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX)
+                If MegamanAnimationFrame < 3 Then   'Increments and resets the frame counter.
+                    MegamanAnimationFrame += 1
+                Else
+                    MegamanAnimationFrame = 1
+                End If
+            Case = 2    'Running Right
+                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Running" & MegamanAnimationFrame & ".png")   'This dyamically reads a variable and parses its value into the resource call. This saves time by skipping several false case checks on higer numbered frames.
+                If MegamanAnimationFrame < 11 Then   'Increments and resets the frame counter.
+                    MegamanAnimationFrame += 1
+                Else
+                    MegamanAnimationFrame = 1
+                End If
+            Case = 3    'Running Left
+                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Running" & MegamanAnimationFrame & ".png")   'This dyamically reads a variable and parses its value into the resource call. This saves time by skipping several false case checks on higer numbered frames.
+                MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX)
+                If MegamanAnimationFrame < 11 Then   'Increments and resets the frame counter.
+                    MegamanAnimationFrame += 1
+                Else
+                    MegamanAnimationFrame = 1
+                End If
+            Case = 4    'Jumping Right
+                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Jumping" & MegamanAnimationFrame & ".png")   'This dyamically reads a variable and parses its value into the resource call. This saves time by skipping several false case checks on higer numbered frames.
+                If MegamanAnimationFrame < 5 Then   'Increments and resets the frame counter.
+                    MegamanAnimationFrame += 1
+                Else
+                    'MegamanAnimationFrame = 1   'Removing this prevents the animation looping and causing the arms to flail around.
+                End If
+            Case = 5    'Jumping Left
+                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Jumping" & MegamanAnimationFrame & ".png")   'This dyamically reads a variable and parses its value into the resource call. This saves time by skipping several false case checks on higer numbered frames.
+                MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX)
+                If MegamanAnimationFrame < 5 Then   'Increments and resets the frame counter.
+                    MegamanAnimationFrame += 1
+                Else
+                    'MegamanAnimationFrame = 1   'Removing this prevents the animation looping and causing the arms to flail around.
+                End If
+            Case = 6    'Warping In Right
+                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\WarpIn" & MegamanAnimationFrame & ".png")   'This dyamically reads a variable and parses its value into the resource call. This saves time by skipping several false case checks on higer numbered frames.
+                If MegamanAnimationFrame < 7 Then   'Increments and resets the frame counter.
+                    MegamanAnimationFrame += 1
+                Else
+                    'tmrPhysics.Enabled = True   'Starts the physics engine
+                    'Beep() 'This was used for debugging to provide feedback when the physics engine started. Then I decided I liked it.
+                    If MegamanRectangle.Y < (GameArea.Height - MegamanRectangle.Height) Then   'If spawning in midair...
+                        MegamanAnimationFrame = 5
+                        MegamanAnimation = 4    'Jump right
+                    Else    'If spawning on the ground...
+                        MegamanAnimationFrame = 1
+                        MegamanAnimation = 0    'Stand right
+                    End If
+                End If
+            Case = 7    'Landing Right  'These were going to be used when landing after a jump, but didn't end up looking very good and caused weird glitches.
+                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Jumping" & MegamanAnimationFrame & ".png")   'This dyamically reads a variable and parses its value into the resource call. This saves time by skipping several false case checks on higer numbered frames.
+                If MegamanAnimationFrame < 7 Then   'Increments and resets the frame counter.
+                    MegamanAnimationFrame += 1
+                Else
+                    MegamanAnimationFrame = 1
+                    MegamanAnimation = 0    'Stand right
+                End If
+            Case = 8    'Landing Left   'These were going to be used when landing after a jump, but didn't end up looking very good and caused weird glitches.
+                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Jumping" & MegamanAnimationFrame & ".png")   'This dyamically reads a variable and parses its value into the resource call. This saves time by skipping several false case checks on higer numbered frames.
+                MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX)
+                If MegamanAnimationFrame < 7 Then   'Increments and resets the frame counter.
+                    MegamanAnimationFrame += 1
+                Else
+                    MegamanAnimationFrame = 1
+                    MegamanAnimation = 1    'Stand left
+                End If
+            Case = 9    'Warping In Left
+                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\WarpIn" & MegamanAnimationFrame & ".png")   'This dyamically reads a variable and parses its value into the resource call. This saves time by skipping several false case checks on higer numbered frames.
+                'MegamanTestBox.Image.RotateFlip(RotateFlipType.RotateNoneFlipX)
+                If MegamanAnimationFrame < 7 Then   'Increments and resets the frame counter.
+                    MegamanAnimationFrame += 1
+                Else
+                    'tmrPhysics.Enabled = True   'Starts the physics engine
+                    'Beep() 'This was used for debugging to provide feedback when the physics engine started. Then I decided I liked it.
+                    If MegamanRectangle.Y < (GameArea.Height - MegamanRectangle.Height) Then   'If spawning in midair...
+                        MegamanAnimationFrame = 5
+                        MegamanAnimation = 5    'Jump left
+                    Else    'If spawning on the ground...
+                        MegamanAnimationFrame = 1
+                        MegamanAnimation = 1    'Run left
+                    End If
+                End If
+        End Select
+        Refresh()
     End Sub
 End Class

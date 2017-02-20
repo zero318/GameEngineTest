@@ -164,6 +164,8 @@
         KeyLabel.Text = Convert.ToChar(e.KeyCode)
     End Sub
     Private Sub StartButton_Click(sender As Object, e As EventArgs) Handles StartButton.Click
+        StartButton.Enabled = False
         GameWindow.ShowDialog()
+        StartButton.Enabled = True
     End Sub
 End Class

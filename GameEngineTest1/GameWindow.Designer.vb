@@ -33,7 +33,6 @@ Partial Class GameWindow
         'Megaman
         '
         Me.Megaman.BackColor = System.Drawing.Color.Transparent
-        Me.Megaman.Image = Global.GameEngineTest1.My.Resources.Resources.Standing1
         Me.Megaman.Location = New System.Drawing.Point(0, 462)
         Me.Megaman.Name = "Megaman"
         Me.Megaman.Size = New System.Drawing.Size(100, 100)
