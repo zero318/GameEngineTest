@@ -26,6 +26,7 @@ Partial Class DebugMenu
         Me.DebugHUDCheckbox = New System.Windows.Forms.CheckBox()
         Me.ExitDebugMenu = New System.Windows.Forms.Button()
         Me.EnableBrokenCrapCheckbox = New System.Windows.Forms.CheckBox()
+        Me.BoundingBoxesCheckbox = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'MultithreadingCheckbox
@@ -67,11 +68,22 @@ Partial Class DebugMenu
         Me.EnableBrokenCrapCheckbox.Text = "Enable Broken/Missing Features"
         Me.EnableBrokenCrapCheckbox.UseVisualStyleBackColor = True
         '
+        'BoundingBoxesCheckbox
+        '
+        Me.BoundingBoxesCheckbox.AutoSize = True
+        Me.BoundingBoxesCheckbox.Location = New System.Drawing.Point(477, 134)
+        Me.BoundingBoxesCheckbox.Name = "BoundingBoxesCheckbox"
+        Me.BoundingBoxesCheckbox.Size = New System.Drawing.Size(330, 36)
+        Me.BoundingBoxesCheckbox.TabIndex = 4
+        Me.BoundingBoxesCheckbox.Text = "View Bounding Boxes"
+        Me.BoundingBoxesCheckbox.UseVisualStyleBackColor = True
+        '
         'DebugMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(947, 602)
+        Me.Controls.Add(Me.BoundingBoxesCheckbox)
         Me.Controls.Add(Me.EnableBrokenCrapCheckbox)
         Me.Controls.Add(Me.ExitDebugMenu)
         Me.Controls.Add(Me.DebugHUDCheckbox)
@@ -92,4 +104,5 @@ Partial Class DebugMenu
     Friend WithEvents DebugHUDCheckbox As CheckBox
     Friend WithEvents ExitDebugMenu As Button
     Friend WithEvents EnableBrokenCrapCheckbox As CheckBox
+    Friend WithEvents BoundingBoxesCheckbox As CheckBox
 End Class

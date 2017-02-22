@@ -1,9 +1,10 @@
 ﻿Public Class MainWindow
     Friend DebugEnabled As Boolean = True 'This variable merely controls whether the user can access the debug menu.
     Friend MultithreadingEnabled As Boolean = True '
-    Friend DebugHUDEnabled As Boolean = False 'This does nothing. :D
+    Friend DebugHUDEnabled As Boolean = True 'This does nothing. :D
     Friend MissingCrapEnabled As Boolean = False 'This lets us get into all the broken/empty menus.
     Friend InternalAudioLevel As Byte = 100 'This does nothing. :D
+    Friend DebugBoundingBoxes As Boolean = True
     Friend AudioEnabled As Boolean = True
     Dim CountingThread1 As Threading.Thread
     Dim CountingThread2 As Threading.Thread
@@ -165,7 +166,10 @@
     End Sub
     Private Sub StartButton_Click(sender As Object, e As EventArgs) Handles StartButton.Click
         StartButton.Enabled = False
-        GameWindow.ShowDialog()
+        Try
+            GameWindow.ShowDialog()
+        Catch ex As Exception
+        End Try
         StartButton.Enabled = True
     End Sub
 End Class

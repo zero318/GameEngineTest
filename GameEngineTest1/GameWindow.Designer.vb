@@ -33,7 +33,7 @@ Partial Class GameWindow
         'Megaman
         '
         Me.Megaman.BackColor = System.Drawing.Color.Transparent
-        Me.Megaman.Location = New System.Drawing.Point(0, 462)
+        Me.Megaman.Location = New System.Drawing.Point(0, 812)
         Me.Megaman.Name = "Megaman"
         Me.Megaman.Size = New System.Drawing.Size(100, 100)
         Me.Megaman.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -58,13 +58,13 @@ Partial Class GameWindow
         Me.GameArea.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GameArea.Location = New System.Drawing.Point(0, 0)
         Me.GameArea.Name = "GameArea"
-        Me.GameArea.Size = New System.Drawing.Size(968, 562)
+        Me.GameArea.Size = New System.Drawing.Size(1468, 912)
         Me.GameArea.TabIndex = 2
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Red
-        Me.Panel1.Location = New System.Drawing.Point(768, 512)
+        Me.Panel1.Location = New System.Drawing.Point(768, 862)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(200, 50)
         Me.Panel1.TabIndex = 2
@@ -73,7 +73,7 @@ Partial Class GameWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(968, 562)
+        Me.ClientSize = New System.Drawing.Size(1468, 912)
         Me.Controls.Add(Me.GameArea)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle

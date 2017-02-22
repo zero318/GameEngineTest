@@ -1,0 +1,9 @@
+File Header:
+Dimensions: X, Y
+Tileset File Index: #
+Map Data: ...
+
+Tile Types:
+00: Air
+01: Basic Ground
+02: Spikes [Not Implemented Yet!]
