@@ -56,10 +56,10 @@ Partial Class MainWindow
         '
         Me.StatusStrip.ImageScalingSize = New System.Drawing.Size(40, 40)
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DebugStatusLabel, Me.MultithreadingStatusLabel})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 589)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 587)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Padding = New System.Windows.Forms.Padding(0, 0, 15, 0)
-        Me.StatusStrip.Size = New System.Drawing.Size(1000, 46)
+        Me.StatusStrip.Size = New System.Drawing.Size(1000, 48)
         Me.StatusStrip.SizingGrip = False
         Me.StatusStrip.TabIndex = 2
         Me.StatusStrip.Text = "StatusStrip1"
@@ -172,7 +172,7 @@ Partial Class MainWindow
         'AboutMenuStrip
         '
         Me.AboutMenuStrip.Name = "AboutMenuStrip"
-        Me.AboutMenuStrip.Size = New System.Drawing.Size(215, 46)
+        Me.AboutMenuStrip.Size = New System.Drawing.Size(327, 46)
         Me.AboutMenuStrip.Text = "&About"
         '
         'OpenFileDialog
@@ -185,7 +185,7 @@ Partial Class MainWindow
         Me.StuffButton1.Margin = New System.Windows.Forms.Padding(2)
         Me.StuffButton1.Name = "StuffButton1"
         Me.StuffButton1.Size = New System.Drawing.Size(392, 160)
-        Me.StuffButton1.TabIndex = 4
+        Me.StuffButton1.TabIndex = 9
         Me.StuffButton1.Text = "Run Stuff Test"
         Me.StuffButton1.UseVisualStyleBackColor = True
         '
@@ -231,7 +231,7 @@ Partial Class MainWindow
         Me.StartButton.Location = New System.Drawing.Point(247, 428)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(435, 133)
-        Me.StartButton.TabIndex = 9
+        Me.StartButton.TabIndex = 4
         Me.StartButton.Text = "Try Starting a Game Thing"
         Me.StartButton.UseVisualStyleBackColor = True
         '
