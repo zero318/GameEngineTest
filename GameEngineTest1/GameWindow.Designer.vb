@@ -25,7 +25,7 @@ Partial Class GameWindow
         Me.Megaman = New System.Windows.Forms.PictureBox()
         Me.ThreadCountLabel = New System.Windows.Forms.Label()
         Me.GameArea = New System.Windows.Forms.Panel()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CollisionTestPanel1 = New System.Windows.Forms.Panel()
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GameArea.SuspendLayout()
         Me.SuspendLayout()
@@ -52,7 +52,7 @@ Partial Class GameWindow
         'GameArea
         '
         Me.GameArea.BackColor = System.Drawing.Color.Transparent
-        Me.GameArea.Controls.Add(Me.Panel1)
+        Me.GameArea.Controls.Add(Me.CollisionTestPanel1)
         Me.GameArea.Controls.Add(Me.Megaman)
         Me.GameArea.Controls.Add(Me.ThreadCountLabel)
         Me.GameArea.Dock = System.Windows.Forms.DockStyle.Fill
@@ -61,13 +61,13 @@ Partial Class GameWindow
         Me.GameArea.Size = New System.Drawing.Size(1468, 912)
         Me.GameArea.TabIndex = 2
         '
-        'Panel1
+        'CollisionTestPanel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.Red
-        Me.Panel1.Location = New System.Drawing.Point(768, 862)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(200, 50)
-        Me.Panel1.TabIndex = 2
+        Me.CollisionTestPanel1.BackColor = System.Drawing.Color.Red
+        Me.CollisionTestPanel1.Location = New System.Drawing.Point(768, 862)
+        Me.CollisionTestPanel1.Name = "CollisionTestPanel1"
+        Me.CollisionTestPanel1.Size = New System.Drawing.Size(200, 50)
+        Me.CollisionTestPanel1.TabIndex = 2
         '
         'GameWindow
         '
@@ -75,7 +75,6 @@ Partial Class GameWindow
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1468, 912)
         Me.Controls.Add(Me.GameArea)
-        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.MaximizeBox = False
@@ -92,5 +91,5 @@ Partial Class GameWindow
     Friend WithEvents Megaman As PictureBox
     Friend WithEvents ThreadCountLabel As Label
     Friend WithEvents GameArea As Panel
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents CollisionTestPanel1 As Panel
 End Class
