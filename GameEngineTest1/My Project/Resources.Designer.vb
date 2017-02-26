@@ -150,6 +150,26 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property megamanx() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("megamanx", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property megamanx___Copy() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("megamanx___Copy", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Running1() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Running1", resourceCulture)

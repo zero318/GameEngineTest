@@ -13,6 +13,7 @@ Public Class GameWindow
     Dim TimerStartDelay As Integer = 0
     Dim ThreadCountTimerCall As New TimerCallback(AddressOf UpdateThreadCount)
     Dim ThreadCountTimer As New Timer(ThreadCountTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
+    Dim ButtonHeld() As Boolean = {False, False}
     Dim RightHeld As Boolean
     Dim LeftHeld As Boolean
     'UGH. I'm going to need to be able to run at least 10-15 of all these things at once for each sprite on screen. No wonder old systems were so limited on sprites.
@@ -70,8 +71,9 @@ Public Class GameWindow
         Select Case e.KeyCode   'Detects the held keys...
             Case Keys.Right
                 MegamanXVelocity = 9 '(20 * bytSpeed)
-                If ((MegamanAnimation <> 4) And (MegamanAnimation <> 5)) AndAlso RightHeld = False Then   'If the player isn't jumping and the key isn't being held...
-                    RightHeld = True
+                If ((MegamanAnimation <> 4) And (MegamanAnimation <> 5)) AndAlso ButtonHeld(0) = False Then   'If the player isn't jumping and the key isn't being held...
+                    ButtonHeld(0) = True
+                    'RightHeld = True
                     MegamanAnimationFrame = 1
                     MegamanAnimation = 2    'Run right
                     MegamanLeft = False
@@ -79,8 +81,9 @@ Public Class GameWindow
                 'MegamanLeft = False
             Case Keys.Left
                 MegamanXVelocity = -9 '(-20 * bytSpeed)
-                If ((MegamanAnimation <> 4) And (MegamanAnimation <> 5)) AndAlso LeftHeld = False Then   'If the player isn't jumping and the key isn't being held...
-                    LeftHeld = True
+                If ((MegamanAnimation <> 4) And (MegamanAnimation <> 5)) AndAlso ButtonHeld(1) = False Then   'If the player isn't jumping and the key isn't being held...
+                    ButtonHeld(1) = True
+                    'LeftHeld = True
                     MegamanAnimationFrame = 1
                     MegamanAnimation = 3    'Run left
                     MegamanLeft = True
@@ -103,12 +106,14 @@ Public Class GameWindow
         Select Case e.KeyCode   'Detects the released keys...
             Case Keys.Right 'If right was released...
                 MegamanXVelocity = 0
-                RightHeld = False
+                ButtonHeld(0) = False
+                'RightHeld = False
             Case Keys.Left  'If left was released...
                 MegamanXVelocity = 0
-                LeftHeld = False
+                ButtonHeld(1) = False
+                'LeftHeld = False
         End Select
-        If ((MegamanAnimation <> 4) And (MegamanAnimation <> 5)) Then    'If the player isn't jumping...
+        If ((MegamanAnimation <> 4) And (MegamanAnimation <> 5) And (MegamanAnimation <> 6) And (MegamanAnimation <> 7)) Then    'If the player isn't jumping...
             If MegamanLeft = False Then   'and is facing right...
                 MegamanAnimationFrame = 1
                 MegamanAnimation = 0    'Stand right
@@ -166,7 +171,7 @@ Public Class GameWindow
                 MegamanRectangle.Y = (GameArea.Height - Megaman.Height)
                 If MegamanAnimation = 4 Or MegamanAnimation = 5 Then
                     If (MegamanAnimation Mod 2) = 0 Then 'MegamanLeft = False Then   'If the player is facing right...
-                        If RightHeld = False Then    'If the player is not holding right...
+                        If ButtonHeld(0) = False Then    'If the player is not holding right...
                             MegamanAnimationFrame = 1
                             MegamanAnimation = 6    'Land right
                         Else    'If the player is holding right...
@@ -174,7 +179,7 @@ Public Class GameWindow
                             MegamanAnimation = 2    'Run right
                         End If
                     Else    'If the player is facing left...
-                        If LeftHeld = False Then 'If the player is not holding left...
+                        If ButtonHeld(1) = False Then 'If the player is not holding left...
                             MegamanAnimationFrame = 1
                             MegamanAnimation = 7    'Land left
                         Else    'If the player is holding left...
@@ -230,12 +235,18 @@ Public Class GameWindow
                 If (MegamanAnimation Mod 2) = 1 Then 'If left...
                     MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphic
                 End If
-                If MegamanAnimationFrame < 2 Then
-                    MegamanAnimationFrame += 1
-                Else
-                    MegamanAnimationFrame = 1
-                    MegamanAnimation = 0 + (MegamanAnimation Mod 2)    'Stand right
-                End If
+                Select Case MegamanAnimationFrame
+                    Case Is = 1
+                        If ButtonHeld((MegamanAnimation Mod 2)) = True Then
+                            MegamanAnimationFrame = 1
+                            MegamanAnimation = 1 + (MegamanAnimation Mod 2)    'Stand right
+                        Else
+                            MegamanAnimationFrame += 1
+                        End If
+                    Case Is = 2
+                        MegamanAnimationFrame = 1
+                        MegamanAnimation = 0 + (MegamanAnimation Mod 2)    'Stand right
+                End Select
             Case = 8, 9    'Warping In
                 MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\WarpIn" & MegamanAnimationFrame & ".png")
                 If (MegamanAnimation Mod 2) = 1 Then 'If left...
