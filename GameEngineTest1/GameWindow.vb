@@ -34,6 +34,7 @@ Public Class GameWindow
     Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
     Dim MegamanPhysicsTimer As New Timer(MegamanMegamanPhysicsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Megaman.Top = Megaman.Parent.Height
         MegamanRectangle.X = Megaman.Left
         MegamanRectangle.Y = Megaman.Top
         MegamanRectangle.Width = Megaman.Width
@@ -65,7 +66,11 @@ Public Class GameWindow
     End Sub
     Private Sub UpdateThreadCount()
         ThreadPool.GetAvailableThreads(Test1, Test2)
-        ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft
+        Try
+            ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft
+        Catch ex As Exception
+
+        End Try
     End Sub
     Private Sub GameWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         Select Case e.KeyCode   'Detects the held keys...
@@ -169,7 +174,7 @@ Public Class GameWindow
             MegamanYVelocity = MegamanYVelocity + 9.8   'Applies gravity to the vertical velocity. 9.8m/s is actually the acceleration caused by the gravity of the earth. PHYSICS! :D
             If MegamanRectangle.Y > (GameArea.Height - Megaman.Height) Then   'If the player is out of bounds under the bottom...
                 MegamanRectangle.Y = (GameArea.Height - Megaman.Height)
-                If MegamanAnimation = 4 Or MegamanAnimation = 5 Then
+                If MegamanAnimation = 4 Or MegamanAnimation = 5 Then 'If the player is in midair...
                     If (MegamanAnimation Mod 2) = 0 Then 'MegamanLeft = False Then   'If the player is facing right...
                         If ButtonHeld(0) = False Then    'If the player is not holding right...
                             MegamanAnimationFrame = 1
@@ -220,7 +225,7 @@ Public Class GameWindow
                 If MegamanAnimationFrame < 11 Then
                     MegamanAnimationFrame += 1
                 Else
-                    MegamanAnimationFrame = 1
+                    MegamanAnimationFrame = 2 'The first frame is only for starting running
                 End If
             Case = 4, 5    'Jumping
                 MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Jumping" & MegamanAnimationFrame & ".png")

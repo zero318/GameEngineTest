@@ -211,4 +211,208 @@
   <data name="megamanx___Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\megamanx - Copy.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Climbing1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Climbing1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Climbing2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Climbing2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Climbing3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Climbing3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Climbing4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Climbing4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Climbing5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Climbing5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Climbing6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Climbing6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Climbing7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Climbing7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ClimbingShooting1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ClimbingShooting1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Crouching1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Crouching1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Crouching2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Crouching2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Crouching3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Crouching3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Crouching4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Crouching4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Crouching5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Crouching5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Crouching6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Crouching6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Crouching7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Crouching7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Diving1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Diving1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Diving2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Diving2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DivingShooting1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DivingShooting1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DivingShooting2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DivingShooting2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FullBody1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FullBody1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hanging1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hanging1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hanging2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hanging2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hanging3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hanging3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hanging4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hanging4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hanging5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hanging5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HangingShooting1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HangingShooting1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HangingShooting2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HangingShooting2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HangingShooting3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HangingShooting3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HangingShooting4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HangingShooting4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HangingShooting5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HangingShooting5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hurt9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hurt9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JumpingShooting1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JumpingShooting1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JumpingShooting2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JumpingShooting2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JumpingShooting3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JumpingShooting3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JumpingShooting4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JumpingShooting4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JumpingShooting5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JumpingShooting5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LandingShooting1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LandingShooting1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LandingShooting2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LandingShooting2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Mugshot1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mugshot1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Portrait1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Portrait1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RunningShooting1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RunningShooting1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RunningShooting10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RunningShooting10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RunningShooting2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RunningShooting2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RunningShooting3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RunningShooting3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RunningShooting4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RunningShooting4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RunningShooting5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RunningShooting5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RunningShooting6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RunningShooting6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RunningShooting7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RunningShooting7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RunningShooting8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RunningShooting8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RunningShooting9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RunningShooting9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Shot1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shot1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StandingShooting1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StandingShooting1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StandingShooting2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StandingShooting2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VictoryPose1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VictoryPose1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VictoryPose2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VictoryPose2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VictoryPose3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VictoryPose3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VictoryPose4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VictoryPose4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VictoryPose5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VictoryPose5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
