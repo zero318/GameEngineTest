@@ -63,6 +63,10 @@ Public Class GameWindow
             ScreenDpiY = GameWindowGraphics.DpiY
         End Using
         GameAreaGraphics = GameArea.CreateGraphics()
+        'Test Code Below
+        SetStyle(ControlStyles.AllPaintingInWmPaint, True)
+        SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
+        'SetStyle(ControlStyles.UserPaint, False)
     End Sub
     Private Sub UpdateThreadCount()
         ThreadPool.GetAvailableThreads(Test1, Test2)
