@@ -26,6 +26,7 @@ Partial Class GameWindow
         Me.ThreadCountLabel = New System.Windows.Forms.Label()
         Me.GameArea = New System.Windows.Forms.Panel()
         Me.CollisionTestPanel1 = New System.Windows.Forms.Panel()
+        Me.FPSLabel = New System.Windows.Forms.Label()
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GameArea.SuspendLayout()
         Me.SuspendLayout()
@@ -52,6 +53,7 @@ Partial Class GameWindow
         'GameArea
         '
         Me.GameArea.BackColor = System.Drawing.Color.Transparent
+        Me.GameArea.Controls.Add(Me.FPSLabel)
         Me.GameArea.Controls.Add(Me.CollisionTestPanel1)
         Me.GameArea.Controls.Add(Me.Megaman)
         Me.GameArea.Controls.Add(Me.ThreadCountLabel)
@@ -68,6 +70,15 @@ Partial Class GameWindow
         Me.CollisionTestPanel1.Name = "CollisionTestPanel1"
         Me.CollisionTestPanel1.Size = New System.Drawing.Size(200, 50)
         Me.CollisionTestPanel1.TabIndex = 2
+        '
+        'FPSLabel
+        '
+        Me.FPSLabel.AutoSize = True
+        Me.FPSLabel.Location = New System.Drawing.Point(1072, 50)
+        Me.FPSLabel.Name = "FPSLabel"
+        Me.FPSLabel.Size = New System.Drawing.Size(102, 32)
+        Me.FPSLabel.TabIndex = 3
+        Me.FPSLabel.Text = "Label1"
         '
         'GameWindow
         '
@@ -92,4 +103,5 @@ Partial Class GameWindow
     Friend WithEvents ThreadCountLabel As Label
     Friend WithEvents GameArea As Panel
     Friend WithEvents CollisionTestPanel1 As Panel
+    Friend WithEvents FPSLabel As Label
 End Class
