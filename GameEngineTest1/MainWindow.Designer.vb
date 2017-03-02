@@ -56,10 +56,10 @@ Partial Class MainWindow
         '
         Me.StatusStrip.ImageScalingSize = New System.Drawing.Size(40, 40)
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DebugStatusLabel, Me.MultithreadingStatusLabel})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 587)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 232)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Padding = New System.Windows.Forms.Padding(0, 0, 15, 0)
-        Me.StatusStrip.Size = New System.Drawing.Size(1000, 48)
+        Me.StatusStrip.Padding = New System.Windows.Forms.Padding(0, 0, 6, 0)
+        Me.StatusStrip.Size = New System.Drawing.Size(400, 22)
         Me.StatusStrip.SizingGrip = False
         Me.StatusStrip.TabIndex = 2
         Me.StatusStrip.Text = "StatusStrip1"
@@ -67,13 +67,13 @@ Partial Class MainWindow
         'DebugStatusLabel
         '
         Me.DebugStatusLabel.Name = "DebugStatusLabel"
-        Me.DebugStatusLabel.Size = New System.Drawing.Size(226, 41)
+        Me.DebugStatusLabel.Size = New System.Drawing.Size(90, 17)
         Me.DebugStatusLabel.Text = "DEBUG: [Status]"
         '
         'MultithreadingStatusLabel
         '
         Me.MultithreadingStatusLabel.Name = "MultithreadingStatusLabel"
-        Me.MultithreadingStatusLabel.Size = New System.Drawing.Size(320, 41)
+        Me.MultithreadingStatusLabel.Size = New System.Drawing.Size(129, 17)
         Me.MultithreadingStatusLabel.Text = "Multithreading [Status]"
         '
         'MenuStrip1
@@ -82,8 +82,8 @@ Partial Class MainWindow
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenuStrip, Me.SettingsMenuStrip, Me.DebugMenuStrip, Me.HelpMenuStrip})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1000, 49)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(2, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(400, 24)
         Me.MenuStrip1.TabIndex = 3
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -91,88 +91,88 @@ Partial Class MainWindow
         '
         Me.FileMenuStrip.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileSaveMenuStrip, Me.FileLoadMenuStrip, Me.FileExitMenuStrip})
         Me.FileMenuStrip.Name = "FileMenuStrip"
-        Me.FileMenuStrip.Size = New System.Drawing.Size(75, 45)
+        Me.FileMenuStrip.Size = New System.Drawing.Size(37, 22)
         Me.FileMenuStrip.Text = "&File"
         '
         'FileSaveMenuStrip
         '
         Me.FileSaveMenuStrip.Name = "FileSaveMenuStrip"
-        Me.FileSaveMenuStrip.Size = New System.Drawing.Size(198, 46)
+        Me.FileSaveMenuStrip.Size = New System.Drawing.Size(100, 22)
         Me.FileSaveMenuStrip.Text = "Sa&ve"
         '
         'FileLoadMenuStrip
         '
         Me.FileLoadMenuStrip.Name = "FileLoadMenuStrip"
-        Me.FileLoadMenuStrip.Size = New System.Drawing.Size(198, 46)
+        Me.FileLoadMenuStrip.Size = New System.Drawing.Size(100, 22)
         Me.FileLoadMenuStrip.Text = "&Load"
         '
         'FileExitMenuStrip
         '
         Me.FileExitMenuStrip.Name = "FileExitMenuStrip"
-        Me.FileExitMenuStrip.Size = New System.Drawing.Size(198, 46)
+        Me.FileExitMenuStrip.Size = New System.Drawing.Size(100, 22)
         Me.FileExitMenuStrip.Text = "E&xit"
         '
         'SettingsMenuStrip
         '
         Me.SettingsMenuStrip.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SettingsInputMenuStrip, Me.SettingsGraphicsMenuStrip, Me.SettingsAudioMenuStrip, Me.SettingsPathsMenuStrip, Me.SettingsUserInterfaceMenuStrip})
         Me.SettingsMenuStrip.Name = "SettingsMenuStrip"
-        Me.SettingsMenuStrip.Size = New System.Drawing.Size(137, 45)
+        Me.SettingsMenuStrip.Size = New System.Drawing.Size(61, 22)
         Me.SettingsMenuStrip.Text = "&Settings"
         '
         'SettingsInputMenuStrip
         '
         Me.SettingsInputMenuStrip.Name = "SettingsInputMenuStrip"
-        Me.SettingsInputMenuStrip.Size = New System.Drawing.Size(316, 46)
+        Me.SettingsInputMenuStrip.Size = New System.Drawing.Size(146, 22)
         Me.SettingsInputMenuStrip.Text = "&Input"
         '
         'SettingsGraphicsMenuStrip
         '
         Me.SettingsGraphicsMenuStrip.Name = "SettingsGraphicsMenuStrip"
-        Me.SettingsGraphicsMenuStrip.Size = New System.Drawing.Size(316, 46)
+        Me.SettingsGraphicsMenuStrip.Size = New System.Drawing.Size(146, 22)
         Me.SettingsGraphicsMenuStrip.Text = "&Graphics"
         '
         'SettingsAudioMenuStrip
         '
         Me.SettingsAudioMenuStrip.Name = "SettingsAudioMenuStrip"
-        Me.SettingsAudioMenuStrip.Size = New System.Drawing.Size(316, 46)
+        Me.SettingsAudioMenuStrip.Size = New System.Drawing.Size(146, 22)
         Me.SettingsAudioMenuStrip.Text = "&Audio"
         '
         'SettingsPathsMenuStrip
         '
         Me.SettingsPathsMenuStrip.Name = "SettingsPathsMenuStrip"
-        Me.SettingsPathsMenuStrip.Size = New System.Drawing.Size(316, 46)
+        Me.SettingsPathsMenuStrip.Size = New System.Drawing.Size(146, 22)
         Me.SettingsPathsMenuStrip.Text = "&Paths"
         '
         'SettingsUserInterfaceMenuStrip
         '
         Me.SettingsUserInterfaceMenuStrip.Name = "SettingsUserInterfaceMenuStrip"
-        Me.SettingsUserInterfaceMenuStrip.Size = New System.Drawing.Size(316, 46)
+        Me.SettingsUserInterfaceMenuStrip.Size = New System.Drawing.Size(146, 22)
         Me.SettingsUserInterfaceMenuStrip.Text = "&User Interface"
         '
         'DebugMenuStrip
         '
         Me.DebugMenuStrip.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DebugDebugMenuMenuStrip})
         Me.DebugMenuStrip.Name = "DebugMenuStrip"
-        Me.DebugMenuStrip.Size = New System.Drawing.Size(120, 45)
+        Me.DebugMenuStrip.Size = New System.Drawing.Size(54, 22)
         Me.DebugMenuStrip.Text = "&Debug"
         '
         'DebugDebugMenuMenuStrip
         '
         Me.DebugDebugMenuMenuStrip.Name = "DebugDebugMenuMenuStrip"
-        Me.DebugDebugMenuMenuStrip.Size = New System.Drawing.Size(308, 46)
+        Me.DebugDebugMenuMenuStrip.Size = New System.Drawing.Size(143, 22)
         Me.DebugDebugMenuMenuStrip.Text = "Debug &Menu"
         '
         'HelpMenuStrip
         '
         Me.HelpMenuStrip.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutMenuStrip})
         Me.HelpMenuStrip.Name = "HelpMenuStrip"
-        Me.HelpMenuStrip.Size = New System.Drawing.Size(92, 45)
+        Me.HelpMenuStrip.Size = New System.Drawing.Size(44, 22)
         Me.HelpMenuStrip.Text = "&Help"
         '
         'AboutMenuStrip
         '
         Me.AboutMenuStrip.Name = "AboutMenuStrip"
-        Me.AboutMenuStrip.Size = New System.Drawing.Size(327, 46)
+        Me.AboutMenuStrip.Size = New System.Drawing.Size(107, 22)
         Me.AboutMenuStrip.Text = "&About"
         '
         'OpenFileDialog
@@ -181,20 +181,20 @@ Partial Class MainWindow
         '
         'StuffButton1
         '
-        Me.StuffButton1.Location = New System.Drawing.Point(604, 225)
-        Me.StuffButton1.Margin = New System.Windows.Forms.Padding(2)
+        Me.StuffButton1.Location = New System.Drawing.Point(242, 90)
+        Me.StuffButton1.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
         Me.StuffButton1.Name = "StuffButton1"
-        Me.StuffButton1.Size = New System.Drawing.Size(392, 160)
+        Me.StuffButton1.Size = New System.Drawing.Size(157, 64)
         Me.StuffButton1.TabIndex = 9
         Me.StuffButton1.Text = "Run Stuff Test"
         Me.StuffButton1.UseVisualStyleBackColor = True
         '
         'ThreadingTest
         '
-        Me.ThreadingTest.Location = New System.Drawing.Point(604, 51)
-        Me.ThreadingTest.Margin = New System.Windows.Forms.Padding(2)
+        Me.ThreadingTest.Location = New System.Drawing.Point(242, 20)
+        Me.ThreadingTest.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
         Me.ThreadingTest.Name = "ThreadingTest"
-        Me.ThreadingTest.Size = New System.Drawing.Size(385, 170)
+        Me.ThreadingTest.Size = New System.Drawing.Size(154, 68)
         Me.ThreadingTest.TabIndex = 5
         Me.ThreadingTest.Text = "Threading Test"
         Me.ThreadingTest.UseVisualStyleBackColor = True
@@ -202,44 +202,48 @@ Partial Class MainWindow
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(497, 121)
+        Me.Label1.Location = New System.Drawing.Point(199, 48)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(102, 32)
+        Me.Label1.Size = New System.Drawing.Size(39, 13)
         Me.Label1.TabIndex = 6
         Me.Label1.Text = "Label1"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(497, 290)
+        Me.Label2.Location = New System.Drawing.Point(199, 116)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(102, 32)
+        Me.Label2.Size = New System.Drawing.Size(39, 13)
         Me.Label2.TabIndex = 7
         Me.Label2.Text = "Label2"
         '
         'KeyLabel
         '
         Me.KeyLabel.AutoSize = True
-        Me.KeyLabel.Location = New System.Drawing.Point(37, 121)
+        Me.KeyLabel.Location = New System.Drawing.Point(15, 48)
+        Me.KeyLabel.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.KeyLabel.Name = "KeyLabel"
-        Me.KeyLabel.Size = New System.Drawing.Size(102, 32)
+        Me.KeyLabel.Size = New System.Drawing.Size(39, 13)
         Me.KeyLabel.TabIndex = 8
         Me.KeyLabel.Text = "Label3"
         '
         'StartButton
         '
-        Me.StartButton.Location = New System.Drawing.Point(247, 428)
+        Me.StartButton.Location = New System.Drawing.Point(99, 171)
+        Me.StartButton.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
         Me.StartButton.Name = "StartButton"
-        Me.StartButton.Size = New System.Drawing.Size(435, 133)
+        Me.StartButton.Size = New System.Drawing.Size(174, 53)
         Me.StartButton.TabIndex = 4
         Me.StartButton.Text = "Try Starting a Game Thing"
         Me.StartButton.UseVisualStyleBackColor = True
         '
         'MainWindow
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(1000, 635)
+        Me.ClientSize = New System.Drawing.Size(400, 254)
         Me.Controls.Add(Me.StartButton)
         Me.Controls.Add(Me.KeyLabel)
         Me.Controls.Add(Me.Label2)
@@ -251,7 +255,7 @@ Partial Class MainWindow
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
         Me.Name = "MainWindow"
         Me.Text = "Game Engine Test 1"
         Me.StatusStrip.ResumeLayout(False)

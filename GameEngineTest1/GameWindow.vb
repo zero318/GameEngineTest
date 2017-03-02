@@ -29,9 +29,12 @@ Public Class GameWindow
     Dim MegamanRectangle As New RectangleF(50, 400, 100, 100)
     'Dim MegamanRectangleGraphics As Graphics
     Dim MegamanRectangle2 As New RectangleF(50, 400, 100, 100)
-    Dim MegamanCollisionRectangleTemp As New RectangleF(0, 0, 0, 0)
-    Dim MegamanCollisionRectangleTemp2 As New RectangleF(0, 0, 0, 0)
-    Dim MegamanCollisionRectangleTemp3 As New RectangleF(0, 0, 0, 0)
+    Dim MegamanCollisionRectangleTempX As New RectangleF(0, 0, 0, 0)
+    Dim MegamanCollisionRectangleTempX2 As New RectangleF(0, 0, 0, 0)
+    Dim MegamanCollisionRectangleTempX3 As New RectangleF(0, 0, 0, 0)
+    Dim MegamanCollisionRectangleTempY As New RectangleF(0, 0, 0, 0)
+    Dim MegamanCollisionRectangleTempY2 As New RectangleF(0, 0, 0, 0)
+    Dim MegamanCollisionRectangleTempY3 As New RectangleF(0, 0, 0, 0)
     'Dim MegamanRectangle2Graphics As Graphics
     Dim CollisionTestRectangle As New RectangleF(768, 862, 200, 50)
     Dim MegamanRectangleImage As Image
@@ -56,7 +59,8 @@ Public Class GameWindow
     Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
     Dim MegamanPhysicsTimer As New Timer(MegamanMegamanPhysicsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Megaman.Top = Megaman.Parent.Height
+        Megaman.Top = Megaman.Parent.Height - Megaman.Height
+        CollisionTestPanel1.Top = CollisionTestPanel1.Parent.Height - CollisionTestPanel1.Height
         MegamanRectangle.X = Megaman.Left
         MegamanRectangle.Y = Megaman.Top
         MegamanRectangle.Width = Megaman.Width
@@ -127,9 +131,8 @@ Public Class GameWindow
     Private Sub UpdateThreadCount()
         ThreadPool.GetAvailableThreads(Test1, Test2)
         Try
-            ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTemp1: " & MegamanCollisionRectangleTemp.Height & " RectTemp2: " & MegamanCollisionRectangleTemp2.Height & " RectTemp3: " & MegamanCollisionRectangleTemp3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision
+            ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision
         Catch ex As Exception
-
         End Try
     End Sub
     Private Sub GameWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -200,7 +203,6 @@ Public Class GameWindow
                 CustomGraphicsBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegion)
                 'CustomGraphicsBuffer.Graphics.FillRectangle(Brushes.Aqua, Rectangle.Round(CollisionTestRectangle))
             Catch ex As Exception
-
             End Try
         Else
             Try
@@ -208,24 +210,34 @@ Public Class GameWindow
                 CustomGraphicsBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegion)
                 CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Black, Rectangle.Round(MegamanRectangle))
                 CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Red, Rectangle.Round(MegamanRectangle2))
+                'CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionLeftRectangle))
+                'CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionRightRectangle))
+                'CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionTopRectangle))
+                'CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionBottomRectangle))
+                'CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionHorizontalRectangle))
+                'CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionVerticalRectangle))
+                'CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTemp))
+                'CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTemp2))
+                'CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTemp3))
+            Catch ex As Exception
+            End Try
+        End If
+        If Not MegamanRectangleImage Is Nothing Then
+            Try
+                CustomGraphicsBuffer.Graphics.DrawImageUnscaled(MegamanRectangleImage, ((MegamanRectangle.X + (MegamanRectangle.Width / 2)) - (((MegamanRectangleImage.Width / MegamanRectangleImage.HorizontalResolution) * ScreenDpiX)) / 2), (MegamanRectangle.Y - (((MegamanRectangleImage.Height / MegamanRectangleImage.VerticalResolution) * ScreenDpiY) - MegamanRectangle.Height)))
                 CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionLeftRectangle))
                 CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionRightRectangle))
                 CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionTopRectangle))
                 CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionBottomRectangle))
                 CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionHorizontalRectangle))
                 CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Round(MegamanCollisionVerticalRectangle))
-                CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTemp))
-                CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTemp2))
-                CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTemp3))
+                CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTempX))
+                CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTempX2))
+                CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTempX3))
+                CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTempY))
+                CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTempY2))
+                CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Round(MegamanCollisionRectangleTempY3))
             Catch ex As Exception
-
-            End Try
-        End If
-        If Not MegamanRectangleImage Is Nothing Then
-            Try
-                CustomGraphicsBuffer.Graphics.DrawImageUnscaled(MegamanRectangleImage, ((MegamanRectangle.X + (MegamanRectangle.Width / 2)) - (((MegamanRectangleImage.Width / MegamanRectangleImage.HorizontalResolution) * ScreenDpiX)) / 2), (MegamanRectangle.Y - (((MegamanRectangleImage.Height / MegamanRectangleImage.VerticalResolution) * ScreenDpiY) - MegamanRectangle.Height)))
-            Catch ex As Exception
-
             End Try
         End If
         CustomGraphicsBuffer.Render(GameAreaGraphics)
@@ -242,8 +254,8 @@ Public Class GameWindow
             MegamanYVelocity = MegamanYVelocity + 9.8
         End If
         If MegamanXVelocity <> 0 Then
-            'MegamanRectangle.X = MegamanRectangle.X + MegamanXVelocity
-            MegamanRectangle.X = MegamanRectangle.X + (MegamanXVelocity * 2)
+            MegamanRectangle.X = MegamanRectangle.X + MegamanXVelocity
+            'MegamanRectangle.X = MegamanRectangle.X + (MegamanXVelocity * 2)
         End If
         MegamanCollisionRightRectangle.X = MegamanRectangle.Right
         MegamanCollisionRightRectangle.Y = MegamanRectangle.Top
@@ -290,6 +302,7 @@ Public Class GameWindow
             'MegamanRectangle.Y = MegamanRectangle.Y + MegamanYVelocity    'Calculates the new position
             'MegamanYVelocity = MegamanYVelocity + 9.8   'Applies gravity to the vertical velocity. 9.8m/s is actually the acceleration caused by the gravity of the earth. PHYSICS! :D
             If MegamanRectangle.Y > (GameArea.Height - MegamanRectangle.Height) Then   'If the player is out of bounds under the bottom...
+                'MegamanYVelocity = 0
                 MegamanRectangle.Y = (GameArea.Height - MegamanRectangle.Height)
                 If MegamanAnimation = 4 OrElse MegamanAnimation = 5 Then 'If the player is in midair...
                     If (MegamanAnimation Mod 2) = 0 Then 'MegamanLeft = False Then   'If the player is facing right...
@@ -343,21 +356,21 @@ Public Class GameWindow
         'Else
         CollisionRegion2 = CollisionRegion.Clone()
         CollisionRegion2.Intersect(MegamanCollisionLeftRectangle)
-        MegamanCollisionRectangleTemp = CollisionRegion2.GetBounds(GameAreaGraphics2)
+        MegamanCollisionRectangleTempY = CollisionRegion2.GetBounds(GameAreaGraphics2)
         CollisionRegion2 = CollisionRegion.Clone()
         CollisionRegion2.Intersect(MegamanCollisionVerticalRectangle)
-        MegamanCollisionRectangleTemp2 = CollisionRegion2.GetBounds(GameAreaGraphics2)
+        MegamanCollisionRectangleTempY2 = CollisionRegion2.GetBounds(GameAreaGraphics2)
         CollisionRegion2 = CollisionRegion.Clone()
         CollisionRegion2.Intersect(MegamanCollisionRightRectangle)
-        MegamanCollisionRectangleTemp3 = CollisionRegion2.GetBounds(GameAreaGraphics2)
-        If MegamanCollisionRectangleTemp.Height = 100 Then
-            MegamanCollisionRectangleTemp.Height = 0
+        MegamanCollisionRectangleTempY3 = CollisionRegion2.GetBounds(GameAreaGraphics2)
+        If MegamanCollisionRectangleTempY.Height >= MegamanRectangle.Height Then
+            MegamanCollisionRectangleTempY.Height = 0
         End If
-        If MegamanCollisionRectangleTemp2.Height = 100 Then
-            MegamanCollisionRectangleTemp2.Height = 0
+        If MegamanCollisionRectangleTempY2.Height >= MegamanRectangle.Height Then
+            MegamanCollisionRectangleTempY2.Height = 0
         End If
-        If MegamanCollisionRectangleTemp3.Height = 100 Then
-            MegamanCollisionRectangleTemp3.Height = 0
+        If MegamanCollisionRectangleTempY3.Height >= MegamanRectangle.Height Then
+            MegamanCollisionRectangleTempY3.Height = 0
         End If
         'If MegamanRectangle.Y > (GameArea.Height - MegamanRectangle.Height) Then
         '    MegamanRectangle.Y = (GameArea.Height - MegamanRectangle.Height)
@@ -365,7 +378,7 @@ Public Class GameWindow
         'If MegamanRectangle.Y < 0 Then
         '    MegamanRectangle.Y = 0
         'End If
-        MegamanCollisionTempY = Max(Max(MegamanCollisionRectangleTemp.Height, MegamanCollisionRectangleTemp2.Height), MegamanCollisionRectangleTemp3.Height)
+        MegamanCollisionTempY = Max(Max(MegamanCollisionRectangleTempY.Height, MegamanCollisionRectangleTempY2.Height), MegamanCollisionRectangleTempY3.Height)
         If MegamanOnGround = False Then
             MegamanRectangle.Y = MegamanRectangle.Y + (MegamanCollisionTempY * Sign(MegamanYCollision))
         End If
@@ -393,23 +406,23 @@ Public Class GameWindow
         End If
         CollisionRegion2 = CollisionRegion.Clone()
         CollisionRegion2.Intersect(MegamanCollisionTopRectangle)
-        MegamanCollisionRectangleTemp = CollisionRegion2.GetBounds(GameAreaGraphics2)
+        MegamanCollisionRectangleTempX = CollisionRegion2.GetBounds(GameAreaGraphics2)
         CollisionRegion2 = CollisionRegion.Clone()
         CollisionRegion2.Intersect(MegamanCollisionHorizontalRectangle)
-        MegamanCollisionRectangleTemp2 = CollisionRegion2.GetBounds(GameAreaGraphics2)
+        MegamanCollisionRectangleTempX2 = CollisionRegion2.GetBounds(GameAreaGraphics2)
         CollisionRegion2 = CollisionRegion.Clone()
         CollisionRegion2.Intersect(MegamanCollisionBottomRectangle)
-        MegamanCollisionRectangleTemp3 = CollisionRegion2.GetBounds(GameAreaGraphics2)
-        If MegamanCollisionRectangleTemp.Width = 100 Then
-            MegamanCollisionRectangleTemp.Width = 0
+        MegamanCollisionRectangleTempX3 = CollisionRegion2.GetBounds(GameAreaGraphics2)
+        If MegamanCollisionRectangleTempX.Width >= MegamanRectangle.Width Then
+            MegamanCollisionRectangleTempX.Width = 0
         End If
-        If MegamanCollisionRectangleTemp2.Width = 100 Then
-            MegamanCollisionRectangleTemp2.Width = 0
+        If MegamanCollisionRectangleTempX2.Width >= MegamanRectangle.Width Then
+            MegamanCollisionRectangleTempX2.Width = 0
         End If
-        If MegamanCollisionRectangleTemp3.Width = 100 Then
-            MegamanCollisionRectangleTemp3.Width = 0
+        If MegamanCollisionRectangleTempX3.Width >= MegamanRectangle.Width Then
+            MegamanCollisionRectangleTempX3.Width = 0
         End If
-        MegamanCollisionTempX = Max(Max(MegamanCollisionRectangleTemp.Width, MegamanCollisionRectangleTemp2.Width), MegamanCollisionRectangleTemp3.Width)
+        MegamanCollisionTempX = Max(Max(MegamanCollisionRectangleTempX.Width, MegamanCollisionRectangleTempX2.Width), MegamanCollisionRectangleTempX3.Width)
         'MegamanCollisionTemp = Max(MegamanCollisionRectangleTemp.Width, MegamanCollisionRectangleTemp2.Width)
         'MegamanCollisionTemp = Max(MegamanCollisionTemp, MegamanCollisionRectangleTemp3.Width)
         'Select Case MegamanCollisionRectangleTemp.Width
@@ -590,7 +603,6 @@ Public Class GameWindow
             MegamanRectangle2.Width = ((MegamanRectangleImage.Width / MegamanRectangleImage.HorizontalResolution) * ScreenDpiX)
             MegamanRectangle2.Height = ((MegamanRectangleImage.Height / MegamanRectangleImage.VerticalResolution) * ScreenDpiY)
         Catch ex As Exception
-
         End Try
         'CustomDoubleBuffer.Invalidate()
     End Sub
