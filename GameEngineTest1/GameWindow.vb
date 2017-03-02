@@ -542,6 +542,7 @@ Public Class GameWindow
             'MegamanRectangle.Height = MegamanRectangle2.Height
         Catch ex As Exception
         End Try
+        'GameArea.Invalidate()
         'CustomDoubleBuffer.Invalidate()
     End Sub
     Private Sub GameOverYeah()
