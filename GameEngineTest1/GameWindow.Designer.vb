@@ -29,6 +29,7 @@ Partial Class GameWindow
         Me.CollisionTestPanel1 = New System.Windows.Forms.Panel()
         Me.CollisionTestPanel3 = New System.Windows.Forms.Panel()
         Me.CollisionTestPanel2 = New System.Windows.Forms.Panel()
+        Me.SlopePanelTest1 = New System.Windows.Forms.Panel()
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GameArea.SuspendLayout()
         Me.SuspendLayout()
@@ -57,6 +58,7 @@ Partial Class GameWindow
         'GameArea
         '
         Me.GameArea.BackColor = System.Drawing.Color.Transparent
+        Me.GameArea.Controls.Add(Me.SlopePanelTest1)
         Me.GameArea.Controls.Add(Me.CollisionTestPanel2)
         Me.GameArea.Controls.Add(Me.CollisionTestPanel3)
         Me.GameArea.Controls.Add(Me.FPSLabel)
@@ -83,7 +85,7 @@ Partial Class GameWindow
         'CollisionTestPanel1
         '
         Me.CollisionTestPanel1.BackColor = System.Drawing.Color.Red
-        Me.CollisionTestPanel1.Location = New System.Drawing.Point(768, 862)
+        Me.CollisionTestPanel1.Location = New System.Drawing.Point(768, 825)
         Me.CollisionTestPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.CollisionTestPanel1.Name = "CollisionTestPanel1"
         Me.CollisionTestPanel1.Size = New System.Drawing.Size(200, 50)
@@ -100,10 +102,18 @@ Partial Class GameWindow
         'CollisionTestPanel2
         '
         Me.CollisionTestPanel2.BackColor = System.Drawing.Color.Red
-        Me.CollisionTestPanel2.Location = New System.Drawing.Point(301, 606)
+        Me.CollisionTestPanel2.Location = New System.Drawing.Point(300, 583)
         Me.CollisionTestPanel2.Name = "CollisionTestPanel2"
         Me.CollisionTestPanel2.Size = New System.Drawing.Size(203, 125)
         Me.CollisionTestPanel2.TabIndex = 6
+        '
+        'SlopePanelTest1
+        '
+        Me.SlopePanelTest1.BackColor = System.Drawing.Color.Blue
+        Me.SlopePanelTest1.Location = New System.Drawing.Point(568, 825)
+        Me.SlopePanelTest1.Name = "SlopePanelTest1"
+        Me.SlopePanelTest1.Size = New System.Drawing.Size(200, 50)
+        Me.SlopePanelTest1.TabIndex = 7
         '
         'GameWindow
         '
@@ -132,4 +142,5 @@ Partial Class GameWindow
     Friend WithEvents FPSLabel As Label
     Friend WithEvents CollisionTestPanel3 As Panel
     Friend WithEvents CollisionTestPanel2 As Panel
+    Friend WithEvents SlopePanelTest1 As Panel
 End Class
