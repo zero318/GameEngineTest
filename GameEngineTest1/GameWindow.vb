@@ -16,6 +16,8 @@ Public Class GameWindow
     Dim TimerStartDelay As Integer = 0
     Dim ThreadCountTimerCall As New TimerCallback(AddressOf UpdateThreadCount)
     Dim ThreadCountTimer As New Timer(ThreadCountTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
+    Dim LoadPanelsTimerCall As New TimerCallback(AddressOf LoadPanels)
+    Dim LoadPanelsTimer As New Timer(LoadPanelsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Dim FPSTimerCall As New TimerCallback(AddressOf UpdateFPS)
     Dim FPSTimer As New Timer(FPSTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Dim ButtonHeld() As Boolean = {False, False}
@@ -76,16 +78,16 @@ Public Class GameWindow
         GameAreaGraphics = GameArea.CreateGraphics()
         GameAreaGraphics2 = GameArea.CreateGraphics()
         CollisionRegion.Exclude(GameAreaRectangle)
-        For Each ctrl In GameArea.Controls 'This loads all the panels in the collision area into the collision detection region and then deletes them.
-            If TypeOf ctrl Is Panel Then
-                CollisionTestRectangle.X = ctrl.Left
-                CollisionTestRectangle.Y = ctrl.Top
-                CollisionTestRectangle.Width = ctrl.Width
-                CollisionTestRectangle.Height = ctrl.Height
-                CollisionRegion.Union(CollisionTestRectangle)
-                ctrl.Dispose()
-            End If
-        Next
+        'For Each ctrl In GameArea.Controls 'This loads all the panels in the collision area into the collision detection region and then deletes them.
+        '    If TypeOf ctrl Is Panel Then
+        '        CollisionTestRectangle.X = ctrl.Left
+        '        CollisionTestRectangle.Y = ctrl.Top
+        '        CollisionTestRectangle.Width = ctrl.Width
+        '        CollisionTestRectangle.Height = ctrl.Height
+        '        CollisionRegion.Union(CollisionTestRectangle)
+        '        ctrl.Dispose()
+        '    End If
+        'Next
         MegamanAnimationTimer.Change(TimerStartDelay, TimerInterval)
         If MainWindow.DebugHUDEnabled = True Then
             ThreadCountTimer.Change(TimerStartDelay, TimerInterval)
@@ -130,7 +132,40 @@ Public Class GameWindow
         MegamanCollisionVerticalRectangle.Y = MegamanRectangle.Top
         MegamanCollisionVerticalRectangle.Width = 1
         MegamanCollisionVerticalRectangle.Height = MegamanRectangle.Height
+        LoadPanelsTimer.Change(TimerStartDelay * 2, Timeout.Infinite)
+    End Sub
+    Friend Sub LoadPanels()
+        'For Each ctrl In GameArea.Controls.OfType(Of Panel) 'This loads all the panels in the collision area into the collision detection region and then deletes them.
+        '    If TypeOf ctrl Is Panel Then
+        '        CollisionTestRectangle.X = ctrl.Left
+        '        CollisionTestRectangle.Y = ctrl.Top
+        '        CollisionTestRectangle.Width = ctrl.Width
+        '        CollisionTestRectangle.Height = ctrl.Height
+        '        CollisionRegion.Union(CollisionTestRectangle)
+        '        ctrl.Dispose()
+        '    End If
+        'Next
+        CollisionTestRectangle.X = CollisionTestPanel1.Left
+        CollisionTestRectangle.Y = CollisionTestPanel1.Top
+        CollisionTestRectangle.Width = CollisionTestPanel1.Width
+        CollisionTestRectangle.Height = CollisionTestPanel1.Height
+        CollisionRegion.Union(CollisionTestRectangle)
+        CollisionTestPanel1.Dispose()
+        CollisionTestRectangle.X = CollisionTestPanel2.Left
+        CollisionTestRectangle.Y = CollisionTestPanel2.Top
+        CollisionTestRectangle.Width = CollisionTestPanel2.Width
+        CollisionTestRectangle.Height = CollisionTestPanel2.Height
+        CollisionRegion.Union(CollisionTestRectangle)
+        CollisionTestPanel2.Dispose()
+        CollisionTestRectangle.X = CollisionTestPanel3.Left
+        CollisionTestRectangle.Y = CollisionTestPanel3.Top
+        CollisionTestRectangle.Width = CollisionTestPanel3.Width
+        CollisionTestRectangle.Height = CollisionTestPanel3.Height
+        CollisionRegion.Union(CollisionTestRectangle)
+        CollisionTestPanel3.Dispose()
         CollisionRegion2 = CollisionRegion.Clone()
+        LoadPanelsTimer.Dispose()
+        'GameArea.Controls.OfType(Of Panel)
     End Sub
     Friend Sub UpdateFPS()
         FPSLabel.Text = "FPS: " & FPS
@@ -329,10 +364,14 @@ Public Class GameWindow
         If CollisionRegion2.IsVisible(MegamanRectangle.Left, (MegamanRectangle.Bottom - (MegamanRectangle.Height / 2))) = True Then 'Test middle left
             MegamanXCollision -= 1
             MegamanYCollision = 0
+        Else
+
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Right, (MegamanRectangle.Bottom - (MegamanRectangle.Height / 2))) = True Then 'Test middle right
             MegamanXCollision += 1
             MegamanYCollision = 0
+        Else
+
         End If
         CollisionRegion3 = CollisionRegion2.Clone()
         CollisionRegion3.Intersect(MegamanCollisionLeftRectangle)
@@ -374,6 +413,10 @@ Public Class GameWindow
         End If
         If MegamanCollisionRectangleTempX3.Width >= MegamanRectangle.Width Then
             MegamanCollisionRectangleTempX3.Width = 0
+        End If
+        If MegamanRectangle.Y >= (GameArea.Height - MegamanRectangle.Height) Then
+            TempVarCrap = True
+            MegamanRectangle.Y = (GameArea.Height - MegamanRectangle.Height)
         End If
         MegamanRectangle.Y = Round(MegamanRectangle.Y, 0, MidpointRounding.AwayFromZero)
         MegamanCollisionTempX = Max(Max(MegamanCollisionRectangleTempX.Width, MegamanCollisionRectangleTempX2.Width), MegamanCollisionRectangleTempX3.Width)
