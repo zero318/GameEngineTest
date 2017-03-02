@@ -34,10 +34,10 @@ Partial Class GameWindow
         'Megaman
         '
         Me.Megaman.BackColor = System.Drawing.Color.Transparent
-        Me.Megaman.Location = New System.Drawing.Point(0, 325)
-        Me.Megaman.Margin = New System.Windows.Forms.Padding(1)
+        Me.Megaman.Location = New System.Drawing.Point(0, 812)
+        Me.Megaman.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Megaman.Name = "Megaman"
-        Me.Megaman.Size = New System.Drawing.Size(40, 40)
+        Me.Megaman.Size = New System.Drawing.Size(100, 100)
         Me.Megaman.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.Megaman.TabIndex = 0
         Me.Megaman.TabStop = False
@@ -45,10 +45,10 @@ Partial Class GameWindow
         'ThreadCountLabel
         '
         Me.ThreadCountLabel.AutoSize = True
-        Me.ThreadCountLabel.Location = New System.Drawing.Point(5, 4)
-        Me.ThreadCountLabel.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.ThreadCountLabel.Location = New System.Drawing.Point(12, 10)
+        Me.ThreadCountLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.ThreadCountLabel.Name = "ThreadCountLabel"
-        Me.ThreadCountLabel.Size = New System.Drawing.Size(39, 13)
+        Me.ThreadCountLabel.Size = New System.Drawing.Size(102, 32)
         Me.ThreadCountLabel.TabIndex = 1
         Me.ThreadCountLabel.Text = "Label1"
         '
@@ -61,39 +61,39 @@ Partial Class GameWindow
         Me.GameArea.Controls.Add(Me.ThreadCountLabel)
         Me.GameArea.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GameArea.Location = New System.Drawing.Point(0, 0)
-        Me.GameArea.Margin = New System.Windows.Forms.Padding(1)
+        Me.GameArea.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.GameArea.Name = "GameArea"
-        Me.GameArea.Size = New System.Drawing.Size(574, 350)
+        Me.GameArea.Size = New System.Drawing.Size(1435, 875)
         Me.GameArea.TabIndex = 2
         '
         'FPSLabel
         '
         Me.FPSLabel.AutoSize = True
-        Me.FPSLabel.Location = New System.Drawing.Point(429, 20)
-        Me.FPSLabel.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.FPSLabel.Location = New System.Drawing.Point(1072, 50)
+        Me.FPSLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FPSLabel.Name = "FPSLabel"
-        Me.FPSLabel.Size = New System.Drawing.Size(39, 13)
+        Me.FPSLabel.Size = New System.Drawing.Size(102, 32)
         Me.FPSLabel.TabIndex = 3
         Me.FPSLabel.Text = "Label1"
         '
         'CollisionTestPanel1
         '
         Me.CollisionTestPanel1.BackColor = System.Drawing.Color.Red
-        Me.CollisionTestPanel1.Location = New System.Drawing.Point(307, 345)
-        Me.CollisionTestPanel1.Margin = New System.Windows.Forms.Padding(1)
+        Me.CollisionTestPanel1.Location = New System.Drawing.Point(768, 862)
+        Me.CollisionTestPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.CollisionTestPanel1.Name = "CollisionTestPanel1"
-        Me.CollisionTestPanel1.Size = New System.Drawing.Size(80, 20)
+        Me.CollisionTestPanel1.Size = New System.Drawing.Size(200, 50)
         Me.CollisionTestPanel1.TabIndex = 2
         '
         'GameWindow
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(574, 350)
+        Me.ClientSize = New System.Drawing.Size(1435, 875)
         Me.Controls.Add(Me.GameArea)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
-        Me.Margin = New System.Windows.Forms.Padding(1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "GameWindow"

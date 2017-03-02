@@ -167,6 +167,7 @@
     Private Sub StartButton_Click(sender As Object, e As EventArgs) Handles StartButton.Click
         StartButton.Enabled = False
         Try
+            Hide()
             GameWindow.ShowDialog()
         Catch ex As Exception
         End Try
