@@ -40,7 +40,7 @@ Public Class GameWindow
     Dim MegamanCollisionRectangleTempY As New RectangleF(0, 0, 0, 0)
     Dim MegamanCollisionRectangleTempY2 As New RectangleF(0, 0, 0, 0)
     Dim MegamanCollisionRectangleTempY3 As New RectangleF(0, 0, 0, 0)
-    Dim TempVarCrap As Boolean
+    Dim MegamanOnFrame As Boolean
     Dim CollisionTestRectangle As New RectangleF(768, 862, 200, 50)
     Dim MegamanRectangleImage As Image
     Dim MegamanCollisionRightRectangle As RectangleF
@@ -49,6 +49,7 @@ Public Class GameWindow
     Dim MegamanCollisionBottomRectangle As RectangleF
     Dim MegamanCollisionHorizontalRectangle As RectangleF
     Dim MegamanCollisionVerticalRectangle As RectangleF
+    Dim MegamanCollisionArray(8) As Boolean 'First row: 0, 1, 2 ... Second row: 3, 4, 5 ... Third row: 6, 7, 8
     Dim MegamanXCollision As Integer
     Dim MegamanYCollision As Integer
     Dim MegamanCollisionTempY As Integer
@@ -186,7 +187,7 @@ Public Class GameWindow
     Private Sub UpdateThreadCount()
         ThreadPool.GetAvailableThreads(Test1, Test2)
         Try
-            ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & " ScreenX: " & GameArea.Width & " ScreenY: " & GameArea.Height & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "MegamanWidth: " & MegamanRectangle.Width & " MegamanHeight: " & MegamanRectangle.Height & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision & vbCrLf & "CollisionTempX: " & MegamanCollisionTempX & " CollisionTempY: " & MegamanCollisionTempY & vbCrLf & "XVelocity: " & MegamanXVelocity & " YVelocity: " & MegamanYVelocity & vbCrLf & "OnGround: " & MegamanOnGround & vbCrLf & "TempVar: " & TempVarCrap
+            ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & " ScreenX: " & GameArea.Width & " ScreenY: " & GameArea.Height & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "MegamanWidth: " & MegamanRectangle.Width & " MegamanHeight: " & MegamanRectangle.Height & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision & vbCrLf & "CollisionTempX: " & MegamanCollisionTempX & " CollisionTempY: " & MegamanCollisionTempY & vbCrLf & "XVelocity: " & MegamanXVelocity & " YVelocity: " & MegamanYVelocity & vbCrLf & "OnGround: " & MegamanOnGround & vbCrLf & "TempVar: " & MegamanOnFrame
         Catch ex As Exception
         End Try
     End Sub
@@ -287,11 +288,11 @@ Public Class GameWindow
         FPS += 1
     End Sub
     Private Sub MegamanRectanglePhysics()
-        TempVarCrap = False
+        MegamanOnFrame = False
         MegamanXCollision = 0
         MegamanYCollision = 0
         If MegamanRectangle.Y >= (GameArea.Height - MegamanRectangle.Height) Then
-            TempVarCrap = True
+            MegamanOnFrame = True
             MegamanRectangle.Y = (GameArea.Height - MegamanRectangle.Height)
         End If
         If MegamanAnimation <> 8 AndAlso MegamanAnimation <> 9 Then 'If vertical motion is not 0...
@@ -349,6 +350,7 @@ Public Class GameWindow
             MegamanOnGround = True
         ElseIf CollisionRegion2.IsVisible((MegamanRectangle.Right - (1 * (MegamanRectangle.Width / 2))), MegamanRectangle.Bottom) = True Then 'Test middle bottom for ground
             MegamanOnGround = True
+            MegamanCollisionArray(7) = True
         ElseIf CollisionRegion2.IsVisible((MegamanRectangle.Right - (1 * (MegamanRectangle.Width / 4))), MegamanRectangle.Bottom) = True Then 'Test lower middle right for ground
             MegamanOnGround = True
         Else
@@ -360,6 +362,7 @@ Public Class GameWindow
             Else
                 MegamanYCollision -= 1
             End If
+            MegamanCollisionArray(6) = True
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Right, MegamanRectangle.Bottom) = True Then 'Test lower right
             If MegamanOnGround = False Then
@@ -367,30 +370,36 @@ Public Class GameWindow
             Else
                 MegamanYCollision -= 1
             End If
+            MegamanCollisionArray(8) = True
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Left, MegamanRectangle.Top) = True Then 'Test upper left
             MegamanXCollision -= 1
             MegamanYCollision += 1
+            MegamanCollisionArray(0) = True
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Right, MegamanRectangle.Top) = True Then 'Test upper right
             MegamanXCollision += 1
             MegamanYCollision += 1
+            MegamanCollisionArray(2) = True
         End If
         If CollisionRegion2.IsVisible((MegamanRectangle.Right - (MegamanRectangle.Width / 2)), MegamanRectangle.Top) = True Then 'Test middle top
             MegamanYCollision += 1
             MegamanXCollision = 0
+            MegamanCollisionArray(1) = True
         Else
 
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Left, (MegamanRectangle.Bottom - (MegamanRectangle.Height / 2))) = True Then 'Test middle left
             MegamanXCollision -= 1
             MegamanYCollision = 0
+            MegamanCollisionArray(3) = True
         Else
 
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Right, (MegamanRectangle.Bottom - (MegamanRectangle.Height / 2))) = True Then 'Test middle right
             MegamanXCollision += 1
             MegamanYCollision = 0
+            MegamanCollisionArray(5) = True
         Else
 
         End If
@@ -436,7 +445,7 @@ Public Class GameWindow
             MegamanCollisionRectangleTempX3.Width = 0
         End If
         If MegamanRectangle.Y >= (GameArea.Height - MegamanRectangle.Height) Then
-            TempVarCrap = True
+            MegamanOnFrame = True
             MegamanRectangle.Y = (GameArea.Height - MegamanRectangle.Height)
         End If
         MegamanRectangle.Y = Round(MegamanRectangle.Y, 0, MidpointRounding.AwayFromZero)

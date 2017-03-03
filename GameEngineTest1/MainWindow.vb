@@ -4,7 +4,7 @@
     Friend DebugHUDEnabled As Boolean = True
     Friend MissingCrapEnabled As Boolean = False 'This lets us get into all the broken/empty menus.
     Friend InternalAudioLevel As Byte = 100 'This does nothing. :D
-    Friend DebugBoundingBoxes As Boolean = False
+    Friend DebugBoundingBoxes As Boolean = True
     Friend AudioEnabled As Boolean = True
     Dim CountingThread1 As Threading.Thread
     Dim CountingThread2 As Threading.Thread
@@ -20,9 +20,6 @@
         End If
         CheckForIllegalCrossThreadCalls = False
     End Sub
-    '**************************************
-    'This comment starts the section that loads all the menus that do nothing yet. :P
-    '**************************************
     Private Sub DebugDebugMenuMenuStrip_Click(sender As Object, e As EventArgs) Handles DebugDebugMenuMenuStrip.Click
         DebugMenu.ShowDialog() 'This loads the DebugMenu.vb form
         DebugStatusLabel.Text = "DEBUG: " & DebugEnabled
@@ -98,13 +95,6 @@
         Beep()
         MessageBox.Show("This feature has been implemented, but it doesn't work yet. Hooray!", "Derp", MessageBoxButtons.OK, MessageBoxIcon.Question)
     End Sub
-    '**************************************
-    'This comment ends the section that loads all the menus that do nothing yet. :P
-    '**************************************
-
-    '**************************************
-    'This comment starts the section that handles the thread buttons and stuff.
-    '**************************************
     Private Sub StuffButton1_Click(sender As Object, e As EventArgs) Handles StuffButton1.Click
         Try
             If MultithreadingEnabled = True Then
@@ -131,7 +121,6 @@
                 countup()
             End If
         Catch ex As Exception
-
         End Try
     End Sub
     Private Sub countup()
