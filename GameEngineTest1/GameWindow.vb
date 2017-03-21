@@ -66,7 +66,6 @@ Public Class GameWindow
     Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
     Dim MegamanPhysicsTimer As New Timer(MegamanMegamanPhysicsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'ThreadCountLabel.Visible = False
         Megaman.Top = Megaman.Parent.Height - Megaman.Height
         CollisionTestPanel1.Top = CollisionTestPanel1.Parent.Height - CollisionTestPanel1.Height
         MegamanRectangle.X = Megaman.Left
@@ -98,7 +97,6 @@ Public Class GameWindow
         If MainWindow.DebugHUDEnabled = True Then
             ThreadCountTimer.Change(TimerStartDelay, TimerInterval)
             FPSTimer.Change(TimerStartDelay, 1000)
-            'DebugWindow.Show()
         Else
             FPSLabel.Visible = False
             FPSTimer.Dispose()
@@ -189,10 +187,7 @@ Public Class GameWindow
     Private Sub UpdateThreadCount()
         ThreadPool.GetAvailableThreads(Test1, Test2)
         Try
-            'DebugWindow.DebugOutputLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & " ScreenX: " & GameArea.Width & " ScreenY: " & GameArea.Height & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "MegamanWidth: " & MegamanRectangle.Width & " MegamanHeight: " & MegamanRectangle.Height & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision & vbCrLf & "CollisionTempX: " & MegamanCollisionTempX & " CollisionTempY: " & MegamanCollisionTempY & vbCrLf & "XVelocity: " & MegamanXVelocity & " YVelocity: " & MegamanYVelocity & vbCrLf & "OnGround: " & MegamanOnGround & vbCrLf & "TempVar: " & MegamanOnFrame
             ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & " ScreenX: " & GameArea.Width & " ScreenY: " & GameArea.Height & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "MegamanWidth: " & MegamanRectangle.Width & " MegamanHeight: " & MegamanRectangle.Height & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision & vbCrLf & "CollisionTempX: " & MegamanCollisionTempX & " CollisionTempY: " & MegamanCollisionTempY & vbCrLf & "XVelocity: " & MegamanXVelocity & " YVelocity: " & MegamanYVelocity & vbCrLf & "OnGround: " & MegamanOnGround & vbCrLf & "TempVar: " & MegamanOnFrame
-            'DebugWindow.DebugOutputLabel.Text = ThreadCountLabel.Text
-            'DebugWindow.Invalidate()
         Catch ex As Exception
         End Try
     End Sub
@@ -200,7 +195,7 @@ Public Class GameWindow
         If Not MegamanAnimation >= 8 Then 'This statement fixes a bug with warping in
             Select Case e.KeyCode   'Detects the held keys...
                 Case Keys.Right
-                    MegamanXVelocity = 9 '(20 * bytSpeed)
+                    'MegamanXVelocity = 9 '(20 * bytSpeed)
                     If ((MegamanAnimation <> 4) AndAlso (MegamanAnimation <> 5)) AndAlso ButtonHeld(0) = False Then   'If the player isn't jumping and the key isn't being held...
                         ButtonHeld(0) = True
                         MegamanAnimationFrame = 1
@@ -208,7 +203,7 @@ Public Class GameWindow
                         MegamanLeft = False
                     End If
                 Case Keys.Left
-                    MegamanXVelocity = -9 '(-20 * bytSpeed)
+                    'MegamanXVelocity = -9 '(-20 * bytSpeed)
                     If ((MegamanAnimation <> 4) AndAlso (MegamanAnimation <> 5)) AndAlso ButtonHeld(1) = False Then   'If the player isn't jumping and the key isn't being held...
                         ButtonHeld(1) = True
                         MegamanAnimationFrame = 1
@@ -230,13 +225,21 @@ Public Class GameWindow
             End Select
         End If
     End Sub
+    'Private Sub GameWindow_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
+    '    If ButtonHeld(0) = True Then
+    '        MegamanXVelocity = 9
+    '    End If
+    '    If ButtonHeld(1) = True Then
+    '        MegamanXVelocity = -9
+    '    End If
+    'End Sub
     Private Sub GameWindow_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
         Select Case e.KeyCode   'Detects the released keys...
             Case Keys.Right 'If right was released...
-                MegamanXVelocity = 0
+                'MegamanXVelocity = 0
                 ButtonHeld(0) = False
             Case Keys.Left  'If left was released...
-                MegamanXVelocity = 0
+                'MegamanXVelocity = 0
                 ButtonHeld(1) = False
         End Select
         If Not MegamanAnimation >= 4 Then    'If the player isn't jumping...
@@ -330,9 +333,16 @@ Public Class GameWindow
                 MegamanRectangle.Y = 0
             End If
         End If
-        If MegamanXVelocity <> 0 Then
-            MegamanRectangle.X = MegamanRectangle.X + (MegamanXVelocity * MegamanVelocityMultiplier)
+        'If MegamanXVelocity <> 0 Then
+        If ButtonHeld(0) = True Then
+            MegamanXVelocity = 9
         End If
+        If ButtonHeld(1) = True Then
+            MegamanXVelocity = -9
+        End If
+        MegamanRectangle.X = MegamanRectangle.X + (MegamanXVelocity * MegamanVelocityMultiplier)
+        MegamanXVelocity = 0
+        'End If
         MegamanCollisionRightRectangle.X = MegamanRectangle.Right
         MegamanCollisionRightRectangle.Y = MegamanRectangle.Top
         MegamanCollisionRightRectangle.Height = MegamanRectangle.Height
@@ -427,6 +437,7 @@ Public Class GameWindow
             MegamanCollisionRectangleTempY3.Height = 0
         End If
         MegamanCollisionTempY = Max(Max(MegamanCollisionRectangleTempY.Height, MegamanCollisionRectangleTempY2.Height), MegamanCollisionRectangleTempY3.Height)
+        'MegamanYVelocity = MegamanYVelocity + (MegamanCollisionTempY * Sign(MegamanYCollision))
         MegamanRectangle.Y = MegamanRectangle.Y + (MegamanCollisionTempY * Sign(MegamanYCollision))
         If MegamanYCollision < 0 AndAlso MegamanCollisionTempX <> 0 Then
             MegamanOnGround = True
@@ -455,7 +466,9 @@ Public Class GameWindow
         End If
         MegamanRectangle.Y = Round(MegamanRectangle.Y, 0, MidpointRounding.AwayFromZero)
         MegamanCollisionTempX = Max(Max(MegamanCollisionRectangleTempX.Width, MegamanCollisionRectangleTempX2.Width), MegamanCollisionRectangleTempX3.Width)
-        MegamanRectangle.X = MegamanRectangle.X - (MegamanCollisionTempX * Sign(MegamanXCollision))
+        'MegamanXVelocity = 0
+        MegamanXVelocity = MegamanXVelocity - (MegamanCollisionTempX * Sign(MegamanXCollision))
+        'MegamanRectangle.X = MegamanRectangle.X - (MegamanCollisionTempX * Sign(MegamanXCollision))
         MegamanCollisionRightRectangle.X = MegamanRectangle.Right
         MegamanCollisionRightRectangle.Y = MegamanRectangle.Top
         MegamanCollisionRightRectangle.Height = MegamanRectangle.Height
