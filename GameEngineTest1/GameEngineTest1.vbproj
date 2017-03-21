@@ -103,6 +103,12 @@
     <Compile Include="AudioSettings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DebugWindow.Designer.vb">
+      <DependentUpon>DebugWindow.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DebugWindow.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GameWindow.Designer.vb">
       <DependentUpon>GameWindow.vb</DependentUpon>
     </Compile>
@@ -168,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AudioSettings.resx">
       <DependentUpon>AudioSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DebugWindow.resx">
+      <DependentUpon>DebugWindow.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GameWindow.resx">
       <DependentUpon>GameWindow.vb</DependentUpon>

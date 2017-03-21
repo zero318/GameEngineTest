@@ -66,6 +66,7 @@ Public Class GameWindow
     Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
     Dim MegamanPhysicsTimer As New Timer(MegamanMegamanPhysicsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'ThreadCountLabel.Visible = False
         Megaman.Top = Megaman.Parent.Height - Megaman.Height
         CollisionTestPanel1.Top = CollisionTestPanel1.Parent.Height - CollisionTestPanel1.Height
         MegamanRectangle.X = Megaman.Left
@@ -97,6 +98,7 @@ Public Class GameWindow
         If MainWindow.DebugHUDEnabled = True Then
             ThreadCountTimer.Change(TimerStartDelay, TimerInterval)
             FPSTimer.Change(TimerStartDelay, 1000)
+            'DebugWindow.Show()
         Else
             FPSLabel.Visible = False
             FPSTimer.Dispose()
@@ -187,7 +189,10 @@ Public Class GameWindow
     Private Sub UpdateThreadCount()
         ThreadPool.GetAvailableThreads(Test1, Test2)
         Try
+            'DebugWindow.DebugOutputLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & " ScreenX: " & GameArea.Width & " ScreenY: " & GameArea.Height & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "MegamanWidth: " & MegamanRectangle.Width & " MegamanHeight: " & MegamanRectangle.Height & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision & vbCrLf & "CollisionTempX: " & MegamanCollisionTempX & " CollisionTempY: " & MegamanCollisionTempY & vbCrLf & "XVelocity: " & MegamanXVelocity & " YVelocity: " & MegamanYVelocity & vbCrLf & "OnGround: " & MegamanOnGround & vbCrLf & "TempVar: " & MegamanOnFrame
             ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & " ScreenX: " & GameArea.Width & " ScreenY: " & GameArea.Height & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "MegamanWidth: " & MegamanRectangle.Width & " MegamanHeight: " & MegamanRectangle.Height & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision & vbCrLf & "CollisionTempX: " & MegamanCollisionTempX & " CollisionTempY: " & MegamanCollisionTempY & vbCrLf & "XVelocity: " & MegamanXVelocity & " YVelocity: " & MegamanYVelocity & vbCrLf & "OnGround: " & MegamanOnGround & vbCrLf & "TempVar: " & MegamanOnFrame
+            'DebugWindow.DebugOutputLabel.Text = ThreadCountLabel.Text
+            'DebugWindow.Invalidate()
         Catch ex As Exception
         End Try
     End Sub
