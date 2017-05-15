@@ -59,7 +59,8 @@ Public Class GameWindow
     Dim MegamanVelocityMultiplier As Integer
     Dim MegamanXVelocity As Double
     Dim MegamanYVelocity As Double
-    Dim MegamanAnimation As Byte = 8
+    Dim MegamanAnimation As Byte = 4
+    Dim MegamanAnimation2 As Byte
     Dim MegamanAnimationFrame As Byte = 1
     Dim MegamanAnimationTimerCall As New TimerCallback(AddressOf AnimateMegamanRectangle)
     Dim MegamanAnimationTimer As New Timer(MegamanAnimationTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
@@ -181,45 +182,100 @@ Public Class GameWindow
         'GameArea.Controls.OfType(Of Panel)
     End Sub
     Friend Sub UpdateFPS()
-        FPSLabel.Text = "FPS: " & FPS
+        Try
+            FPSLabel.Text = "FPS: " & FPS
+        Catch ex As Exception
+
+        End Try
         FPS = 0
     End Sub
     Private Sub UpdateThreadCount()
         ThreadPool.GetAvailableThreads(Test1, Test2)
         Try
-            ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation: " & MegamanAnimation & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & " ScreenX: " & GameArea.Width & " ScreenY: " & GameArea.Height & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "MegamanWidth: " & MegamanRectangle.Width & " MegamanHeight: " & MegamanRectangle.Height & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision & vbCrLf & "CollisionTempX: " & MegamanCollisionTempX & " CollisionTempY: " & MegamanCollisionTempY & vbCrLf & "XVelocity: " & MegamanXVelocity & " YVelocity: " & MegamanYVelocity & vbCrLf & "OnGround: " & MegamanOnGround & vbCrLf & "TempVar: " & MegamanOnFrame
+            ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation2: " & MegamanAnimation2 & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & " ScreenX: " & GameArea.Width & " ScreenY: " & GameArea.Height & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "MegamanWidth: " & MegamanRectangle.Width & " MegamanHeight: " & MegamanRectangle.Height & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision & vbCrLf & "CollisionTempX: " & MegamanCollisionTempX & " CollisionTempY: " & MegamanCollisionTempY & vbCrLf & "XVelocity: " & MegamanXVelocity & " YVelocity: " & MegamanYVelocity & vbCrLf & "OnGround: " & MegamanOnGround & vbCrLf & "TempVar: " & MegamanOnFrame
         Catch ex As Exception
         End Try
     End Sub
     Private Sub GameWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-        If Not MegamanAnimation >= 8 Then 'This statement fixes a bug with warping in
+        'If Not MegamanAnimation >= 8 Then 'This statement fixes a bug with warping in
+        '    Select Case e.KeyCode   'Detects the held keys...
+        '        Case Keys.Right
+        '            'MegamanXVelocity = 9 '(20 * bytSpeed)
+        '            'If ((MegamanAnimation <> 4) AndAlso (MegamanAnimation <> 5)) AndAlso ButtonHeld(0) = False Then   'If the player isn't jumping and the key isn't being held...
+        '            If ButtonHeld(0) = False Then   'If the player isn't jumping and the key isn't being held...
+        '                ButtonHeld(0) = True
+        '                If MegamanAnimation < 4 Then
+        '                    MegamanAnimationFrame = 1
+        '                    If ButtonHeld(1) = False Then
+        '                        MegamanAnimation = 2    'Run right
+        '                    Else
+        '                        MegamanAnimation = 0    'Stand right
+        '                    End If
+        '                    'MegamanLeft = False
+        '                End If
+        '            End If
+        '        Case Keys.Left
+        '            'MegamanXVelocity = -9 '(-20 * bytSpeed)
+        '            'If ((MegamanAnimation <> 4) AndAlso (MegamanAnimation <> 5)) AndAlso ButtonHeld(1) = False Then   'If the player isn't jumping and the key isn't being held...
+        '            If ButtonHeld(1) = False Then   'If the player isn't jumping and the key isn't being held...
+        '                ButtonHeld(1) = True
+        '                If MegamanAnimation < 4 Then
+        '                    MegamanAnimationFrame = 1
+        '                    If ButtonHeld(0) = False Then
+        '                        MegamanAnimation = 3    'Run left
+        '                    Else
+        '                        MegamanAnimation = 1    'Stand left
+        '                    End If
+        '                    'MegamanLeft = True
+        '                End If
+        '            End If
+        '        Case Keys.Up
+        '            If MegamanOnGround = True Then '(MegamanRectangle.Y = (GameArea.Height - MegamanRectangle.Height)) OrElse (MegamanCollisionTempY > 0 AndAlso MegamanYCollision < 0) Then   'If the player is on the ground...
+        '                MegamanYVelocity = -39.2
+        '                MegamanOnGround = False
+        '                If ((MegamanAnimation <> 4) AndAlso (MegamanAnimation <> 5)) AndAlso MegamanLeft = False Then  'If the player isn't jumping and is facing right...
+        '                    MegamanAnimationFrame = 1
+        '                    MegamanAnimation = 4    'Jump right
+        '                ElseIf ((MegamanAnimation <> 4) AndAlso (MegamanAnimation <> 5)) AndAlso MegamanLeft = True Then   'If the player isn't jumping and is facing left...
+        '                    MegamanAnimationFrame = 1
+        '                    MegamanAnimation = 5    'Jump left
+        '                End If
+        '            End If
+        '    End Select
+        'End If
+        If Not MegamanAnimation >= 4 Then 'This statement fixes a bug with warping in
             Select Case e.KeyCode   'Detects the held keys...
                 Case Keys.Right
-                    'MegamanXVelocity = 9 '(20 * bytSpeed)
-                    If ((MegamanAnimation <> 4) AndAlso (MegamanAnimation <> 5)) AndAlso ButtonHeld(0) = False Then   'If the player isn't jumping and the key isn't being held...
+                    If ButtonHeld(0) = False Then   'If the player isn't jumping and the key isn't being held...
                         ButtonHeld(0) = True
-                        MegamanAnimationFrame = 1
-                        MegamanAnimation = 2    'Run right
-                        MegamanLeft = False
+                        If MegamanAnimation < 2 Then
+                            MegamanAnimationFrame = 1
+                            If ButtonHeld(1) = False Then
+                                MegamanAnimation = 1    'Run
+                            Else
+                                MegamanAnimation = 0    'Stand
+                            End If
+                        End If
                     End If
                 Case Keys.Left
-                    'MegamanXVelocity = -9 '(-20 * bytSpeed)
-                    If ((MegamanAnimation <> 4) AndAlso (MegamanAnimation <> 5)) AndAlso ButtonHeld(1) = False Then   'If the player isn't jumping and the key isn't being held...
+                    If ButtonHeld(1) = False Then   'If the player isn't jumping and the key isn't being held...
                         ButtonHeld(1) = True
-                        MegamanAnimationFrame = 1
-                        MegamanAnimation = 3    'Run left
-                        MegamanLeft = True
+                        If MegamanAnimation < 2 Then
+                            MegamanAnimationFrame = 1
+                            If ButtonHeld(0) = False Then
+                                MegamanAnimation = 1    'Run
+                            Else
+                                MegamanAnimation = 0    'Stand
+                            End If
+                        End If
                     End If
                 Case Keys.Up
                     If MegamanOnGround = True Then '(MegamanRectangle.Y = (GameArea.Height - MegamanRectangle.Height)) OrElse (MegamanCollisionTempY > 0 AndAlso MegamanYCollision < 0) Then   'If the player is on the ground...
                         MegamanYVelocity = -39.2
                         MegamanOnGround = False
-                        If ((MegamanAnimation <> 4) AndAlso (MegamanAnimation <> 5)) AndAlso MegamanLeft = False Then  'If the player isn't jumping and is facing right...
+                        If MegamanAnimation <> 2 Then  'If the player isn't jumping and is facing right...
                             MegamanAnimationFrame = 1
-                            MegamanAnimation = 4    'Jump right
-                        ElseIf ((MegamanAnimation <> 4) AndAlso (MegamanAnimation <> 5)) AndAlso MegamanLeft = True Then   'If the player isn't jumping and is facing left...
-                            MegamanAnimationFrame = 1
-                            MegamanAnimation = 5    'Jump left
+                            MegamanAnimation = 2    'Jump
                         End If
                     End If
             End Select
@@ -242,14 +298,19 @@ Public Class GameWindow
                 'MegamanXVelocity = 0
                 ButtonHeld(1) = False
         End Select
-        If Not MegamanAnimation >= 4 Then    'If the player isn't jumping...
-            If MegamanLeft = False Then   'and is facing right...
-                MegamanAnimationFrame = 1
-                MegamanAnimation = 0    'Stand right
-            Else    'and is facing left...
-                MegamanAnimationFrame = 1
-                MegamanAnimation = 1    'Stand left
-            End If
+        'If MegamanAnimation < 4 AndAlso MegamanXVelocity <> 0 Then    'If the player isn't jumping...
+        '    MegamanAnimationFrame = 1
+        '    If MegamanLeft = False Then   'and is facing right...
+        '        'MegamanAnimationFrame = 1
+        '        MegamanAnimation = 0    'Stand right
+        '    Else    'and is facing left...
+        '        'MegamanAnimationFrame = 1
+        '        MegamanAnimation = 1    'Stand left
+        '    End If
+        'End If
+        If MegamanAnimation < 2 Then 'AndAlso MegamanXVelocity <> 0 Then    'If the player isn't jumping...
+            MegamanAnimationFrame = 1
+            MegamanAnimation = 0
         End If
     End Sub
     Private Sub GameWindow_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles Me.Paint
@@ -303,45 +364,85 @@ Public Class GameWindow
             MegamanOnFrame = True
             MegamanRectangle.Y = (GameArea.Height - MegamanRectangle.Height)
         End If
-        If MegamanAnimation <> 8 AndAlso MegamanAnimation <> 9 Then 'If vertical motion is not 0...
+        'If MegamanAnimation <> 8 AndAlso MegamanAnimation <> 9 Then 'If not warping in...
+        '    If MegamanOnGround = False Then
+        '        MegamanRectangle.Y = MegamanRectangle.Y + MegamanYVelocity    'Calculates the new position
+        '        MegamanYVelocity = MegamanYVelocity + 9.8   'Applies gravity to the vertical velocity. 9.8m/s is actually the acceleration caused by the gravity of the earth. PHYSICS! :D
+        '    Else
+        '        MegamanYVelocity = 0
+        '        If MegamanAnimation = 4 OrElse MegamanAnimation = 5 Then 'If the player is in midair...
+        '            If (MegamanAnimation Mod 2) = 0 Then 'MegamanLeft = False Then   'If the player is facing right...
+        '                If ButtonHeld(0) = False Then    'If the player is not holding right...
+        '                    MegamanAnimationFrame = 1
+        '                    MegamanAnimation = 6    'Land right
+        '                Else    'If the player is holding right...
+        '                    MegamanAnimationFrame = 1
+        '                    MegamanAnimation = 2    'Run right
+        '                End If
+        '            Else    'If the player is facing left...
+        '                If ButtonHeld(1) = False Then 'If the player is not holding left...
+        '                    MegamanAnimationFrame = 1
+        '                    MegamanAnimation = 7    'Land left
+        '                Else    'If the player is holding left...
+        '                    MegamanAnimationFrame = 1
+        '                    MegamanAnimation = 3    'Run left
+        '                End If
+        '            End If
+        '        End If
+        '    End If
+        '    If MegamanRectangle.Y < 0 Then 'If the player is out of bounds above the top...
+        '        MegamanRectangle.Y = 0
+        '    End If
+        'End If
+        If MegamanAnimation <> 4 Then 'If not warping in...
             If MegamanOnGround = False Then
                 MegamanRectangle.Y = MegamanRectangle.Y + MegamanYVelocity    'Calculates the new position
                 MegamanYVelocity = MegamanYVelocity + 9.8   'Applies gravity to the vertical velocity. 9.8m/s is actually the acceleration caused by the gravity of the earth. PHYSICS! :D
             Else
                 MegamanYVelocity = 0
-                If MegamanAnimation = 4 OrElse MegamanAnimation = 5 Then 'If the player is in midair...
-                    If (MegamanAnimation Mod 2) = 0 Then 'MegamanLeft = False Then   'If the player is facing right...
-                        If ButtonHeld(0) = False Then    'If the player is not holding right...
-                            MegamanAnimationFrame = 1
-                            MegamanAnimation = 6    'Land right
-                        Else    'If the player is holding right...
-                            MegamanAnimationFrame = 1
-                            MegamanAnimation = 2    'Run right
-                        End If
-                    Else    'If the player is facing left...
-                        If ButtonHeld(1) = False Then 'If the player is not holding left...
-                            MegamanAnimationFrame = 1
-                            MegamanAnimation = 7    'Land left
-                        Else    'If the player is holding left...
-                            MegamanAnimationFrame = 1
-                            MegamanAnimation = 3    'Run left
-                        End If
+                If MegamanAnimation = 2 Then 'If the player is in midair...
+                    'If ButtonHeld(MegamanAnimation2 Mod 2) = False Then 'MegamanLeft = False Then   'If the player is facing right...
+                    '    MegamanAnimationFrame = 1
+                    '    MegamanAnimation = 3    'Land
+                    'Else    'If the player is holding right...
+                    '    MegamanAnimationFrame = 3
+                    '    MegamanAnimation = 1    'Run
+                    'End If
+                    'If ButtonHeld(MegamanAnimation2 Mod 2) = False Then 'MegamanLeft = False Then   'If the player is facing right...
+                    MegamanAnimationFrame = 1
+                        MegamanAnimation = 3    'Land
+                        'Else    'If the player is holding right...
+                        '    MegamanAnimationFrame = 3
+                        '    MegamanAnimation = 1    'Run
+                        'End If
                     End If
-                End If
             End If
             If MegamanRectangle.Y < 0 Then 'If the player is out of bounds above the top...
                 MegamanRectangle.Y = 0
             End If
         End If
+        MegamanXVelocity = 0
         'If MegamanXVelocity <> 0 Then
-        If ButtonHeld(0) = True Then
+        If ButtonHeld(0) = True AndAlso ButtonHeld(1) = False Then
             MegamanXVelocity = 9
+            If MegamanAnimation <> 2 Then
+                MegamanLeft = False
+            End If
         End If
-        If ButtonHeld(1) = True Then
+            If ButtonHeld(1) = True AndAlso ButtonHeld(0) = False Then
             MegamanXVelocity = -9
+            If MegamanAnimation <> 2 Then
+                MegamanLeft = True
+            End If
+        End If
+            If ButtonHeld(0) = ButtonHeld(1) Then
+            MegamanXVelocity = 0
+        End If
+        If MegamanAnimation = 0 AndAlso MegamanXVelocity <> 0 Then
+            MegamanAnimation = 1
         End If
         MegamanRectangle.X = MegamanRectangle.X + (MegamanXVelocity * MegamanVelocityMultiplier)
-        MegamanXVelocity = 0
+        'MegamanXVelocity = 0
         'End If
         MegamanCollisionRightRectangle.X = MegamanRectangle.Right
         MegamanCollisionRightRectangle.Y = MegamanRectangle.Top
@@ -467,8 +568,8 @@ Public Class GameWindow
         MegamanRectangle.Y = Round(MegamanRectangle.Y, 0, MidpointRounding.AwayFromZero)
         MegamanCollisionTempX = Max(Max(MegamanCollisionRectangleTempX.Width, MegamanCollisionRectangleTempX2.Width), MegamanCollisionRectangleTempX3.Width)
         'MegamanXVelocity = 0
-        MegamanXVelocity = MegamanXVelocity - (MegamanCollisionTempX * Sign(MegamanXCollision))
-        'MegamanRectangle.X = MegamanRectangle.X - (MegamanCollisionTempX * Sign(MegamanXCollision))
+        'MegamanXVelocity = MegamanXVelocity - (MegamanCollisionTempX * Sign(MegamanXCollision))
+        MegamanRectangle.X = MegamanRectangle.X - (MegamanCollisionTempX * Sign(MegamanXCollision))
         MegamanCollisionRightRectangle.X = MegamanRectangle.Right
         MegamanCollisionRightRectangle.Y = MegamanRectangle.Top
         MegamanCollisionRightRectangle.Height = MegamanRectangle.Height
@@ -489,8 +590,83 @@ Public Class GameWindow
         MegamanCollisionVerticalRectangle.Height = MegamanRectangle.Height
     End Sub
     Friend Sub AnimateMegamanRectangle()
+        MegamanAnimation2 = MegamanAnimation * 2
+        If MegamanLeft = True Then
+            MegamanAnimation2 += 1
+        End If
+        'Select Case MegamanAnimation
+        '    Case = 0, 1    'Standing
+        '        Select Case MegamanAnimationFrame
+        '            Case Is <= (MegamanBlinkRate - 3)
+        '                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Standing1.png")
+        '            Case (MegamanBlinkRate - 2), (MegamanBlinkRate)
+        '                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Standing2.png")
+        '            Case Is = (MegamanBlinkRate - 1)
+        '                MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Standing3.png")
+        '        End Select
+        '        'If (MegamanAnimation Mod 2) = 1 Then 'If left...
+        '        '    MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphic
+        '        'End If
+        '        If MegamanAnimationFrame < MegamanBlinkRate Then
+        '            MegamanAnimationFrame += 1
+        '        Else
+        '            MegamanAnimationFrame = 1
+        '        End If
+        '    Case = 2, 3    'Running
+        '        MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Running" & MegamanAnimationFrame & ".png")
+        '        'If (MegamanAnimation Mod 2) = 1 Then 'If left...
+        '        '    MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphic
+        '        'End If
+        '        If MegamanAnimationFrame < 11 Then
+        '            MegamanAnimationFrame += 1
+        '        Else
+        '            MegamanAnimationFrame = 2 'The first frame is only for starting running
+        '        End If
+        '    Case = 4, 5    'Jumping
+        '        MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Jumping" & MegamanAnimationFrame & ".png")
+        '        If (MegamanAnimation Mod 2) = 1 Then 'If left...
+        '            MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphics
+        '        End If
+        '        If MegamanAnimationFrame < 5 Then
+        '            MegamanAnimationFrame += 1
+        '        End If
+        '    Case = 6, 7    'Landing
+        '        MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Landing" & MegamanAnimationFrame & ".png")
+        '        'If (MegamanAnimation Mod 2) = 1 Then 'If left...
+        '        '    MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphic
+        '        'End If
+        '        Select Case MegamanAnimationFrame
+        '            Case Is = 1
+        '                If ButtonHeld((MegamanAnimation Mod 2)) = True Then
+        '                    MegamanAnimationFrame = 1
+        '                    MegamanAnimation = 1 + (MegamanAnimation Mod 2)    'Stand right
+        '                Else
+        '                    MegamanAnimationFrame += 1
+        '                End If
+        '            Case Is = 2
+        '                MegamanAnimationFrame = 1
+        '                MegamanAnimation = 0 + (MegamanAnimation Mod 2)    'Stand right
+        '        End Select
+        '    Case = 8, 9    'Warping In
+        '        MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\WarpIn" & MegamanAnimationFrame & ".png")
+        '        'If (MegamanAnimation Mod 2) = 1 Then 'If left...
+        '        '    MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphic
+        '        'End If
+        '        If MegamanAnimationFrame < 7 Then
+        '            MegamanAnimationFrame += 1
+        '        Else
+        '            If MegamanRectangle.Y < (GameArea.Height - MegamanRectangle.Height) Then   'If spawning in midair...
+        '                MegamanAnimationFrame = 5
+        '                MegamanAnimation = 4 + (MegamanAnimation Mod 2)    'Display falling animation
+        '            Else    'If spawning on the ground...
+        '                MegamanAnimationFrame = 1
+        '                MegamanAnimation = 0 + (MegamanAnimation Mod 2)    'Display standing animation
+        '                MegamanPhysicsTimer.Change(TimerStartDelay, TimerInterval)
+        '            End If
+        '        End If
+        'End Select
         Select Case MegamanAnimation
-            Case = 0, 1    'Standing
+            Case = 0    'Standing
                 Select Case MegamanAnimationFrame
                     Case Is <= (MegamanBlinkRate - 3)
                         MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Standing1.png")
@@ -499,67 +675,55 @@ Public Class GameWindow
                     Case Is = (MegamanBlinkRate - 1)
                         MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Standing3.png")
                 End Select
-                If (MegamanAnimation Mod 2) = 1 Then 'If left...
-                    MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphic
-                End If
                 If MegamanAnimationFrame < MegamanBlinkRate Then
                     MegamanAnimationFrame += 1
                 Else
                     MegamanAnimationFrame = 1
                 End If
-            Case = 2, 3    'Running
+            Case = 1    'Running
                 MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Running" & MegamanAnimationFrame & ".png")
-                If (MegamanAnimation Mod 2) = 1 Then 'If left...
-                    MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphic
-                End If
                 If MegamanAnimationFrame < 11 Then
                     MegamanAnimationFrame += 1
                 Else
                     MegamanAnimationFrame = 2 'The first frame is only for starting running
                 End If
-            Case = 4, 5    'Jumping
+            Case = 2    'Jumping
                 MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Jumping" & MegamanAnimationFrame & ".png")
-                If (MegamanAnimation Mod 2) = 1 Then 'If left...
-                    MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphics
-                End If
                 If MegamanAnimationFrame < 5 Then
                     MegamanAnimationFrame += 1
                 End If
-            Case = 6, 7    'Landing
+            Case = 3    'Landing
                 MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Landing" & MegamanAnimationFrame & ".png")
-                If (MegamanAnimation Mod 2) = 1 Then 'If left...
-                    MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphic
-                End If
                 Select Case MegamanAnimationFrame
                     Case Is = 1
-                        If ButtonHeld((MegamanAnimation Mod 2)) = True Then
-                            MegamanAnimationFrame = 1
-                            MegamanAnimation = 1 + (MegamanAnimation Mod 2)    'Stand right
+                        If ButtonHeld((MegamanAnimation2 Mod 2)) = True Then
+                            MegamanAnimationFrame = 3
+                            MegamanAnimation = 1
                         Else
                             MegamanAnimationFrame += 1
                         End If
                     Case Is = 2
                         MegamanAnimationFrame = 1
-                        MegamanAnimation = 0 + (MegamanAnimation Mod 2)    'Stand right
+                        MegamanAnimation = 0
                 End Select
-            Case = 8, 9    'Warping In
+            Case = 4    'Warping In
                 MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\WarpIn" & MegamanAnimationFrame & ".png")
-                If (MegamanAnimation Mod 2) = 1 Then 'If left...
-                    MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphic
-                End If
                 If MegamanAnimationFrame < 7 Then
                     MegamanAnimationFrame += 1
                 Else
                     If MegamanRectangle.Y < (GameArea.Height - MegamanRectangle.Height) Then   'If spawning in midair...
                         MegamanAnimationFrame = 5
-                        MegamanAnimation = 4 + (MegamanAnimation Mod 2)    'Display falling animation
+                        MegamanAnimation = 2 '+ (MegamanAnimation Mod 2)    'Display falling animation
                     Else    'If spawning on the ground...
                         MegamanAnimationFrame = 1
-                        MegamanAnimation = 0 + (MegamanAnimation Mod 2)    'Display standing animation
+                        MegamanAnimation = 0 '+ (MegamanAnimation Mod 2)    'Display standing animation
                         MegamanPhysicsTimer.Change(TimerStartDelay, TimerInterval)
                     End If
                 End If
         End Select
+        If (MegamanAnimation2 Mod 2) = 1 Then 'If left...
+            MegamanRectangleImage.RotateFlip(RotateFlipType.RotateNoneFlipX) 'Mirror graphic
+        End If
         Try
             MegamanRectangle2.X = ((MegamanRectangle.X + (MegamanRectangle.Width / 2)) - (((MegamanRectangleImage.Width / MegamanRectangleImage.HorizontalResolution) * ScreenDpiX)) / 2)
             MegamanRectangle2.Y = (MegamanRectangle.Y - (((MegamanRectangleImage.Height / MegamanRectangleImage.VerticalResolution) * ScreenDpiY) - MegamanRectangle.Height))
