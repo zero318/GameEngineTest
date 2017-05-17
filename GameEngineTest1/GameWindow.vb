@@ -61,6 +61,7 @@ Public Class GameWindow
     Dim MegamanAnimation As Byte = 4
     Dim MegamanAnimation2 As Byte
     Dim MegamanAnimationFrame As Byte = 1
+    Dim MegamanVelocityVector As 
     Dim MegamanAnimationTimerCall As New TimerCallback(AddressOf AnimateMegamanRectangle)
     Dim MegamanAnimationTimer As New Timer(MegamanAnimationTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
@@ -270,8 +271,8 @@ Public Class GameWindow
         'This section resets a few collision related variables to properly detect collision on the next frame.
         '******************************************
         MegamanOnFrame = False
-        MegamanXCollision = 0
-        MegamanYCollision = 0
+        'MegamanXCollision = 0
+        'MegamanYCollision = 0
         '******************************************
         'This section processes a few special collision scenarios dealing with edges of the window, gravity, and jumping animations.
         '******************************************
@@ -283,6 +284,8 @@ Public Class GameWindow
             If MegamanOnGround = False Then 'If the player is in midair...
                 MegamanRectangle.Y = MegamanRectangle.Y + MegamanYVelocity    'Calculates the new position
                 MegamanYVelocity = MegamanYVelocity + 9.8   'Applies gravity to the vertical velocity. 9.8m/s is actually the acceleration caused by the gravity of the earth. PHYSICS! :D
+            ElseIf MegamanYCollision > 0 Then
+                MegamanYVelocity = 0
             Else
                 MegamanYVelocity = 0
                 If MegamanAnimation = 2 Then 'If the player is jumping...
@@ -341,6 +344,9 @@ Public Class GameWindow
         '******************************************
         'This section processes the specialized collision rectangles to detect whether the player has moved inside any walls.
         '******************************************
+        MegamanOnGround = False
+        MegamanXCollision = 0
+        MegamanYCollision = 0
         If CollisionRegion2.IsVisible((MegamanRectangle.Right - (3 * (MegamanRectangle.Width / 4))), MegamanRectangle.Bottom) = True Then 'Test lower middle left bottom for ground
             MegamanOnGround = True
         ElseIf CollisionRegion2.IsVisible((MegamanRectangle.Right - (1 * (MegamanRectangle.Width / 2))), MegamanRectangle.Bottom) = True Then 'Test middle bottom for ground
@@ -348,8 +354,6 @@ Public Class GameWindow
             MegamanCollisionArray(7) = True
         ElseIf CollisionRegion2.IsVisible((MegamanRectangle.Right - (1 * (MegamanRectangle.Width / 4))), MegamanRectangle.Bottom) = True Then 'Test lower middle right for ground
             MegamanOnGround = True
-        Else
-            MegamanOnGround = False
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Left, MegamanRectangle.Bottom) = True Then 'Test lower left
             If MegamanOnGround = False Then
@@ -409,12 +413,18 @@ Public Class GameWindow
         '******************************************
         If MegamanCollisionRectangleTempY.Height >= MegamanRectangle.Height Then
             MegamanCollisionRectangleTempY.Height = 0
+        ElseIf MegamanCollisionRectangleTempY.Height > (MegamanRectangle.Height / 2) Then
+            MegamanCollisionRectangleTempY.Height = (MegamanCollisionRectangleTempY.Height - (MegamanRectangle.Height / 2))
         End If
         If MegamanCollisionRectangleTempY2.Height >= MegamanRectangle.Height Then
             MegamanCollisionRectangleTempY2.Height = 0
+        ElseIf MegamanCollisionRectangleTempY2.Height > (MegamanRectangle.Height / 2) Then
+            MegamanCollisionRectangleTempY2.Height = (MegamanCollisionRectangleTempY2.Height - (MegamanRectangle.Height / 2))
         End If
         If MegamanCollisionRectangleTempY3.Height >= MegamanRectangle.Height Then
             MegamanCollisionRectangleTempY3.Height = 0
+        ElseIf MegamanCollisionRectangleTempY3.Height > (MegamanRectangle.Height / 2) Then
+            MegamanCollisionRectangleTempY3.Height = (MegamanCollisionRectangleTempY3.Height - (MegamanRectangle.Height / 2))
         End If
         '******************************************
         'This section calculates the new vertical character position to move outside of any walls.
@@ -441,12 +451,18 @@ Public Class GameWindow
         '******************************************
         If MegamanCollisionRectangleTempX.Width >= MegamanRectangle.Width Then
             MegamanCollisionRectangleTempX.Width = 0
+        ElseIf MegamanCollisionRectangleTempX.Width > (MegamanRectangle.Width / 2) Then
+            MegamanCollisionRectangleTempX.Width = (MegamanCollisionRectangleTempX.Width - (MegamanRectangle.Width / 2))
         End If
         If MegamanCollisionRectangleTempX2.Width >= MegamanRectangle.Width Then
             MegamanCollisionRectangleTempX2.Width = 0
+        ElseIf MegamanCollisionRectangleTempX2.Width > (MegamanRectangle.Width / 2) Then
+            MegamanCollisionRectangleTempX2.Width = (MegamanCollisionRectangleTempX2.Width - (MegamanRectangle.Width / 2))
         End If
         If MegamanCollisionRectangleTempX3.Width >= MegamanRectangle.Width Then
             MegamanCollisionRectangleTempX3.Width = 0
+        ElseIf MegamanCollisionRectangleTempX3.Width > (MegamanRectangle.Width / 2) Then
+            MegamanCollisionRectangleTempX3.Width = (MegamanCollisionRectangleTempX3.Width - (MegamanRectangle.Width / 2))
         End If
         '******************************************
         'This section handles a specialized out of window case.
