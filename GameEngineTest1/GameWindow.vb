@@ -443,7 +443,7 @@ Public Class GameWindow
         End If
         MegamanRectangle.X = MegamanRectangle.X + (MegamanXVelocity * MegamanVelocityMultiplier)
         'MegamanXVelocity = 0
-        'End If
+
         MegamanCollisionRightRectangle.X = MegamanRectangle.Right
         MegamanCollisionRightRectangle.Y = MegamanRectangle.Top
         MegamanCollisionRightRectangle.Height = MegamanRectangle.Height
