@@ -27,8 +27,8 @@ Public Class GameWindow
     Dim CollisionRegion As New Region()
     Dim CollisionRegion2 As New Region()
     Dim CollisionRegion3 As New Region()
-    Dim SlopeTestPoints(3) As PointF ' = {New PointF(), New PointF(), New PointF()}
-    Dim SlopeTest As New Drawing2D.GraphicsPath() 'SlopeTestPoints, SlopeTestTypes)
+    Dim SlopeTestPoints(3) As PointF
+    Dim SlopeTest As New Drawing2D.GraphicsPath()
     'Megaman specific variables start here
     Dim MegamanBlinkRate As Integer = 15
     Dim MegamanRectangle As New RectangleF(50, 400, 100, 100)
@@ -61,7 +61,6 @@ Public Class GameWindow
     Dim MegamanAnimation As Byte = 4
     Dim MegamanAnimation2 As Byte
     Dim MegamanAnimationFrame As Byte = 1
-    Dim MegamanVelocityVector As 
     Dim MegamanAnimationTimerCall As New TimerCallback(AddressOf AnimateMegamanRectangle)
     Dim MegamanAnimationTimer As New Timer(MegamanAnimationTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
@@ -271,8 +270,6 @@ Public Class GameWindow
         'This section resets a few collision related variables to properly detect collision on the next frame.
         '******************************************
         MegamanOnFrame = False
-        'MegamanXCollision = 0
-        'MegamanYCollision = 0
         '******************************************
         'This section processes a few special collision scenarios dealing with edges of the window, gravity, and jumping animations.
         '******************************************
@@ -347,28 +344,30 @@ Public Class GameWindow
         MegamanOnGround = False
         MegamanXCollision = 0
         MegamanYCollision = 0
-        If CollisionRegion2.IsVisible((MegamanRectangle.Right - (3 * (MegamanRectangle.Width / 4))), MegamanRectangle.Bottom) = True Then 'Test lower middle left bottom for ground
+        If CollisionRegion2.IsVisible((MegamanRectangle.Right - ((3 / 4) * MegamanRectangle.Width)), MegamanRectangle.Bottom) = True Then 'Test lower middle left bottom for ground
             MegamanOnGround = True
-        ElseIf CollisionRegion2.IsVisible((MegamanRectangle.Right - (1 * (MegamanRectangle.Width / 2))), MegamanRectangle.Bottom) = True Then 'Test middle bottom for ground
+        ElseIf CollisionRegion2.IsVisible((MegamanRectangle.Right - ((1 / 2) * MegamanRectangle.Width)), MegamanRectangle.Bottom) = True Then 'Test middle bottom for ground
             MegamanOnGround = True
             MegamanCollisionArray(7) = True
-        ElseIf CollisionRegion2.IsVisible((MegamanRectangle.Right - (1 * (MegamanRectangle.Width / 4))), MegamanRectangle.Bottom) = True Then 'Test lower middle right for ground
+        ElseIf CollisionRegion2.IsVisible((MegamanRectangle.Right - ((1 / 4) * MegamanRectangle.Width)), MegamanRectangle.Bottom) = True Then 'Test lower middle right for ground
             MegamanOnGround = True
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Left, MegamanRectangle.Bottom) = True Then 'Test lower left
-            If MegamanOnGround = False Then
-                MegamanXCollision -= 1
-            Else
-                MegamanYCollision -= 1
-            End If
+            MegamanOnGround = True
+            'If MegamanOnGround = False Then
+            '    MegamanXCollision -= 1
+            'Else
+            MegamanYCollision -= 1
+            'End If
             MegamanCollisionArray(6) = True
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Right, MegamanRectangle.Bottom) = True Then 'Test lower right
-            If MegamanOnGround = False Then
-                MegamanXCollision += 1
-            Else
-                MegamanYCollision -= 1
-            End If
+            MegamanOnGround = True
+            'If MegamanOnGround = False Then
+            '    MegamanXCollision += 1
+            'Else
+            MegamanYCollision -= 1
+            'End If
             MegamanCollisionArray(8) = True
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Left, MegamanRectangle.Top) = True Then 'Test upper left
