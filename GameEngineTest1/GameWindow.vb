@@ -5,14 +5,17 @@ Public Class GameWindow
     Dim GamePath As String = My.Application.Info.DirectoryPath
     Dim GameAreaGraphics As Graphics
     Dim GameAreaGraphics2 As Graphics
+    Dim PaintThisCrap As PaintEventArgs
     Dim CustomDoubleBuffer As New BufferedGraphicsContext
     Dim TempRectangle As Rectangle
     Dim CustomGraphicsBuffer As BufferedGraphics
+    Dim PaintBackgroundOn As Boolean = True
+    Dim PaintForegroundOn As Boolean = False
     Dim Test1 As Integer
     Dim Test2 As Integer
     Dim ScreenDpiX As Integer
     Dim ScreenDpiY As Integer
-    Dim DebugLabelVisible As Boolean = True
+    Dim DebugLabelVisible As Boolean = False
     Dim FPSLabelVisible As Boolean = True
     Dim TimerInterval As Integer = 100
     Dim TimerStartDelay As Integer = 0
@@ -73,6 +76,16 @@ Public Class GameWindow
     Dim MegamanAnimationTimer As New Timer(MegamanAnimationTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
     Dim MegamanPhysicsTimer As New Timer(MegamanMegamanPhysicsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
+    Protected Overrides Sub OnPaintBackground(ByVal e As PaintEventArgs)
+        If PaintBackgroundOn = True Then
+            MyBase.OnPaintBackground(e)
+        End If
+    End Sub
+    Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+        If PaintForegroundOn = True Then
+            MyBase.OnPaint(e)
+        End If
+    End Sub
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Megaman.Top = Megaman.Parent.Height - Megaman.Height
         CollisionTestPanel1.Top = CollisionTestPanel1.Parent.Height - CollisionTestPanel1.Height
@@ -174,7 +187,6 @@ Public Class GameWindow
             Else
                 FPSLabel.Text = "Click to Turn On FPS Label"
             End If
-            FPSLabel.Update()
         Catch ex As Exception
         End Try
         FPS = 0
@@ -283,7 +295,7 @@ Public Class GameWindow
         CustomGraphicsBuffer.Render(GameAreaGraphics)
         CustomGraphicsBuffer.Dispose()
         Try
-            Invalidate()
+            'Invalidate()
             FPS += 1
         Catch ex As Exception
             FPS = 0
@@ -408,6 +420,7 @@ Public Class GameWindow
         End If
         If CollisionRegion2.IsVisible((MegamanRectangle.Right - ((1 / 2) * MegamanRectangle.Width)), MegamanRectangle.Bottom) = True Then 'Test middle bottom for ground
             MegamanOnGround = True
+            MegamanYCollision = 0
             MegamanCollisionArray(7) = True
         End If
         If CollisionRegion2.IsVisible((MegamanRectangle.Right - ((1 / 4) * MegamanRectangle.Width)), MegamanRectangle.Bottom) = True Then 'Test lower middle right for ground
@@ -688,6 +701,7 @@ Public Class GameWindow
             MegamanRectangle2.Height = ((MegamanRectangleImage.Height / MegamanRectangleImage.VerticalResolution) * ScreenDpiY)
         Catch ex As Exception
         End Try
+        Invalidate()
     End Sub
     Private Sub ResetEverything()
 
