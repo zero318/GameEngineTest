@@ -12,6 +12,8 @@ Public Class GameWindow
     Dim Test2 As Integer
     Dim ScreenDpiX As Integer
     Dim ScreenDpiY As Integer
+    Dim DebugLabelVisible As Boolean = False
+    Dim FPSLabelVisible As Boolean = True
     Dim TimerInterval As Integer = 100
     Dim TimerStartDelay As Integer = 0
     Dim ThreadCountTimerCall As New TimerCallback(AddressOf UpdateThreadCount)
@@ -61,6 +63,8 @@ Public Class GameWindow
     Dim MegamanAnimation As Byte = 4
     Dim MegamanAnimation2 As Byte
     Dim MegamanAnimationFrame As Byte = 1
+    Dim MegamanVelocityVectorMagnitude As Double
+    Dim MegamanVelocityVectorAngle As Double
     Dim MegamanAnimationTimerCall As New TimerCallback(AddressOf AnimateMegamanRectangle)
     Dim MegamanAnimationTimer As New Timer(MegamanAnimationTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
@@ -161,7 +165,12 @@ Public Class GameWindow
     End Sub
     Friend Sub UpdateFPS()
         Try
-            FPSLabel.Text = "FPS: " & FPS
+            If FPSLabelVisible = True Then
+                FPSLabel.Text = "FPS: " & FPS
+            Else
+                FPSLabel.Text = "Click to Turn On FPS Label"
+            End If
+            FPSLabel.Update()
         Catch ex As Exception
         End Try
         FPS = 0
@@ -169,7 +178,12 @@ Public Class GameWindow
     Private Sub UpdateThreadCount()
         ThreadPool.GetAvailableThreads(Test1, Test2)
         Try
-            ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation2: " & MegamanAnimation2 & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & " ScreenX: " & GameArea.Width & " ScreenY: " & GameArea.Height & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "MegamanWidth: " & MegamanRectangle.Width & " MegamanHeight: " & MegamanRectangle.Height & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision & vbCrLf & "CollisionTempX: " & MegamanCollisionTempX & " CollisionTempY: " & MegamanCollisionTempY & vbCrLf & "XVelocity: " & MegamanXVelocity & " YVelocity: " & MegamanYVelocity & vbCrLf & "OnGround: " & MegamanOnGround & vbCrLf & "TempVar: " & MegamanOnFrame
+            If DebugLabelVisible = True Then
+                ThreadCountLabel.Text = "Available Workers: " & Test1 & " Available IOs: " & Test2 & vbCrLf & "MegamanAnimation2: " & MegamanAnimation2 & " MegamanAnimationFrame: " & MegamanAnimationFrame & vbCrLf & "ScreenDpiX: " & ScreenDpiX & " ScreenDpiY: " & ScreenDpiY & " ScreenX: " & GameArea.Width & " ScreenY: " & GameArea.Height & vbCrLf & "MegamanX: " & MegamanRectangle.X & " MegamanY: " & MegamanRectangle.Y & vbCrLf & "MegamanWidth: " & MegamanRectangle.Width & " MegamanHeight: " & MegamanRectangle.Height & vbCrLf & "Megaman2X: " & MegamanRectangle2.X & " Megaman2Y: " & MegamanRectangle2.Y & vbCrLf & "MegamanLeft: " & MegamanLeft & vbCrLf & "RectTempX1: " & MegamanCollisionRectangleTempX.Height & " RectTempX2: " & MegamanCollisionRectangleTempX2.Height & " RectTempX3: " & MegamanCollisionRectangleTempX3.Height & vbCrLf & "RectTempY1: " & MegamanCollisionRectangleTempY.Height & " RectTempY2: " & MegamanCollisionRectangleTempY2.Height & " RectTempY3: " & MegamanCollisionRectangleTempY3.Height & vbCrLf & "XCollision: " & MegamanXCollision & " YCollision: " & MegamanYCollision & vbCrLf & "CollisionTempX: " & MegamanCollisionTempX & " CollisionTempY: " & MegamanCollisionTempY & vbCrLf & "XVelocity: " & MegamanXVelocity & " YVelocity: " & MegamanYVelocity & vbCrLf & "OnGround: " & MegamanOnGround & vbCrLf & "OnFrame: " & MegamanOnFrame & vbCrLf & "Velocity Vector Magnitude: " & MegamanVelocityVectorMagnitude & vbCrLf & "Velocity Vector Angle: " & MegamanVelocityVectorAngle
+            Else
+                ThreadCountLabel.Text = "Click to Turn On Debug Label"
+            End If
+            ThreadCountLabel.Update()
         Catch ex As Exception
         End Try
     End Sub
@@ -263,7 +277,14 @@ Public Class GameWindow
         End If
         CustomGraphicsBuffer.Render(GameAreaGraphics)
         CustomGraphicsBuffer.Dispose()
-        FPS += 1
+        'FPS += 1
+        'Invalidate()
+        Try
+            Invalidate()
+            FPS += 1
+        Catch ex As Exception
+            FPS = 0
+        End Try
     End Sub
     Private Sub MegamanRectanglePhysics()
         '******************************************
@@ -318,6 +339,16 @@ Public Class GameWindow
         End If
         MegamanRectangle.X = MegamanRectangle.X + (MegamanXVelocity * MegamanVelocityMultiplier)
         '******************************************
+        'This section attempts to calculate a velocity vector.
+        '******************************************
+        MegamanVelocityVectorMagnitude = Sqrt((MegamanXVelocity) ^ 2 + (MegamanYVelocity) ^ 2)
+        MegamanVelocityVectorAngle = 90 - (Atan2(MegamanXVelocity, -MegamanYVelocity) * (180 / PI))
+        If MegamanXVelocity = 0 AndAlso MegamanYVelocity = 0 Then
+            MegamanVelocityVectorAngle = -1
+        ElseIf MegamanVelocityVectorAngle < 0 Then
+            MegamanVelocityVectorAngle += 360
+        End If
+        '******************************************
         'This section sets up the specialized collision detection rectangles to be at Megaman's new location.
         '******************************************
         MegamanCollisionRightRectangle.X = MegamanRectangle.Right
@@ -344,6 +375,7 @@ Public Class GameWindow
         MegamanOnGround = False
         MegamanXCollision = 0
         MegamanYCollision = 0
+        Array.Clear(MegamanCollisionArray, 0, 9)
         If CollisionRegion2.IsVisible((MegamanRectangle.Right - ((3 / 4) * MegamanRectangle.Width)), MegamanRectangle.Bottom) = True Then 'Test lower middle left bottom for ground
             MegamanOnGround = True
         ElseIf CollisionRegion2.IsVisible((MegamanRectangle.Right - ((1 / 2) * MegamanRectangle.Width)), MegamanRectangle.Bottom) = True Then 'Test middle bottom for ground
@@ -354,20 +386,20 @@ Public Class GameWindow
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Left, MegamanRectangle.Bottom) = True Then 'Test lower left
             MegamanOnGround = True
-            'If MegamanOnGround = False Then
-            '    MegamanXCollision -= 1
-            'Else
-            MegamanYCollision -= 1
-            'End If
+            If MegamanOnGround = False Then
+                MegamanXCollision -= 1
+            Else
+                MegamanYCollision -= 1
+            End If
             MegamanCollisionArray(6) = True
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Right, MegamanRectangle.Bottom) = True Then 'Test lower right
             MegamanOnGround = True
-            'If MegamanOnGround = False Then
-            '    MegamanXCollision += 1
-            'Else
-            MegamanYCollision -= 1
-            'End If
+            If MegamanOnGround = False Then
+                MegamanXCollision += 1
+            Else
+                MegamanYCollision -= 1
+            End If
             MegamanCollisionArray(8) = True
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Left, MegamanRectangle.Top) = True Then 'Test upper left
@@ -394,6 +426,15 @@ Public Class GameWindow
             MegamanXCollision += 1
             MegamanYCollision = 0
             MegamanCollisionArray(5) = True
+        End If
+        '******************************************
+        'This section attempts to fix a few bugs with overhangs and narrow pits.
+        '******************************************
+        If ((MegamanCollisionArray(2) = True) AndAlso (MegamanCollisionArray(5) = False) AndAlso (MegamanCollisionArray(8) = True)) OrElse ((MegamanCollisionArray(0) = True) AndAlso (MegamanCollisionArray(3) = False) AndAlso (MegamanCollisionArray(6) = True)) Then
+            MegamanYCollision = 0
+        End If
+        If ((MegamanCollisionArray(6) = True) AndAlso (MegamanCollisionArray(7) = False) AndAlso (MegamanCollisionArray(8) = True)) OrElse ((MegamanCollisionArray(0) = True) AndAlso (MegamanCollisionArray(1) = False) AndAlso (MegamanCollisionArray(2) = True)) Then
+            MegamanXCollision = 0
         End If
         '******************************************
         'This section creates a duplicate of the current terrain and intersects it with the collision rectangles to determine how far inside a wall the player moved.
@@ -573,10 +614,27 @@ Public Class GameWindow
         Catch ex As Exception
         End Try
     End Sub
+    Private Sub ResetEverything()
+
+    End Sub
     Private Sub GameOverYeah()
 
     End Sub
     Private Sub GameWindow_Closing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         MainWindow.Close()
+    End Sub
+    Private Sub ThreadCountLabel_Click(sender As Object, e As EventArgs) Handles ThreadCountLabel.Click
+        If DebugLabelVisible = True Then
+            DebugLabelVisible = False
+        Else
+            DebugLabelVisible = True
+        End If
+    End Sub
+    Private Sub FPSLabel_Click(sender As Object, e As EventArgs) Handles FPSLabel.Click
+        If FPSLabelVisible = True Then
+            FPSLabelVisible = False
+        Else
+            FPSLabelVisible = True
+        End If
     End Sub
 End Class
