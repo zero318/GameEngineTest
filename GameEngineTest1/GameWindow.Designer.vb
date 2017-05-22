@@ -26,12 +26,15 @@ Partial Class GameWindow
         Me.ThreadCountLabel = New System.Windows.Forms.Label()
         Me.GameArea = New System.Windows.Forms.Panel()
         Me.SlopePanelTest1 = New System.Windows.Forms.Panel()
+        Me.CollisionTestPanelLadder = New System.Windows.Forms.Panel()
         Me.CollisionTestPanel2 = New System.Windows.Forms.Panel()
         Me.CollisionTestPanel3 = New System.Windows.Forms.Panel()
-        Me.FPSLabel = New System.Windows.Forms.Label()
         Me.CollisionTestPanel1 = New System.Windows.Forms.Panel()
+        Me.FPSLabel = New System.Windows.Forms.Label()
+        Me.Megaman2 = New System.Windows.Forms.PictureBox()
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GameArea.SuspendLayout()
+        CType(Me.Megaman2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Megaman
@@ -60,10 +63,12 @@ Partial Class GameWindow
         '
         Me.GameArea.BackColor = System.Drawing.Color.Transparent
         Me.GameArea.Controls.Add(Me.SlopePanelTest1)
+        Me.GameArea.Controls.Add(Me.CollisionTestPanelLadder)
         Me.GameArea.Controls.Add(Me.CollisionTestPanel2)
         Me.GameArea.Controls.Add(Me.CollisionTestPanel3)
-        Me.GameArea.Controls.Add(Me.FPSLabel)
         Me.GameArea.Controls.Add(Me.CollisionTestPanel1)
+        Me.GameArea.Controls.Add(Me.FPSLabel)
+        Me.GameArea.Controls.Add(Me.Megaman2)
         Me.GameArea.Controls.Add(Me.Megaman)
         Me.GameArea.Controls.Add(Me.ThreadCountLabel)
         Me.GameArea.Dock = System.Windows.Forms.DockStyle.Fill
@@ -80,6 +85,16 @@ Partial Class GameWindow
         Me.SlopePanelTest1.Name = "SlopePanelTest1"
         Me.SlopePanelTest1.Size = New System.Drawing.Size(200, 50)
         Me.SlopePanelTest1.TabIndex = 7
+        Me.SlopePanelTest1.Tag = "SlopeGroundRight"
+        '
+        'CollisionTestPanelLadder
+        '
+        Me.CollisionTestPanelLadder.BackColor = System.Drawing.Color.DarkViolet
+        Me.CollisionTestPanelLadder.Location = New System.Drawing.Point(200, 583)
+        Me.CollisionTestPanelLadder.Name = "CollisionTestPanelLadder"
+        Me.CollisionTestPanelLadder.Size = New System.Drawing.Size(100, 292)
+        Me.CollisionTestPanelLadder.TabIndex = 8
+        Me.CollisionTestPanelLadder.Tag = "Ladder"
         '
         'CollisionTestPanel2
         '
@@ -88,6 +103,7 @@ Partial Class GameWindow
         Me.CollisionTestPanel2.Name = "CollisionTestPanel2"
         Me.CollisionTestPanel2.Size = New System.Drawing.Size(203, 125)
         Me.CollisionTestPanel2.TabIndex = 6
+        Me.CollisionTestPanel2.Tag = "Ground"
         '
         'CollisionTestPanel3
         '
@@ -96,6 +112,17 @@ Partial Class GameWindow
         Me.CollisionTestPanel3.Name = "CollisionTestPanel3"
         Me.CollisionTestPanel3.Size = New System.Drawing.Size(178, 110)
         Me.CollisionTestPanel3.TabIndex = 5
+        Me.CollisionTestPanel3.Tag = "Ground"
+        '
+        'CollisionTestPanel1
+        '
+        Me.CollisionTestPanel1.BackColor = System.Drawing.Color.Red
+        Me.CollisionTestPanel1.Location = New System.Drawing.Point(768, 825)
+        Me.CollisionTestPanel1.Margin = New System.Windows.Forms.Padding(2)
+        Me.CollisionTestPanel1.Name = "CollisionTestPanel1"
+        Me.CollisionTestPanel1.Size = New System.Drawing.Size(200, 50)
+        Me.CollisionTestPanel1.TabIndex = 2
+        Me.CollisionTestPanel1.Tag = "Ground"
         '
         'FPSLabel
         '
@@ -107,14 +134,16 @@ Partial Class GameWindow
         Me.FPSLabel.TabIndex = 3
         Me.FPSLabel.Text = "Label1"
         '
-        'CollisionTestPanel1
+        'Megaman2
         '
-        Me.CollisionTestPanel1.BackColor = System.Drawing.Color.Red
-        Me.CollisionTestPanel1.Location = New System.Drawing.Point(768, 825)
-        Me.CollisionTestPanel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.CollisionTestPanel1.Name = "CollisionTestPanel1"
-        Me.CollisionTestPanel1.Size = New System.Drawing.Size(200, 50)
-        Me.CollisionTestPanel1.TabIndex = 2
+        Me.Megaman2.BackColor = System.Drawing.Color.Transparent
+        Me.Megaman2.Location = New System.Drawing.Point(344, 449)
+        Me.Megaman2.Margin = New System.Windows.Forms.Padding(2)
+        Me.Megaman2.Name = "Megaman2"
+        Me.Megaman2.Size = New System.Drawing.Size(100, 100)
+        Me.Megaman2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.Megaman2.TabIndex = 0
+        Me.Megaman2.TabStop = False
         '
         'GameWindow
         '
@@ -133,6 +162,7 @@ Partial Class GameWindow
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GameArea.ResumeLayout(False)
         Me.GameArea.PerformLayout()
+        CType(Me.Megaman2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -145,4 +175,6 @@ Partial Class GameWindow
     Friend WithEvents CollisionTestPanel2 As Panel
     Friend WithEvents SlopePanelTest1 As Panel
     Public WithEvents ThreadCountLabel As Label
+    Friend WithEvents Megaman2 As PictureBox
+    Friend WithEvents CollisionTestPanelLadder As Panel
 End Class

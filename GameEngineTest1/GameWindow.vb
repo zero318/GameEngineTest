@@ -5,6 +5,7 @@ Public Class GameWindow
     Dim GamePath As String = My.Application.Info.DirectoryPath
     Dim GameAreaGraphics As Graphics
     Dim GameAreaGraphics2 As Graphics
+    Dim RenderRectangle As Rectangle
     Dim PaintThisCrap As PaintEventArgs
     Dim CustomDoubleBuffer As New BufferedGraphicsContext
     Dim TempRectangle As Rectangle
@@ -26,12 +27,14 @@ Public Class GameWindow
     Dim FPSTimerCall As New TimerCallback(AddressOf UpdateFPS)
     Dim FPSTimer As New Timer(FPSTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Dim ButtonHeld() As Boolean = {False, False}
-    Dim RightHeld As Boolean
-    Dim LeftHeld As Boolean
+    'Dim RightHeld As Boolean
+    'Dim LeftHeld As Boolean
     Dim GameAreaRectangle As Rectangle
+    Dim CollisionRegionArray(1) As Region
     Dim CollisionRegion As New Region()
     Dim CollisionRegion2 As New Region()
     Dim CollisionRegion3 As New Region()
+    Dim CollisionRegionLadders As New Region()
     Dim SlopeTestPoints(3) As PointF
     Dim SlopeTest As New Drawing2D.GraphicsPath()
     'Megaman specific variables start here
@@ -74,8 +77,8 @@ Public Class GameWindow
     Dim MegamanDead As Boolean
     Dim MegamanAnimationTimerCall As New TimerCallback(AddressOf AnimateMegamanRectangle)
     Dim MegamanAnimationTimer As New Timer(MegamanAnimationTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
-    Dim MegamanMegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
-    Dim MegamanPhysicsTimer As New Timer(MegamanMegamanPhysicsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
+    Dim MegamanPhysicsTimerCall As New TimerCallback(AddressOf MegamanRectanglePhysics)
+    Dim MegamanPhysicsTimer As New Timer(MegamanPhysicsTimerCall, vbNull, Timeout.Infinite, Timeout.Infinite)
     Protected Overrides Sub OnPaintBackground(ByVal e As PaintEventArgs)
         If PaintBackgroundOn = True Then
             MyBase.OnPaintBackground(e)
@@ -89,14 +92,22 @@ Public Class GameWindow
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Megaman.Top = Megaman.Parent.Height - Megaman.Height
         CollisionTestPanel1.Top = CollisionTestPanel1.Parent.Height - CollisionTestPanel1.Height
-        MegamanRectangle.X = Megaman.Left
-        MegamanRectangle.Y = Megaman.Top
-        MegamanRectangle.Width = Megaman.Width
-        MegamanRectangle.Height = Megaman.Height
-        MegamanRectangle2.X = Megaman.Left
-        MegamanRectangle2.Y = Megaman.Top
-        MegamanRectangle2.Width = Megaman.Width
-        MegamanRectangle2.Height = Megaman.Height
+        'MegamanRectangle.X = Megaman.Left
+        'MegamanRectangle.Y = Megaman.Top
+        'MegamanRectangle.Width = Megaman.Width
+        'MegamanRectangle.Height = Megaman.Height
+        'MegamanRectangle2.X = Megaman.Left
+        'MegamanRectangle2.Y = Megaman.Top
+        'MegamanRectangle2.Width = Megaman.Width
+        'MegamanRectangle2.Height = Megaman.Height
+        MegamanRectangle.X = Megaman2.Left
+        MegamanRectangle.Y = Megaman2.Top
+        MegamanRectangle.Width = Megaman2.Width
+        MegamanRectangle.Height = Megaman2.Height
+        MegamanRectangle2.X = Megaman2.Left
+        MegamanRectangle2.Y = Megaman2.Top
+        MegamanRectangle2.Width = Megaman2.Width
+        MegamanRectangle2.Height = Megaman2.Height
         GameAreaRectangle.X = GameArea.Left
         GameAreaRectangle.Y = GameArea.Top
         GameAreaRectangle.Width = GameArea.Width
@@ -104,6 +115,7 @@ Public Class GameWindow
         GameAreaGraphics = GameArea.CreateGraphics()
         GameAreaGraphics2 = GameArea.CreateGraphics()
         CollisionRegion.Exclude(GameAreaRectangle)
+        CollisionRegionLadders.Exclude(GameAreaRectangle)
         MegamanAnimationTimer.Change(TimerStartDelay, TimerInterval)
         If MainWindow.DebugHUDEnabled = True Then
             ThreadCountTimer.Change(TimerStartDelay, TimerInterval)
@@ -115,10 +127,15 @@ Public Class GameWindow
             ThreadCountTimer.Dispose()
         End If
         Megaman.Dispose()
+        Megaman2.Dispose()
         Using GameWindowGraphics As Graphics = CreateGraphics() 'This gets the screen resolution.
             ScreenDpiX = GameWindowGraphics.DpiX
             ScreenDpiY = GameWindowGraphics.DpiY
         End Using
+        RenderRectangle.X = 0
+        RenderRectangle.Y = 0
+        RenderRectangle.Width = GameArea.Width
+        RenderRectangle.Height = GameArea.Height
         If ScreenDpiX >= 100 Then
             MegamanVelocityMultiplier = 2
         Else
@@ -148,37 +165,94 @@ Public Class GameWindow
         MegamanCollisionVerticalRectangle.Y = MegamanRectangle.Top
         MegamanCollisionVerticalRectangle.Width = 1
         MegamanCollisionVerticalRectangle.Height = MegamanRectangle.Height
-        LoadPanelsTimer.Change(TimerStartDelay * 2, Timeout.Infinite)
+        LoadPanelsTimer.Change(TimerStartDelay, Timeout.Infinite)
     End Sub
     Friend Sub LoadPanels()
-        CollisionTestRectangle.X = CollisionTestPanel1.Left
-        CollisionTestRectangle.Y = CollisionTestPanel1.Top
-        CollisionTestRectangle.Width = CollisionTestPanel1.Width
-        CollisionTestRectangle.Height = CollisionTestPanel1.Height
-        CollisionRegion.Union(CollisionTestRectangle)
-        CollisionTestPanel1.Dispose()
-        CollisionTestRectangle.X = CollisionTestPanel2.Left
-        CollisionTestRectangle.Y = CollisionTestPanel2.Top
-        CollisionTestRectangle.Width = CollisionTestPanel2.Width
-        CollisionTestRectangle.Height = CollisionTestPanel2.Height
-        CollisionRegion.Union(CollisionTestRectangle)
-        CollisionTestPanel2.Dispose()
-        CollisionTestRectangle.X = CollisionTestPanel3.Left
-        CollisionTestRectangle.Y = CollisionTestPanel3.Top
-        CollisionTestRectangle.Width = CollisionTestPanel3.Width
-        CollisionTestRectangle.Height = CollisionTestPanel3.Height
-        CollisionRegion.Union(CollisionTestRectangle)
-        CollisionTestPanel3.Dispose()
-        SlopeTestPoints(0) = New PointF(SlopePanelTest1.Left, SlopePanelTest1.Bottom)
-        SlopeTestPoints(1) = New PointF(SlopePanelTest1.Right, SlopePanelTest1.Bottom)
-        SlopeTestPoints(2) = New PointF(SlopePanelTest1.Right, SlopePanelTest1.Top)
-        SlopeTestPoints(3) = New PointF(SlopePanelTest1.Left, SlopePanelTest1.Bottom)
-        SlopeTest.AddPolygon(SlopeTestPoints)
-        CollisionRegion.Union(SlopeTest)
-        SlopeTest.Dispose()
-        SlopePanelTest1.Dispose()
+        Dim PanelList As List(Of Panel) = New List(Of Panel)(GameArea.Controls.OfType(Of Panel))
+        'For Each PanelControl In GameArea.Controls.OfType(Of Panel)
+        For Each PanelControl As Panel In PanelList
+            Select Case PanelControl.Tag
+                Case "Ground"
+                    CollisionTestRectangle.X = PanelControl.Left
+                    CollisionTestRectangle.Y = PanelControl.Top
+                    CollisionTestRectangle.Width = PanelControl.Width
+                    CollisionTestRectangle.Height = PanelControl.Height
+                    CollisionRegion.Union(CollisionTestRectangle)
+                    'CollisionRegion.Union(New Rectangle(PanelControl.Left, PanelControl.Top, PanelControl.Width, PanelControl.Height))
+                Case "Ladder"
+                    CollisionTestRectangle.X = PanelControl.Left
+                    CollisionTestRectangle.Y = PanelControl.Top
+                    CollisionTestRectangle.Width = PanelControl.Width
+                    CollisionTestRectangle.Height = PanelControl.Height
+                    CollisionRegionLadders.Union(CollisionTestRectangle) 'New Rectangle(PanelControl.Left, PanelControl.Top, PanelControl.Width, PanelControl.Height))
+                Case "SlopeGroundRight"
+                    'SlopeTestPoints = {New PointF(PanelControl.Left, PanelControl.Bottom), New PointF(PanelControl.Right, PanelControl.Bottom), New PointF(PanelControl.Right, PanelControl.Top), New PointF(PanelControl.Left, PanelControl.Bottom)}
+                    'Using TempGraphicsPath As New Drawing2D.GraphicsPath
+                    'TempGraphicsPath.AddPolygon(SlopeTestPoints)
+                    'CollisionRegion.Union(TempGraphicsPath)
+                    CollisionRegion.Union(New Drawing2D.GraphicsPath(New PointF() {New PointF(PanelControl.Left, PanelControl.Bottom), New PointF(PanelControl.Right, PanelControl.Bottom), New PointF(PanelControl.Right, PanelControl.Top)}, New Byte() {0, 1, 129}))
+                    'End Using
+                Case "SlopeGroundLeft"
+                    SlopeTestPoints = {New PointF(PanelControl.Right, PanelControl.Bottom), New PointF(PanelControl.Left, PanelControl.Bottom), New PointF(PanelControl.Left, PanelControl.Top), New PointF(PanelControl.Right, PanelControl.Bottom)}
+                    Using TempGraphicsPath As New Drawing2D.GraphicsPath
+                        TempGraphicsPath.AddPolygon(SlopeTestPoints)
+                        CollisionRegion.Union(TempGraphicsPath)
+                    End Using
+                Case "SlopeCeilingRight"
+                    'SlopeTestPoints = {New PointF(PanelControl.Left, PanelControl.Top), New PointF(PanelControl.Right, PanelControl.Top), New PointF(PanelControl.Right, PanelControl.Bottom), New PointF(PanelControl.Left, PanelControl.Top)}
+                    Using TempGraphicsPath As New Drawing2D.GraphicsPath
+                        'TempGraphicsPath.AddPolygon(PointF() = {New PointF(PanelControl.Left, PanelControl.Top), New PointF(PanelControl.Right, PanelControl.Top), New PointF(PanelControl.Right, PanelControl.Bottom), New PointF(PanelControl.Left, PanelControl.Top)})
+                        CollisionRegion.Union(New Drawing2D.GraphicsPath(New PointF() {New PointF(PanelControl.Left, PanelControl.Top), New PointF(PanelControl.Right, PanelControl.Top), New PointF(PanelControl.Right, PanelControl.Bottom), New PointF(PanelControl.Left, PanelControl.Top)}, New Byte() {0, 1, 129}))
+                    End Using
+                Case "SlopeCeilingLeft"
+                    SlopeTestPoints = {New PointF(PanelControl.Right, PanelControl.Top), New PointF(PanelControl.Left, PanelControl.Top), New PointF(PanelControl.Left, PanelControl.Bottom), New PointF(PanelControl.Right, PanelControl.Top)}
+                    Using TempGraphicsPath As New Drawing2D.GraphicsPath
+                        TempGraphicsPath.AddPolygon(SlopeTestPoints)
+                        CollisionRegion.Union(TempGraphicsPath)
+                    End Using
+                Case Else
+                    CollisionTestRectangle.X = PanelControl.Left
+                    CollisionTestRectangle.Y = PanelControl.Top
+                    CollisionTestRectangle.Width = PanelControl.Width
+                    CollisionTestRectangle.Height = PanelControl.Height
+                    CollisionRegion.Union(CollisionTestRectangle)
+            End Select
+            PanelControl.Dispose()
+        Next
+        'CollisionTestRectangle.X = CollisionTestPanel1.Left
+        'CollisionTestRectangle.Y = CollisionTestPanel1.Top
+        'CollisionTestRectangle.Width = CollisionTestPanel1.Width
+        'CollisionTestRectangle.Height = CollisionTestPanel1.Height
+        'CollisionRegion.Union(CollisionTestRectangle)
+        'CollisionTestPanel1.Dispose()
+        'CollisionTestRectangle.X = CollisionTestPanel2.Left
+        'CollisionTestRectangle.Y = CollisionTestPanel2.Top
+        'CollisionTestRectangle.Width = CollisionTestPanel2.Width
+        'CollisionTestRectangle.Height = CollisionTestPanel2.Height
+        'CollisionRegion.Union(CollisionTestRectangle)
+        'CollisionTestPanel2.Dispose()
+        'CollisionTestRectangle.X = CollisionTestPanel3.Left
+        'CollisionTestRectangle.Y = CollisionTestPanel3.Top
+        'CollisionTestRectangle.Width = CollisionTestPanel3.Width
+        'CollisionTestRectangle.Height = CollisionTestPanel3.Height
+        'CollisionRegion.Union(CollisionTestRectangle)
+        'CollisionTestPanel3.Dispose()
+        'CollisionTestRectangle.X = CollisionTestPanelLadder.Left
+        'CollisionTestRectangle.Y = CollisionTestPanelLadder.Top
+        'CollisionTestRectangle.Width = CollisionTestPanelLadder.Width
+        'CollisionTestRectangle.Height = CollisionTestPanelLadder.Height
+        'CollisionRegionLadders.Union(CollisionTestRectangle)
+        'CollisionTestPanelLadder.Dispose()
+        'SlopeTestPoints(0) = New PointF(SlopePanelTest1.Left, SlopePanelTest1.Bottom)
+        'SlopeTestPoints(1) = New PointF(SlopePanelTest1.Right, SlopePanelTest1.Bottom)
+        'SlopeTestPoints(2) = New PointF(SlopePanelTest1.Right, SlopePanelTest1.Top)
+        'SlopeTestPoints(3) = New PointF(SlopePanelTest1.Left, SlopePanelTest1.Bottom)
+        'SlopeTest.AddPolygon(SlopeTestPoints)
+        'CollisionRegion.Union(SlopeTest)
+        'SlopeTest.Dispose()
+        'SlopePanelTest1.Dispose()
         CollisionRegion2 = CollisionRegion.Clone()
-        LoadPanelsTimer.Dispose()
+        'LoadPanelsTimer.Dispose()
     End Sub
     Friend Sub UpdateFPS()
         Try
@@ -256,10 +330,11 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub GameWindow_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles Me.Paint
-        CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics, New Rectangle(0, 0, GameArea.Width, GameArea.Height))
-        CustomGraphicsBuffer.Graphics.FillRectangle(SystemBrushes.Control, New Rectangle(0, 0, GameArea.Width, GameArea.Height))
+        CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics, RenderRectangle)
+        CustomGraphicsBuffer.Graphics.FillRectangle(SystemBrushes.Control, RenderRectangle)
         Try
             CustomGraphicsBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegion)
+            CustomGraphicsBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders)
         Catch ex As Exception
         End Try
         If Not MegamanRectangleImage Is Nothing Then
@@ -293,7 +368,7 @@ Public Class GameWindow
             End Try
         End If
         CustomGraphicsBuffer.Render(GameAreaGraphics)
-        CustomGraphicsBuffer.Dispose()
+        'CustomGraphicsBuffer.Dispose()
         Try
             FPS += 1
         Catch ex As Exception
@@ -627,8 +702,8 @@ Public Class GameWindow
                     Else    'If spawning on the ground...
                         MegamanAnimationFrame = 1
                         MegamanAnimation = 0 '+ (MegamanAnimation Mod 2)    'Display standing animation
-                        MegamanPhysicsTimer.Change(TimerStartDelay, TimerInterval)
                     End If
+                    MegamanPhysicsTimer.Change(TimerStartDelay, TimerInterval)
                 End If
         End Select
         If (MegamanAnimation2 Mod 2) = 1 Then 'If left...
