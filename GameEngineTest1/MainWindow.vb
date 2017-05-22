@@ -1,6 +1,7 @@
 ﻿Public Class MainWindow
     Friend DebugEnabled As Boolean = True 'This variable merely controls whether the user can access the debug menu.
     Friend MultithreadingEnabled As Boolean = True
+    Friend SkipToGame As Boolean = True
     Friend DebugHUDEnabled As Boolean = False
     Friend MissingCrapEnabled As Boolean = False 'This lets us get into all the broken/empty menus.
     Friend InternalAudioLevel As Byte = 100 'This does nothing. :D
@@ -19,6 +20,9 @@
             DebugMenuStrip.Enabled = False
         End If
         CheckForIllegalCrossThreadCalls = False
+        If SkipToGame = True Then
+            StartGame()
+        End If
     End Sub
     Private Sub DebugDebugMenuMenuStrip_Click(sender As Object, e As EventArgs) Handles DebugDebugMenuMenuStrip.Click
         DebugMenu.ShowDialog() 'This loads the DebugMenu.vb form
@@ -154,6 +158,9 @@
         KeyLabel.Text = Convert.ToChar(e.KeyCode)
     End Sub
     Private Sub StartButton_Click(sender As Object, e As EventArgs) Handles StartButton.Click
+        StartGame()
+    End Sub
+    Private Sub StartGame()
         StartButton.Enabled = False
         Try
             Hide()
