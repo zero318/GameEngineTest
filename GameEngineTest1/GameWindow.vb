@@ -295,7 +295,6 @@ Public Class GameWindow
         CustomGraphicsBuffer.Render(GameAreaGraphics)
         CustomGraphicsBuffer.Dispose()
         Try
-            'Invalidate()
             FPS += 1
         Catch ex As Exception
             FPS = 0
@@ -427,51 +426,29 @@ Public Class GameWindow
             MegamanOnGround = True
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Left, MegamanRectangle.Bottom) = True Then 'Test lower left
-            'MegamanOnGround = True
             If (Megaman30Angle >= 2 AndAlso Megaman30Angle <= 11) Then
-                'MegamanOnGround = True
                 MegamanYCollision -= 1
             End If
             If ((Megaman30Angle >= 6 AndAlso Megaman30Angle <= 10) OrElse Megaman30Angle = -1) AndAlso MegamanCollisionArray(0) = False Then
                 MegamanOnGround = True
             End If
             If (Megaman30Angle = 9 OrElse Megaman30Angle = 10) AndAlso MegamanOnGround = False Then
-                'MegamanOnGround = True
                 MegamanXCollision -= 1
             End If
-            'MegamanYCollision -= 1
             MegamanCollisionArray(6) = True
         End If
         If CollisionRegion2.IsVisible(MegamanRectangle.Right, MegamanRectangle.Bottom) = True Then 'Test lower right
-            'MegamanOnGround = True
             If ((Megaman30Angle >= 1 AndAlso Megaman30Angle <= 5) OrElse (Megaman30Angle >= 8 AndAlso Megaman30Angle <= 12)) Then
-                'MegamanOnGround = True
                 MegamanYCollision -= 1
             End If
             If ((Megaman30Angle = 1 OrElse (Megaman30Angle >= 9 AndAlso Megaman30Angle <= 12)) OrElse Megaman30Angle = -1) AndAlso MegamanCollisionArray(2) = False Then
                 MegamanOnGround = True
             End If
             If (Megaman30Angle = 9 OrElse Megaman30Angle = 10) AndAlso MegamanOnGround = False Then
-                'MegamanOnGround = True
                 MegamanXCollision += 1
             End If
-            'MegamanYCollision -= 1
             MegamanCollisionArray(8) = True
         End If
-        'If CollisionRegion2.IsVisible(MegamanRectangle.Left, MegamanRectangle.Top) = True Then 'Test upper left
-        '    MegamanXCollision -= 1
-        '    If ((Megaman30Angle >= 1 AndAlso Megaman30Angle <= 5) OrElse (Megaman30Angle >= 8 AndAlso Megaman30Angle <= 12)) Then
-        '        MegamanYCollision += 1
-        '    End If
-        '    MegamanCollisionArray(0) = True
-        'End If
-        'If CollisionRegion2.IsVisible(MegamanRectangle.Right, MegamanRectangle.Top) = True Then 'Test upper right
-        '    MegamanXCollision += 1
-        '    If (Megaman30Angle >= 2 AndAlso Megaman30Angle <= 11) Then
-        '        MegamanYCollision += 1
-        '    End If
-        '    MegamanCollisionArray(2) = True
-        'End If
         If CollisionRegion2.IsVisible((MegamanRectangle.Right - (MegamanRectangle.Width / 2)), MegamanRectangle.Top) = True Then 'Test middle top
             MegamanYCollision += 1
             MegamanXCollision = 0
@@ -495,15 +472,6 @@ Public Class GameWindow
             MegamanCollisionArray(5) = True
         End If
         '******************************************
-        'This section attempts to fix a few bugs with overhangs and narrow pits.
-        '******************************************
-        'If ((MegamanCollisionArray(2) = True) AndAlso (MegamanCollisionArray(5) = False) AndAlso (MegamanCollisionArray(8) = True)) OrElse ((MegamanCollisionArray(0) = True) AndAlso (MegamanCollisionArray(3) = False) AndAlso (MegamanCollisionArray(6) = True)) Then
-        '    MegamanYCollision = 0
-        'End If
-        'If ((MegamanCollisionArray(6) = True) AndAlso (MegamanCollisionArray(7) = False) AndAlso (MegamanCollisionArray(8) = True)) OrElse ((MegamanCollisionArray(0) = True) AndAlso (MegamanCollisionArray(1) = False) AndAlso (MegamanCollisionArray(2) = True)) Then
-        '    MegamanXCollision = 0
-        'End If
-        '******************************************
         'This section creates a duplicate of the current terrain and intersects it with the collision rectangles to determine how far inside a wall the player moved.
         '******************************************
         CollisionRegion3 = CollisionRegion2.Clone()
@@ -518,21 +486,6 @@ Public Class GameWindow
         '******************************************
         'This section compares the collision rectangles to the character size to fix a few collision bugs.
         '******************************************
-        'If MegamanCollisionRectangleTempY.Height >= MegamanRectangle.Height OrElse Not (MegamanCollisionArray(0) = False OrElse MegamanCollisionArray(6) = False) Then
-        '    MegamanCollisionRectangleTempY.Height = 0
-        'ElseIf MegamanCollisionRectangleTempY.Height > (MegamanRectangle.Height / 2) Then
-        '    MegamanCollisionRectangleTempY.Height = (MegamanCollisionRectangleTempY.Height - (MegamanRectangle.Height / 2))
-        'End If
-        'If MegamanCollisionRectangleTempY2.Height >= MegamanRectangle.Height OrElse Not (MegamanCollisionArray(1) = False OrElse MegamanCollisionArray(7) = False) Then
-        '    MegamanCollisionRectangleTempY2.Height = 0
-        'ElseIf MegamanCollisionRectangleTempY2.Height > (MegamanRectangle.Height / 2) Then
-        '    MegamanCollisionRectangleTempY2.Height = (MegamanCollisionRectangleTempY2.Height - (MegamanRectangle.Height / 2))
-        'End If
-        'If MegamanCollisionRectangleTempY3.Height >= MegamanRectangle.Height OrElse Not (MegamanCollisionArray(2) = False OrElse MegamanCollisionArray(8) = False) Then
-        '    MegamanCollisionRectangleTempY3.Height = 0
-        'ElseIf MegamanCollisionRectangleTempY3.Height > (MegamanRectangle.Height / 2) Then
-        '    MegamanCollisionRectangleTempY3.Height = (MegamanCollisionRectangleTempY3.Height - (MegamanRectangle.Height / 2))
-        'End If
         If MegamanCollisionRectangleTempY.Height > (MegamanRectangle.Height / 2) Then
             MegamanCollisionRectangleTempY.Height = 0
         End If
@@ -565,21 +518,6 @@ Public Class GameWindow
         '******************************************
         'This section compares the collision rectangles to the character size to fix a few collision bugs.
         '******************************************
-        'If MegamanCollisionRectangleTempX.Width >= MegamanRectangle.Width Then
-        '    MegamanCollisionRectangleTempX.Width = 0
-        'ElseIf MegamanCollisionRectangleTempX.Width > (MegamanRectangle.Width / 2) Then
-        '    MegamanCollisionRectangleTempX.Width = (MegamanCollisionRectangleTempX.Width - (MegamanRectangle.Width / 2))
-        'End If
-        'If MegamanCollisionRectangleTempX2.Width >= MegamanRectangle.Width Then
-        '    MegamanCollisionRectangleTempX2.Width = 0
-        'ElseIf MegamanCollisionRectangleTempX2.Width > (MegamanRectangle.Width / 2) Then
-        '    MegamanCollisionRectangleTempX2.Width = (MegamanCollisionRectangleTempX2.Width - (MegamanRectangle.Width / 2))
-        'End If
-        'If MegamanCollisionRectangleTempX3.Width >= MegamanRectangle.Width Then
-        '    MegamanCollisionRectangleTempX3.Width = 0
-        'ElseIf MegamanCollisionRectangleTempX3.Width > (MegamanRectangle.Width / 2) Then
-        '    MegamanCollisionRectangleTempX3.Width = (MegamanCollisionRectangleTempX3.Width - (MegamanRectangle.Width / 2))
-        'End If
         If MegamanCollisionRectangleTempX.Width > (MegamanRectangle.Width / 2) Then
             MegamanCollisionRectangleTempX.Width = 0
         End If
