@@ -9,8 +9,8 @@ Public Class GameWindow
     Dim CustomDoubleBuffer As New BufferedGraphicsContext
     Dim TempRectangle As Rectangle
     Dim CustomGraphicsBuffer As BufferedGraphics
-    Dim PaintBackgroundOn As Boolean = True
-    Dim PaintForegroundOn As Boolean = False
+    Dim PaintBackgroundOn As Boolean = False
+    Dim PaintForegroundOn As Boolean = True
     Dim Test1 As Integer
     Dim Test2 As Integer
     Dim ScreenDpiX As Integer
@@ -608,24 +608,26 @@ Public Class GameWindow
         '******************************************
         'This section updates the collision rectangles again.
         '******************************************
-        MegamanCollisionRightRectangle.X = MegamanRectangle.Right
-        MegamanCollisionRightRectangle.Y = MegamanRectangle.Top
-        MegamanCollisionRightRectangle.Height = MegamanRectangle.Height
-        MegamanCollisionLeftRectangle.X = MegamanRectangle.Left
-        MegamanCollisionLeftRectangle.Y = MegamanRectangle.Top
-        MegamanCollisionLeftRectangle.Height = MegamanRectangle.Height
-        MegamanCollisionTopRectangle.X = MegamanRectangle.Left
-        MegamanCollisionTopRectangle.Y = MegamanRectangle.Top
-        MegamanCollisionTopRectangle.Width = MegamanRectangle.Width
-        MegamanCollisionBottomRectangle.X = MegamanRectangle.Left
-        MegamanCollisionBottomRectangle.Y = MegamanRectangle.Bottom
-        MegamanCollisionBottomRectangle.Width = MegamanRectangle.Width
-        MegamanCollisionHorizontalRectangle.X = MegamanRectangle.Left
-        MegamanCollisionHorizontalRectangle.Y = (MegamanRectangle.Top + MegamanRectangle.Bottom) / 2
-        MegamanCollisionHorizontalRectangle.Width = MegamanRectangle.Width
-        MegamanCollisionVerticalRectangle.X = (MegamanRectangle.Left + MegamanRectangle.Right) / 2
-        MegamanCollisionVerticalRectangle.Y = MegamanRectangle.Top
-        MegamanCollisionVerticalRectangle.Height = MegamanRectangle.Height
+        If MainWindow.DebugBoundingBoxes = True Then
+            MegamanCollisionRightRectangle.X = MegamanRectangle.Right
+            MegamanCollisionRightRectangle.Y = MegamanRectangle.Top
+            MegamanCollisionRightRectangle.Height = MegamanRectangle.Height
+            MegamanCollisionLeftRectangle.X = MegamanRectangle.Left
+            MegamanCollisionLeftRectangle.Y = MegamanRectangle.Top
+            MegamanCollisionLeftRectangle.Height = MegamanRectangle.Height
+            MegamanCollisionTopRectangle.X = MegamanRectangle.Left
+            MegamanCollisionTopRectangle.Y = MegamanRectangle.Top
+            MegamanCollisionTopRectangle.Width = MegamanRectangle.Width
+            MegamanCollisionBottomRectangle.X = MegamanRectangle.Left
+            MegamanCollisionBottomRectangle.Y = MegamanRectangle.Bottom
+            MegamanCollisionBottomRectangle.Width = MegamanRectangle.Width
+            MegamanCollisionHorizontalRectangle.X = MegamanRectangle.Left
+            MegamanCollisionHorizontalRectangle.Y = (MegamanRectangle.Top + MegamanRectangle.Bottom) / 2
+            MegamanCollisionHorizontalRectangle.Width = MegamanRectangle.Width
+            MegamanCollisionVerticalRectangle.X = (MegamanRectangle.Left + MegamanRectangle.Right) / 2
+            MegamanCollisionVerticalRectangle.Y = MegamanRectangle.Top
+            MegamanCollisionVerticalRectangle.Height = MegamanRectangle.Height
+        End If
         If MegamanDead = True Then
             GameOverYeah()
         End If
