@@ -159,7 +159,7 @@ Public Class GameWindow
         '        CustomBackgroundBuffer.Graphics.DrawImage(GraphicsTextureArray(LoopIndexArray(3)), GraphicsRectangleArray(LoopIndexArray(3))) '.GetBounds(GameAreaGraphics(0))) 'FillPath(TextureArray(GraphicsPathTextureArray(LoopIndexArray(3))), GraphicsPathLocationArray(LoopIndexArray(3)))
         '    End If
         'Next
-        StartRendering(1) = True
+        StartRendering(0) = True
     End Sub
     Friend Sub UpdateFPS()
         If StartRendering(0) = True Then
@@ -245,7 +245,7 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub GameWindow_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles Me.Paint
-        If StartRendering(1) = True Then
+        If StartRendering(0) = True Then
             CustomBackgroundBuffer = CustomBackgroundBufferContext.Allocate(GameAreaGraphics(0), GameAreaRectangle)
             CustomBackgroundBuffer.Graphics.FillRectangle(New TextureBrush(TextureArray(0)), GameAreaRectangle)
             CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
@@ -255,11 +255,6 @@ Public Class GameWindow
                     CustomBackgroundBuffer.Graphics.DrawImage(GraphicsTextureArray(LoopIndexArray(3)), GraphicsRectangleArray(LoopIndexArray(3))) '.GetBounds(GameAreaGraphics(0))) 'FillPath(TextureArray(GraphicsPathTextureArray(LoopIndexArray(3))), GraphicsPathLocationArray(LoopIndexArray(3)))
                 End If
             Next
-            StartRendering(1) = False
-            StartRendering(0) = True
-            CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
-        End If
-        If StartRendering(0) = True Then
             CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
             CustomDoubleBuffer = CustomBackgroundBufferContext
             CustomGraphicsBuffer = CustomBackgroundBuffer
@@ -275,8 +270,6 @@ Public Class GameWindow
                 Next
             End If
             CustomGraphicsBuffer.Render(GameAreaGraphics(0))
-            CustomDoubleBuffer.Invalidate()
-            CustomGraphicsBuffer.Dispose()
             Try
                 FPS += 1
             Catch ex As Exception
