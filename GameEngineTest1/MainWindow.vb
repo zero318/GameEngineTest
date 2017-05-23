@@ -5,7 +5,7 @@
     Friend DebugHUDEnabled As Boolean = False
     Friend MissingCrapEnabled As Boolean = False 'This lets us get into all the broken/empty menus.
     Friend InternalAudioLevel As Byte = 100 'This does nothing. :D
-    Friend DebugBoundingBoxes As Boolean = False
+    Friend DebugBoundingBoxes As Boolean = True
     Friend AudioEnabled As Boolean = True
     Dim CountingThread1 As Threading.Thread
     Dim CountingThread2 As Threading.Thread
