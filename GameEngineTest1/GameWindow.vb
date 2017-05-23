@@ -149,16 +149,16 @@ Public Class GameWindow
         Next
         CollisionRegionArray(1) = CollisionRegionArray(0).Clone()
         TimerArray(4).Dispose()
-        CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
-        CustomBackgroundBuffer = CustomBackgroundBufferContext.Allocate(GameAreaGraphics(0), GameAreaRectangle)
-        CustomBackgroundBuffer.Graphics.FillRectangle(New TextureBrush(TextureArray(0)), GameAreaRectangle)
-        CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
-        CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders)
-        For LoopIndexArray(3) = 0 To (GraphicsRectangleArray.Length - 1)
-            If Not GraphicsTextureArray(LoopIndexArray(3)) Is Nothing Then
-                CustomBackgroundBuffer.Graphics.DrawImage(GraphicsTextureArray(LoopIndexArray(3)), GraphicsRectangleArray(LoopIndexArray(3))) '.GetBounds(GameAreaGraphics(0))) 'FillPath(TextureArray(GraphicsPathTextureArray(LoopIndexArray(3))), GraphicsPathLocationArray(LoopIndexArray(3)))
-            End If
-        Next
+        ''CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
+        'CustomBackgroundBuffer = CustomBackgroundBufferContext.Allocate(GameAreaGraphics(0), GameAreaRectangle)
+        'CustomBackgroundBuffer.Graphics.FillRectangle(New TextureBrush(TextureArray(0)), GameAreaRectangle)
+        'CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
+        'CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders)
+        'For LoopIndexArray(3) = 0 To (GraphicsRectangleArray.Length - 1)
+        '    If Not GraphicsTextureArray(LoopIndexArray(3)) Is Nothing Then
+        '        CustomBackgroundBuffer.Graphics.DrawImage(GraphicsTextureArray(LoopIndexArray(3)), GraphicsRectangleArray(LoopIndexArray(3))) '.GetBounds(GameAreaGraphics(0))) 'FillPath(TextureArray(GraphicsPathTextureArray(LoopIndexArray(3))), GraphicsPathLocationArray(LoopIndexArray(3)))
+        '    End If
+        'Next
         StartRendering(1) = True
     End Sub
     Friend Sub UpdateFPS()
@@ -246,18 +246,18 @@ Public Class GameWindow
     End Sub
     Private Sub GameWindow_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles Me.Paint
         If StartRendering(1) = True Then
-            'CustomBackgroundBuffer = CustomBackgroundBufferContext.Allocate(GameAreaGraphics(0), GameAreaRectangle)
-            'CustomBackgroundBuffer.Graphics.FillRectangle(New TextureBrush(TextureArray(0)), GameAreaRectangle)
-            'CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
-            'CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders)
-            'For LoopIndexArray(3) = 0 To (GraphicsRectangleArray.Length - 1)
-            '    If Not GraphicsTextureArray(LoopIndexArray(3)) Is Nothing Then
-            '        CustomBackgroundBuffer.Graphics.DrawImage(GraphicsTextureArray(LoopIndexArray(3)), GraphicsRectangleArray(LoopIndexArray(3))) '.GetBounds(GameAreaGraphics(0))) 'FillPath(TextureArray(GraphicsPathTextureArray(LoopIndexArray(3))), GraphicsPathLocationArray(LoopIndexArray(3)))
-            '    End If
-            'Next
+            CustomBackgroundBuffer = CustomBackgroundBufferContext.Allocate(GameAreaGraphics(0), GameAreaRectangle)
+            CustomBackgroundBuffer.Graphics.FillRectangle(New TextureBrush(TextureArray(0)), GameAreaRectangle)
+            CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
+            CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders)
+            For LoopIndexArray(3) = 0 To (GraphicsRectangleArray.Length - 1)
+                If Not GraphicsTextureArray(LoopIndexArray(3)) Is Nothing Then
+                    CustomBackgroundBuffer.Graphics.DrawImage(GraphicsTextureArray(LoopIndexArray(3)), GraphicsRectangleArray(LoopIndexArray(3))) '.GetBounds(GameAreaGraphics(0))) 'FillPath(TextureArray(GraphicsPathTextureArray(LoopIndexArray(3))), GraphicsPathLocationArray(LoopIndexArray(3)))
+                End If
+            Next
             StartRendering(1) = False
             StartRendering(0) = True
-            'CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
+            CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
         End If
         If StartRendering(0) = True Then
             CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
@@ -273,8 +273,8 @@ Public Class GameWindow
                     CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Ceiling(MegamanCollisionRectangleTempArray(LoopIndexArray(0))))
                 Next
             End If
-            'CustomBackgroundBuffer.Render(GameAreaGraphics(0))
             CustomGraphicsBuffer.Render(GameAreaGraphics(0))
+            'CustomGraphicsBuffer.Invalidate()
             Try
                 FPS += 1
             Catch ex As Exception
