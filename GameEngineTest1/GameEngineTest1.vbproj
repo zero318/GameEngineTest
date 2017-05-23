@@ -724,9 +724,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MazeBackground.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\bkMaze.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

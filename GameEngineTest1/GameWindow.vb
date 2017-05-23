@@ -2,7 +2,7 @@
 Imports System.Math
 Imports System.Drawing.Drawing2D
 Public Class GameWindow
-    Dim LoopIndexArray(1) As Integer 'Drawing = 0 and Physics = 1
+    Dim LoopIndexArray(3) As Integer 'Drawing = 0, Physics = 1, PanelArray = 2, and PanelRender = 3
     Dim FPS As Integer
     Dim GamePath As String = My.Application.Info.DirectoryPath
     Dim GameAreaGraphics(1) As Graphics
@@ -37,7 +37,9 @@ Public Class GameWindow
     Dim MegamanAngleArray(1) As SByte '30 = 0 and 45 = 1
     Dim MegamanHealth As Integer = 100
     Dim MegamanDead As Boolean
-    Dim TextureArray() As TextureBrush = {New TextureBrush(Image.FromFile(GamePath & "\Resources\bkMaze.bmp")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeBlock1.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeBlock2.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerA.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerB.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightA.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightB.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorSlopeRight.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerA.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerB.png"))}
+    Dim GraphicsPathLocationArray() As GraphicsPath
+    Dim GraphicsPathTextureArray() As Integer
+    Dim TextureArray() As TextureBrush = {New TextureBrush(Image.FromFile(GamePath & "\Resources\bkMaze.bmp")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeBlock1.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeBlock2.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerA.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerB.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerA.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerB.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightA.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightB.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorSlopeRight.png"))}
     Protected Overrides Sub OnPaintBackground(ByVal e As PaintEventArgs)
         If PaintSomegroundOnArray(0) = True Then
             MyBase.OnPaintBackground(e)
@@ -91,22 +93,38 @@ Public Class GameWindow
     End Sub
     Friend Sub LoadPanels()
         Dim PanelList As List(Of Panel) = New List(Of Panel)(GameArea.Controls.OfType(Of Panel))
+        ReDim GraphicsPathLocationArray(PanelList.Count)
+        ReDim GraphicsPathTextureArray(PanelList.Count)
+        LoopIndexArray(2) = -1
         For Each PanelControl As Panel In PanelList
+            LoopIndexArray(2) += 1
             Select Case PanelControl.Tag
                 Case "Ground"
-                    CollisionRegionArray(0).Union(New Rectangle(PanelControl.Left, PanelControl.Top, PanelControl.Width, PanelControl.Height))
+                    CollisionRegionArray(0).Union(Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height))
                 Case "Ladder"
-                    CollisionRegionLadders.Union(New Rectangle(PanelControl.Left, PanelControl.Top, PanelControl.Width, PanelControl.Height))
+                    CollisionRegionLadders.Union(Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height))
                 Case "SlopeGroundRight"
-                    CollisionRegionArray(0).Union(New GraphicsPath(New PointF() {New PointF(PanelControl.Left, PanelControl.Bottom), New PointF(PanelControl.Right, PanelControl.Bottom), New PointF(PanelControl.Right, PanelControl.Top)}, New Byte() {0, 1, 129}))
+                    CollisionRegionArray(0).Union(New GraphicsPath(New Point() {New Point(PanelControl.Left, PanelControl.Bottom), New Point(PanelControl.Right, PanelControl.Bottom), New Point(PanelControl.Right, PanelControl.Top)}, New Byte() {0, 1, 129}))
                 Case "SlopeGroundLeft"
-                    CollisionRegionArray(0).Union(New GraphicsPath(New PointF() {New PointF(PanelControl.Right, PanelControl.Bottom), New PointF(PanelControl.Left, PanelControl.Bottom), New PointF(PanelControl.Left, PanelControl.Top)}, New Byte() {0, 1, 129}))
+                    CollisionRegionArray(0).Union(New GraphicsPath(New Point() {New Point(PanelControl.Right, PanelControl.Bottom), New Point(PanelControl.Left, PanelControl.Bottom), New Point(PanelControl.Left, PanelControl.Top)}, New Byte() {0, 1, 129}))
                 Case "SlopeCeilingRight"
-                    CollisionRegionArray(0).Union(New GraphicsPath(New PointF() {New PointF(PanelControl.Left, PanelControl.Top), New PointF(PanelControl.Right, PanelControl.Top), New PointF(PanelControl.Right, PanelControl.Bottom)}, New Byte() {0, 1, 129}))
+                    CollisionRegionArray(0).Union(New GraphicsPath(New Point() {New Point(PanelControl.Left, PanelControl.Top), New Point(PanelControl.Right, PanelControl.Top), New Point(PanelControl.Right, PanelControl.Bottom)}, New Byte() {0, 1, 129}))
                 Case "SlopeCeilingLeft"
-                    CollisionRegionArray(0).Union(New GraphicsPath(New PointF() {New PointF(PanelControl.Right, PanelControl.Top), New PointF(PanelControl.Left, PanelControl.Top), New PointF(PanelControl.Left, PanelControl.Bottom)}, New Byte() {0, 1, 129}))
+                    CollisionRegionArray(0).Union(New GraphicsPath(New Point() {New Point(PanelControl.Right, PanelControl.Top), New Point(PanelControl.Left, PanelControl.Top), New Point(PanelControl.Left, PanelControl.Bottom)}, New Byte() {0, 1, 129}))
                 Case Else
-                    CollisionRegionArray(0).Union(New Rectangle(PanelControl.Left, PanelControl.Top, PanelControl.Width, PanelControl.Height))
+                    CollisionRegionArray(0).Union(Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height))
+            End Select
+            GraphicsPathLocationArray(LoopIndexArray(2)).AddRectangle(Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height))
+            Select Case PanelControl.AccessibleName
+                Case "MazeBlock1.png"
+
+                Case "MazeBlock2.png"
+
+                Case "MazeCeilingBlockLayerA.png"
+
+                Case "MazeCeilingBlockLayerB.png"
+
+
             End Select
             PanelControl.Dispose()
         Next
@@ -196,6 +214,9 @@ Public Class GameWindow
         Catch ex As Exception
         End Try
         Try
+            For LoopIndexArray(3) = 0 To GraphicsPathLocationArray.Length
+
+            Next
             CustomGraphicsBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
             CustomGraphicsBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders)
         Catch ex As Exception
