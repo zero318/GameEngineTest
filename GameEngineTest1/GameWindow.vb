@@ -261,6 +261,7 @@ Public Class GameWindow
         End If
         If StartRendering(0) = True Then
             CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
+            CustomDoubleBuffer = CustomBackgroundBufferContext
             CustomGraphicsBuffer = CustomBackgroundBuffer
             If Not MegamanRectangleImage Is Nothing Then
                 CustomGraphicsBuffer.Graphics.DrawImageUnscaled(MegamanRectangleImage, ((MegamanRectangle(0).X + (MegamanRectangle(0).Width / 2)) - (((MegamanRectangleImage.Width / MegamanRectangleImage.HorizontalResolution) * ScreenDpiArray(0))) / 2), (MegamanRectangle(0).Y - (((MegamanRectangleImage.Height / MegamanRectangleImage.VerticalResolution) * ScreenDpiArray(1)) - MegamanRectangle(0).Height)))
@@ -274,7 +275,8 @@ Public Class GameWindow
                 Next
             End If
             CustomGraphicsBuffer.Render(GameAreaGraphics(0))
-            'CustomGraphicsBuffer.Invalidate()
+            CustomDoubleBuffer.Invalidate()
+            CustomGraphicsBuffer.Dispose()
             Try
                 FPS += 1
             Catch ex As Exception
