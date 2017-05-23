@@ -63,6 +63,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property bkMaze() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("bkMaze", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Climbing1() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Climbing1", resourceCulture)
@@ -630,6 +640,96 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property MazeBlock1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MazeBlock1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property MazeBlock2() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MazeBlock2", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property MazeCeilingBlockLayerA() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MazeCeilingBlockLayerA", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property MazeCeilingBlockLayerB() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MazeCeilingBlockLayerB", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property MazeFloorBlockLayerA() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MazeFloorBlockLayerA", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property MazeFloorBlockLayerB() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MazeFloorBlockLayerB", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property MazeFloorBlockSlopeRightA() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MazeFloorBlockSlopeRightA", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property MazeFloorBlockSlopeRightB() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MazeFloorBlockSlopeRightB", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property MazeFloorSlopeRight() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MazeFloorSlopeRight", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property megamanx() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("megamanx", resourceCulture)
@@ -663,6 +763,16 @@ Namespace My.Resources
         Friend ReadOnly Property Portrait1() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Portrait1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property PrtMaze() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("PrtMaze", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

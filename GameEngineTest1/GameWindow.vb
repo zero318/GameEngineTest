@@ -37,6 +37,7 @@ Public Class GameWindow
     Dim MegamanAngleArray(1) As SByte '30 = 0 and 45 = 1
     Dim MegamanHealth As Integer = 100
     Dim MegamanDead As Boolean
+    Dim TextureArray() As TextureBrush = {New TextureBrush(Image.FromFile(GamePath & "\Resources\bkMaze.bmp")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeBlock1.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeBlock2.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerA.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerB.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightA.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightB.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeFloorSlopeRight.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerA.png")), New TextureBrush(Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerB.png"))}
     Protected Overrides Sub OnPaintBackground(ByVal e As PaintEventArgs)
         If PaintSomegroundOnArray(0) = True Then
             MyBase.OnPaintBackground(e)
@@ -82,7 +83,7 @@ Public Class GameWindow
         End If
         MegamanCollisionRectangleArray(0) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Top, MegamanRectangle(0).Left + 1, MegamanRectangle(0).Top + MegamanRectangle(0).Height) 'Left
         MegamanCollisionRectangleArray(1) = RectangleF.FromLTRB((MegamanRectangle(0).Left + MegamanRectangle(0).Right) / 2, MegamanRectangle(0).Top, ((MegamanRectangle(0).Left + MegamanRectangle(0).Right) / 2) + 1, MegamanRectangle(0).Top + MegamanRectangle(0).Height) 'Vertical
-        MegamanCollisionRectangleArray(2) = RectangleF.FromLTRB(MegamanRectangle(0).Right, MegamanRectangle(0).Top, MegamanRectangle(0).Right + 1, MegamanRectangle(0).Height + MegamanRectangle(0).Height) 'Right
+        MegamanCollisionRectangleArray(2) = RectangleF.FromLTRB(MegamanRectangle(0).Right, MegamanRectangle(0).Top, MegamanRectangle(0).Right + 1, MegamanRectangle(0).Top + MegamanRectangle(0).Height) 'Right
         MegamanCollisionRectangleArray(3) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Top, MegamanRectangle(0).Left + MegamanRectangle(0).Width, MegamanRectangle(0).Top + 1) 'Top
         MegamanCollisionRectangleArray(4) = RectangleF.FromLTRB(MegamanRectangle(0).Left, (MegamanRectangle(0).Top + MegamanRectangle(0).Bottom) / 2, MegamanRectangle(0).Left + MegamanRectangle(0).Width, ((MegamanRectangle(0).Top + MegamanRectangle(0).Bottom) / 2) + 1) 'Horizontal
         MegamanCollisionRectangleArray(5) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Bottom, MegamanRectangle(0).Left + MegamanRectangle(0).Width, MegamanRectangle(0).Bottom + 1) 'Bottom
@@ -190,6 +191,10 @@ Public Class GameWindow
     Private Sub GameWindow_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles Me.Paint
         CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
         CustomGraphicsBuffer.Graphics.FillRectangle(SystemBrushes.Control, GameAreaRectangle)
+        Try
+            CustomGraphicsBuffer.Graphics.FillRectangle(TextureArray(0), GameAreaRectangle)
+        Catch ex As Exception
+        End Try
         Try
             CustomGraphicsBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
             CustomGraphicsBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders)
