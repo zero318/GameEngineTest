@@ -22,6 +22,7 @@ Public Class GameWindow
     Dim CollisionRegionArray() As Region = {New Region, New Region, New Region}
     Dim CollisionRegionLadders As New Region
     'Megaman specific variables start here
+    Dim MegamanSpawnLocation As Integer = 2
     Dim MegamanBlinkRate As Integer = 15
     Dim MegamanRectangle() As RectangleF = {New RectangleF(50, 400, 100, 100), New RectangleF(50, 400, 100, 100)}
     Dim MegamanCollisionRectangleTempArray() As RectangleF = {New RectangleF(0, 0, 0, 0), New RectangleF(0, 0, 0, 0), New RectangleF(0, 0, 0, 0), New RectangleF(0, 0, 0, 0), New RectangleF(0, 0, 0, 0), New RectangleF(0, 0, 0, 0)}
@@ -43,6 +44,7 @@ Public Class GameWindow
     Dim GraphicsRectangleArray() As Rectangle
     Dim GraphicsTextureArray() As Image
     Dim TextureArray() As Image = {Image.FromFile(GamePath & "\Resources\bkMaze.bmp"), Image.FromFile(GamePath & "\Resources\MazeBlock1.png"), Image.FromFile(GamePath & "\Resources\MazeBlock2.png"), Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerA.png"), Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerA.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightA.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorSlopeRight.png")}
+    Dim TextureBrushArray() As TextureBrush
     Protected Overrides Sub OnPaintBackground(ByVal e As PaintEventArgs)
         If PaintSomegroundOnArray(0) = True Then
             MyBase.OnPaintBackground(e)
@@ -56,10 +58,14 @@ Public Class GameWindow
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Megaman.Top = Megaman.Parent.Height - Megaman.Height
         CollisionTestPanel1.Top = CollisionTestPanel1.Parent.Height - CollisionTestPanel1.Height
-        'MegamanRectangle(0) = Rectangle.FromLTRB(Megaman.Left, Megaman.Top, Megaman.Left + Megaman.Width, Megaman.Top + Megaman.Height)
-        'MegamanRectangle(1) = Rectangle.FromLTRB(Megaman.Left, Megaman.Top, Megaman.Left + Megaman.Width, Megaman.Top + Megaman.Height)
-        MegamanRectangle(0) = Rectangle.FromLTRB(Megaman2.Left, Megaman2.Top, Megaman2.Left + Megaman2.Width, Megaman2.Top + Megaman2.Height)
-        MegamanRectangle(1) = Rectangle.FromLTRB(Megaman2.Left, Megaman2.Top, Megaman2.Left + Megaman2.Width, Megaman2.Top + Megaman2.Height)
+        Select Case MegamanSpawnLocation
+            Case Is = 1
+                MegamanRectangle(0) = Rectangle.FromLTRB(Megaman.Left, Megaman.Top, Megaman.Left + Megaman.Width, Megaman.Top + Megaman.Height)
+                MegamanRectangle(1) = Rectangle.FromLTRB(Megaman.Left, Megaman.Top, Megaman.Left + Megaman.Width, Megaman.Top + Megaman.Height)
+            Case Is = 2
+                MegamanRectangle(0) = Rectangle.FromLTRB(Megaman2.Left, Megaman2.Top, Megaman2.Left + Megaman2.Width, Megaman2.Top + Megaman2.Height)
+                MegamanRectangle(1) = Rectangle.FromLTRB(Megaman2.Left, Megaman2.Top, Megaman2.Left + Megaman2.Width, Megaman2.Top + Megaman2.Height)
+        End Select
         GameAreaRectangle = Rectangle.FromLTRB(GameArea.Left, GameArea.Top, GameArea.Left + GameArea.Width, GameArea.Top + GameArea.Height)
         GameAreaGraphics(0) = GameArea.CreateGraphics()
         GameAreaGraphics(1) = GameArea.CreateGraphics()
@@ -149,17 +155,7 @@ Public Class GameWindow
         Next
         CollisionRegionArray(1) = CollisionRegionArray(0).Clone()
         TimerArray(4).Dispose()
-        ''CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
-        'CustomBackgroundBuffer = CustomBackgroundBufferContext.Allocate(GameAreaGraphics(0), GameAreaRectangle)
-        'CustomBackgroundBuffer.Graphics.FillRectangle(New TextureBrush(TextureArray(0)), GameAreaRectangle)
-        'CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
-        'CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders)
-        'For LoopIndexArray(3) = 0 To (GraphicsRectangleArray.Length - 1)
-        '    If Not GraphicsTextureArray(LoopIndexArray(3)) Is Nothing Then
-        '        CustomBackgroundBuffer.Graphics.DrawImage(GraphicsTextureArray(LoopIndexArray(3)), GraphicsRectangleArray(LoopIndexArray(3))) '.GetBounds(GameAreaGraphics(0))) 'FillPath(TextureArray(GraphicsPathTextureArray(LoopIndexArray(3))), GraphicsPathLocationArray(LoopIndexArray(3)))
-        '    End If
-        'Next
-        StartRendering(0) = True
+        StartRendering(1) = True
     End Sub
     Friend Sub UpdateFPS()
         If StartRendering(0) = True Then
@@ -226,6 +222,8 @@ Public Class GameWindow
                                 MegamanAnimationArray(0) = 2    'Jump
                             End If
                         End If
+                    Case Keys.Down
+
                 End Select
             End If
         End If
@@ -245,8 +243,13 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub GameWindow_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles Me.Paint
-        If StartRendering(0) = True Then
+        If StartRendering(1) = True Then
             CustomBackgroundBuffer = CustomBackgroundBufferContext.Allocate(GameAreaGraphics(0), GameAreaRectangle)
+            CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
+            StartRendering(1) = False
+            StartRendering(0) = True
+        End If
+        If StartRendering(0) = True Then
             CustomBackgroundBuffer.Graphics.FillRectangle(New TextureBrush(TextureArray(0)), GameAreaRectangle)
             CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
             CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders)
@@ -255,7 +258,6 @@ Public Class GameWindow
                     CustomBackgroundBuffer.Graphics.DrawImage(GraphicsTextureArray(LoopIndexArray(3)), GraphicsRectangleArray(LoopIndexArray(3))) '.GetBounds(GameAreaGraphics(0))) 'FillPath(TextureArray(GraphicsPathTextureArray(LoopIndexArray(3))), GraphicsPathLocationArray(LoopIndexArray(3)))
                 End If
             Next
-            CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
             CustomDoubleBuffer = CustomBackgroundBufferContext
             CustomGraphicsBuffer = CustomBackgroundBuffer
             If Not MegamanRectangleImage Is Nothing Then
