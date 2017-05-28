@@ -21,6 +21,10 @@ Public Class GameWindow
     Dim GameAreaRectangle As Rectangle
     Dim CollisionRegionArray() As Region = {New Region, New Region, New Region}
     Dim CollisionRegionLadders As New Region
+    Dim GraphicsRectangleArray() As Rectangle
+    Dim GraphicsTextureArray() As Image
+    Dim TextureArray() As Image = {Image.FromFile(GamePath & "\Resources\bkMaze.bmp"), Image.FromFile(GamePath & "\Resources\MazeBlock1.png"), Image.FromFile(GamePath & "\Resources\MazeBlock2.png"), Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerA.png"), Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerA.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightA.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorSlopeRight.png")}
+    Dim TextureBrushArray() As TextureBrush
     'Megaman specific variables start here
     Dim MegamanSpawnLocation As Integer = 2
     Dim MegamanBlinkRate As Integer = 15
@@ -41,10 +45,6 @@ Public Class GameWindow
     Dim MegamanAngleArray(1) As SByte '30 = 0 and 45 = 1
     Dim MegamanHealth As Integer = 100
     Dim MegamanDead As Boolean
-    Dim GraphicsRectangleArray() As Rectangle
-    Dim GraphicsTextureArray() As Image
-    Dim TextureArray() As Image = {Image.FromFile(GamePath & "\Resources\bkMaze.bmp"), Image.FromFile(GamePath & "\Resources\MazeBlock1.png"), Image.FromFile(GamePath & "\Resources\MazeBlock2.png"), Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerA.png"), Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerA.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightA.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorSlopeRight.png")}
-    Dim TextureBrushArray() As TextureBrush
     Protected Overrides Sub OnPaintBackground(ByVal e As PaintEventArgs)
         If PaintSomegroundOnArray(0) = True Then
             MyBase.OnPaintBackground(e)
@@ -124,7 +124,7 @@ Public Class GameWindow
                 Case Else
                     CollisionRegionArray(0).Union(Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height))
             End Select
-            GraphicsRectangleArray(LoopIndexArray(2)) = Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height)
+            GraphicsRectangleArray(LoopIndexArray(2)) = Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width + 5, PanelControl.Top + PanelControl.Height + 5)
             Select Case PanelControl.AccessibleName
                 Case "blMaze.bmp"
                     GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(0)
@@ -251,7 +251,7 @@ Public Class GameWindow
         End If
         If StartRendering(0) = True Then
             CustomBackgroundBuffer.Graphics.FillRectangle(New TextureBrush(TextureArray(0)), GameAreaRectangle)
-            CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
+            'CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
             CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders)
             For LoopIndexArray(3) = 0 To (GraphicsRectangleArray.Length - 1)
                 If Not GraphicsTextureArray(LoopIndexArray(3)) Is Nothing Then

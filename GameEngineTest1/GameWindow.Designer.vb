@@ -100,7 +100,7 @@ Partial Class GameWindow
         '
         'CollisionTestPanel2
         '
-        Me.CollisionTestPanel2.AccessibleName = "Color"
+        Me.CollisionTestPanel2.AccessibleName = "MazeFloorBlockLayerA.png"
         Me.CollisionTestPanel2.BackColor = System.Drawing.Color.Red
         Me.CollisionTestPanel2.Location = New System.Drawing.Point(300, 583)
         Me.CollisionTestPanel2.Name = "CollisionTestPanel2"
@@ -110,7 +110,7 @@ Partial Class GameWindow
         '
         'CollisionTestPanel3
         '
-        Me.CollisionTestPanel3.AccessibleName = "Color"
+        Me.CollisionTestPanel3.AccessibleName = "MazeFloorBlockLayerA.png"
         Me.CollisionTestPanel3.BackColor = System.Drawing.Color.Red
         Me.CollisionTestPanel3.Location = New System.Drawing.Point(966, 621)
         Me.CollisionTestPanel3.Name = "CollisionTestPanel3"
@@ -122,6 +122,7 @@ Partial Class GameWindow
         '
         Me.CollisionTestPanel1.AccessibleName = "MazeFloorBlockLayerA.png"
         Me.CollisionTestPanel1.BackColor = System.Drawing.Color.Red
+        Me.CollisionTestPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.CollisionTestPanel1.Location = New System.Drawing.Point(768, 825)
         Me.CollisionTestPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.CollisionTestPanel1.Name = "CollisionTestPanel1"
