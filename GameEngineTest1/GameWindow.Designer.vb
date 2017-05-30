@@ -31,18 +31,18 @@ Partial Class GameWindow
         Me.CollisionTestPanel3 = New System.Windows.Forms.Panel()
         Me.CollisionTestPanel1 = New System.Windows.Forms.Panel()
         Me.FPSLabel = New System.Windows.Forms.Label()
-        Me.Megaman2 = New System.Windows.Forms.PictureBox()
         Me.Megaman3 = New System.Windows.Forms.PictureBox()
+        Me.Megaman2 = New System.Windows.Forms.PictureBox()
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GameArea.SuspendLayout()
-        CType(Me.Megaman2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Megaman3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Megaman2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Megaman
         '
         Me.Megaman.BackColor = System.Drawing.Color.Transparent
-        Me.Megaman.Location = New System.Drawing.Point(0, 812)
+        Me.Megaman.Location = New System.Drawing.Point(668, 514)
         Me.Megaman.Margin = New System.Windows.Forms.Padding(2)
         Me.Megaman.Name = "Megaman"
         Me.Megaman.Size = New System.Drawing.Size(100, 100)
@@ -143,6 +143,17 @@ Partial Class GameWindow
         Me.FPSLabel.TabIndex = 3
         Me.FPSLabel.Text = "Label1"
         '
+        'Megaman3
+        '
+        Me.Megaman3.BackColor = System.Drawing.Color.Transparent
+        Me.Megaman3.Location = New System.Drawing.Point(344, 750)
+        Me.Megaman3.Margin = New System.Windows.Forms.Padding(2)
+        Me.Megaman3.Name = "Megaman3"
+        Me.Megaman3.Size = New System.Drawing.Size(125, 125)
+        Me.Megaman3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.Megaman3.TabIndex = 0
+        Me.Megaman3.TabStop = False
+        '
         'Megaman2
         '
         Me.Megaman2.BackColor = System.Drawing.Color.Transparent
@@ -153,17 +164,6 @@ Partial Class GameWindow
         Me.Megaman2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.Megaman2.TabIndex = 0
         Me.Megaman2.TabStop = False
-        '
-        'Megaman3
-        '
-        Me.Megaman3.BackColor = System.Drawing.Color.Transparent
-        Me.Megaman3.Location = New System.Drawing.Point(75, 100)
-        Me.Megaman3.Margin = New System.Windows.Forms.Padding(2)
-        Me.Megaman3.Name = "Megaman3"
-        Me.Megaman3.Size = New System.Drawing.Size(100, 100)
-        Me.Megaman3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.Megaman3.TabIndex = 0
-        Me.Megaman3.TabStop = False
         '
         'GameWindow
         '
@@ -182,8 +182,8 @@ Partial Class GameWindow
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GameArea.ResumeLayout(False)
         Me.GameArea.PerformLayout()
-        CType(Me.Megaman2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Megaman3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Megaman2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
