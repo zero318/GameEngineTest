@@ -32,9 +32,11 @@ Partial Class GameWindow
         Me.CollisionTestPanel1 = New System.Windows.Forms.Panel()
         Me.FPSLabel = New System.Windows.Forms.Label()
         Me.Megaman2 = New System.Windows.Forms.PictureBox()
+        Me.Megaman3 = New System.Windows.Forms.PictureBox()
         CType(Me.Megaman, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GameArea.SuspendLayout()
         CType(Me.Megaman2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Megaman3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Megaman
@@ -68,6 +70,7 @@ Partial Class GameWindow
         Me.GameArea.Controls.Add(Me.CollisionTestPanel3)
         Me.GameArea.Controls.Add(Me.CollisionTestPanel1)
         Me.GameArea.Controls.Add(Me.FPSLabel)
+        Me.GameArea.Controls.Add(Me.Megaman3)
         Me.GameArea.Controls.Add(Me.Megaman2)
         Me.GameArea.Controls.Add(Me.Megaman)
         Me.GameArea.Controls.Add(Me.ThreadCountLabel)
@@ -80,7 +83,7 @@ Partial Class GameWindow
         '
         'SlopePanelTest1
         '
-        Me.SlopePanelTest1.AccessibleName = "MazeFloorSlopeRight.png"
+        Me.SlopePanelTest1.AccessibleName = "9"
         Me.SlopePanelTest1.BackColor = System.Drawing.Color.Blue
         Me.SlopePanelTest1.Location = New System.Drawing.Point(568, 825)
         Me.SlopePanelTest1.Name = "SlopePanelTest1"
@@ -100,7 +103,7 @@ Partial Class GameWindow
         '
         'CollisionTestPanel2
         '
-        Me.CollisionTestPanel2.AccessibleName = "MazeFloorBlockLayerA.png"
+        Me.CollisionTestPanel2.AccessibleName = "5"
         Me.CollisionTestPanel2.BackColor = System.Drawing.Color.Red
         Me.CollisionTestPanel2.Location = New System.Drawing.Point(300, 583)
         Me.CollisionTestPanel2.Name = "CollisionTestPanel2"
@@ -110,7 +113,7 @@ Partial Class GameWindow
         '
         'CollisionTestPanel3
         '
-        Me.CollisionTestPanel3.AccessibleName = "MazeFloorBlockLayerA.png"
+        Me.CollisionTestPanel3.AccessibleName = "5"
         Me.CollisionTestPanel3.BackColor = System.Drawing.Color.Red
         Me.CollisionTestPanel3.Location = New System.Drawing.Point(966, 621)
         Me.CollisionTestPanel3.Name = "CollisionTestPanel3"
@@ -120,7 +123,7 @@ Partial Class GameWindow
         '
         'CollisionTestPanel1
         '
-        Me.CollisionTestPanel1.AccessibleName = "MazeFloorBlockLayerA.png"
+        Me.CollisionTestPanel1.AccessibleName = "5"
         Me.CollisionTestPanel1.BackColor = System.Drawing.Color.Red
         Me.CollisionTestPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.CollisionTestPanel1.Location = New System.Drawing.Point(768, 825)
@@ -151,6 +154,17 @@ Partial Class GameWindow
         Me.Megaman2.TabIndex = 0
         Me.Megaman2.TabStop = False
         '
+        'Megaman3
+        '
+        Me.Megaman3.BackColor = System.Drawing.Color.Transparent
+        Me.Megaman3.Location = New System.Drawing.Point(75, 100)
+        Me.Megaman3.Margin = New System.Windows.Forms.Padding(2)
+        Me.Megaman3.Name = "Megaman3"
+        Me.Megaman3.Size = New System.Drawing.Size(100, 100)
+        Me.Megaman3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.Megaman3.TabIndex = 0
+        Me.Megaman3.TabStop = False
+        '
         'GameWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(240.0!, 240.0!)
@@ -169,6 +183,7 @@ Partial Class GameWindow
         Me.GameArea.ResumeLayout(False)
         Me.GameArea.PerformLayout()
         CType(Me.Megaman2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Megaman3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -183,4 +198,5 @@ Partial Class GameWindow
     Public WithEvents ThreadCountLabel As Label
     Friend WithEvents Megaman2 As PictureBox
     Friend WithEvents CollisionTestPanelLadder As Panel
+    Friend WithEvents Megaman3 As PictureBox
 End Class

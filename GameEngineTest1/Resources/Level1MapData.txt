@@ -1,2 +1,0 @@
-Level_1_Data
-Textures=bkMaze.bmp,MazeBlock1.png

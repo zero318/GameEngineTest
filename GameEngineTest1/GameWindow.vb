@@ -1,12 +1,16 @@
 ﻿Imports System.Threading
 Imports System.Math
 Imports System.Drawing.Drawing2D
+Imports System.IO
 Public Class GameWindow
-    Dim LoopIndexArray(3) As Integer 'Drawing = 0, Physics = 1, PanelArray = 2, and PanelRender = 3
+    Dim LoopIndexArray(4) As Integer 'Drawing = 0, Physics = 1, PanelArray = 2, PanelRender = 3, AddedPanels = 4
     Dim StartRendering() As Boolean = {False, False} 'Normal = 0 and Background = 1
     Dim FPS As Integer
     Dim GamePath As String = My.Application.Info.DirectoryPath
     Dim ResourcesPath As String = GamePath & "\Resources\"
+    Dim LoadFromFile As Boolean = True 'True = LoadFromFile, False = LoadFromForm
+    Dim LevelName As String
+    Dim Tileset As String
     Dim GameAreaGraphics(1) As Graphics
     Dim CustomDoubleBuffer As New BufferedGraphicsContext
     Dim CustomBackgroundBufferContext As New BufferedGraphicsContext
@@ -17,14 +21,15 @@ Public Class GameWindow
     Dim ScreenDpiArray(1) As Integer 'X = 0 and Y = 1
     Dim LabelVisible() As Boolean = {False, True} 'DebugLabel = 0 and FPSLabel = 1
     Dim TimerData() As Integer = {100, 0} 'Interval = 0 and StartDelay = 1
-    Dim TimerArray() As Timer = {New Timer(New TimerCallback(AddressOf AnimateMegamanRectangle), vbNull, Timeout.Infinite, Timeout.Infinite), New Timer(New TimerCallback(AddressOf MegamanRectanglePhysics), vbNull, Timeout.Infinite, Timeout.Infinite), New Timer(New TimerCallback(AddressOf UpdateThreadCount), vbNull, Timeout.Infinite, Timeout.Infinite), New Timer(New TimerCallback(AddressOf UpdateFPS), vbNull, Timeout.Infinite, Timeout.Infinite), New Timer(New TimerCallback(AddressOf LoadPanels), vbNull, Timeout.Infinite, Timeout.Infinite)} 'Animation = 0, Physics = 1, DebugLabel = 2, FPS = 3, and LoadPanels = 4
+    Dim TimerArray() As Timer = {New Timer(New TimerCallback(AddressOf AnimateMegamanRectangle), vbNull, Timeout.Infinite, Timeout.Infinite), New Timer(New TimerCallback(AddressOf MegamanRectanglePhysics), vbNull, Timeout.Infinite, Timeout.Infinite), New Timer(New TimerCallback(AddressOf UpdateThreadCount), vbNull, Timeout.Infinite, Timeout.Infinite), New Timer(New TimerCallback(AddressOf UpdateFPS), vbNull, Timeout.Infinite, Timeout.Infinite)} 'Animation = 0, Physics = 1, DebugLabel = 2, and FPS = 3
     Dim ButtonHeld() As Boolean = {False, False}
     Dim GameAreaRectangle As Rectangle
     Dim CollisionRegionArray() As Region = {New Region, New Region, New Region}
     Dim CollisionRegionLadders As New Region
     Dim GraphicsRectangleArray() As Rectangle
     Dim GraphicsTextureArray() As Image
-    Dim TextureArray() As Image = {Image.FromFile(ResourcesPath & "bkMaze.bmp"), Image.FromFile(ResourcesPath & "MazeBlock1.png"), Image.FromFile(ResourcesPath & "MazeBlock2.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightB.png"), Image.FromFile(ResourcesPath & "MazeFloorSlopeRight.png")}
+    Dim TextureArray(-1) As Image
+    'Dim TextureArray() As Image = {Image.FromFile(ResourcesPath & "bkMaze.bmp"), Image.FromFile(ResourcesPath & "MazeBlock1.png"), Image.FromFile(ResourcesPath & "MazeBlock2.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightB.png"), Image.FromFile(ResourcesPath & "MazeFloorSlopeRight.png")}
     Dim TextureBrushArray() As TextureBrush
     'Megaman specific variables start here
     Dim MegamanSpawnLocation As Integer = 2
@@ -63,10 +68,14 @@ Public Class GameWindow
             Case Is = 1
                 MegamanRectangle(0) = Rectangle.FromLTRB(Megaman.Left, Megaman.Top, Megaman.Left + Megaman.Width, Megaman.Top + Megaman.Height)
                 MegamanRectangle(1) = Rectangle.FromLTRB(Megaman.Left, Megaman.Top, Megaman.Left + Megaman.Width, Megaman.Top + Megaman.Height)
+                Megaman3.Dispose()
             Case Is = 2
                 MegamanRectangle(0) = Rectangle.FromLTRB(Megaman2.Left, Megaman2.Top, Megaman2.Left + Megaman2.Width, Megaman2.Top + Megaman2.Height)
                 MegamanRectangle(1) = Rectangle.FromLTRB(Megaman2.Left, Megaman2.Top, Megaman2.Left + Megaman2.Width, Megaman2.Top + Megaman2.Height)
+                Megaman3.Dispose()
         End Select
+        Megaman.Dispose()
+        Megaman2.Dispose()
         GameAreaRectangle = Rectangle.FromLTRB(GameArea.Left, GameArea.Top, GameArea.Left + GameArea.Width, GameArea.Top + GameArea.Height)
         GameAreaGraphics(0) = GameArea.CreateGraphics()
         GameAreaGraphics(1) = GameArea.CreateGraphics()
@@ -82,8 +91,6 @@ Public Class GameWindow
             ThreadCountLabel.Visible = False
             TimerArray(2).Dispose()
         End If
-        Megaman.Dispose()
-        Megaman2.Dispose()
         Using GameWindowGraphics As Graphics = CreateGraphics() 'This gets the screen resolution.
             ScreenDpiArray(0) = GameWindowGraphics.DpiX
             ScreenDpiArray(1) = GameWindowGraphics.DpiY
@@ -99,7 +106,67 @@ Public Class GameWindow
         MegamanCollisionRectangleArray(3) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Top, MegamanRectangle(0).Left + MegamanRectangle(0).Width, MegamanRectangle(0).Top + 1) 'Top
         MegamanCollisionRectangleArray(4) = RectangleF.FromLTRB(MegamanRectangle(0).Left, (MegamanRectangle(0).Top + MegamanRectangle(0).Bottom) / 2, MegamanRectangle(0).Left + MegamanRectangle(0).Width, ((MegamanRectangle(0).Top + MegamanRectangle(0).Bottom) / 2) + 1) 'Horizontal
         MegamanCollisionRectangleArray(5) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Bottom, MegamanRectangle(0).Left + MegamanRectangle(0).Width, MegamanRectangle(0).Bottom + 1) 'Bottom
-        TimerArray(4).Change(TimerData(1), Timeout.Infinite)
+        LoadLevelMapFromFile()
+    End Sub
+    Friend Sub LoadLevelMapFromFile()
+        If LoadFromFile = True Then
+            For Each FormPanel As Panel In New List(Of Panel)(GameArea.Controls.OfType(Of Panel))
+                FormPanel.Dispose()
+            Next
+            LevelName = "DebugRoom"
+            Dim MapFileLine As String = ""
+            Dim SplitStrings() As String
+            Dim Delimitters() As Char = {"=", ","}
+            Dim AddedPanels(0) As Panel
+            Dim EndReached As Boolean
+            LoopIndexArray(4) = -1
+            Using MapFile As StreamReader = New StreamReader(ResourcesPath & LevelName & "MapData.txt")
+                Do
+                    ReDim SplitStrings(Nothing)
+                    MapFileLine = MapFile.ReadLine()
+                    SplitStrings = MapFileLine.Split(Delimitters, StringSplitOptions.None)
+                    Select Case SplitStrings(0)
+                        Case "Title"
+
+                        Case "Tileset"
+
+                        Case "LoadImage"
+                            Array.Resize(TextureArray, TextureArray.Length + 1)
+                            TextureArray(TextureArray.Length - 1) = Image.FromFile(ResourcesPath & SplitStrings(2))
+                        Case "PlayerStart"
+                            If MegamanSpawnLocation = 3 Then
+                                Megaman3.Left = SplitStrings(1)
+                                Megaman3.Top = SplitStrings(2)
+                                MegamanRectangle(0) = Rectangle.FromLTRB(Megaman3.Left, Megaman3.Top, Megaman3.Left + Megaman3.Width, Megaman3.Top + Megaman3.Height)
+                                MegamanRectangle(1) = Rectangle.FromLTRB(Megaman3.Left, Megaman3.Top, Megaman3.Left + Megaman3.Width, Megaman3.Top + Megaman3.Height)
+                                Megaman3.Dispose()
+                            End If
+                        Case "CreateTerrain"
+                            LoopIndexArray(4) += 1
+                            Array.Resize(AddedPanels, LoopIndexArray(4) + 1)
+                            AddedPanels(LoopIndexArray(4)) = New Panel
+                            With AddedPanels(LoopIndexArray(4))
+                                .Name = "Panel" & LoopIndexArray(4)
+                                .Left = SplitStrings(1)
+                                .Top = SplitStrings(2)
+                                .Width = SplitStrings(3)
+                                .Height = SplitStrings(4)
+                                .Tag = SplitStrings(5)
+                                .AccessibleName = SplitStrings(6)
+                                .BackColor = Color.FromName(SplitStrings(7))
+                            End With
+                            Controls.Add(AddedPanels(LoopIndexArray(4)))
+                        Case "EndOfData"
+                            EndReached = True
+                        Case Else
+
+                    End Select
+                Loop Until (MapFileLine Is Nothing) OrElse (EndReached = True)
+            End Using
+        Else
+
+        End If
+        LoadPanels()
     End Sub
     Friend Sub LoadPanels()
         Dim PanelList As List(Of Panel) = New List(Of Panel)(GameArea.Controls.OfType(Of Panel))
@@ -126,36 +193,40 @@ Public Class GameWindow
                     CollisionRegionArray(0).Union(Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height))
             End Select
             GraphicsRectangleArray(LoopIndexArray(2)) = Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width + 5, PanelControl.Top + PanelControl.Height + 5)
-            Select Case PanelControl.AccessibleName
-                Case "blMaze.bmp"
-                    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(0)
-                Case "MazeBlock1.png"
-                    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(1)
-                Case "MazeBlock2.png"
-                    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(2)
-                Case "MazeCeilingBlockLayerA.png"
-                    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(3)
-                Case "MazeCeilingBlockLayerB.png"
-                    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(4)
-                Case "MazeFloorBlockLayerA.png"
-                    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(5)
-                Case "MazeFloorBlockLayerB.png"
-                    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(6)
-                Case "MazeFloorBlockSlopeRightA.png"
-                    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(7)
-                Case "MazeFloorBlockSlopeRightB.png"
-                    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(8)
-                Case "MazeFloorSlopeRight.png"
-                    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(9)
-                Case "Color"
-                    GraphicsTextureArray(LoopIndexArray(2)) = Nothing
-                Case Else
-                    GraphicsTextureArray(LoopIndexArray(2)) = Nothing
-            End Select
+            If IsNumeric(PanelControl.AccessibleName) AndAlso PanelControl.AccessibleName <= (TextureArray.Length - 1) Then
+                GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(PanelControl.AccessibleName)
+            Else
+                GraphicsTextureArray(LoopIndexArray(2)) = Nothing
+            End If
+            'Select Case PanelControl.AccessibleName
+            '    'Case "blMaze.bmp"
+            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(0)
+            '    'Case "MazeBlock1.png"
+            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(1)
+            '    'Case "MazeBlock2.png"
+            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(2)
+            '    'Case "MazeCeilingBlockLayerA.png"
+            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(3)
+            '    'Case "MazeCeilingBlockLayerB.png"
+            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(4)
+            '    'Case "MazeFloorBlockLayerA.png"
+            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(5)
+            '    'Case "MazeFloorBlockLayerB.png"
+            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(6)
+            '    'Case "MazeFloorBlockSlopeRightA.png"
+            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(7)
+            '    'Case "MazeFloorBlockSlopeRightB.png"
+            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(8)
+            '    'Case "MazeFloorSlopeRight.png"
+            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(9)
+            '    Case "Color"
+            '        GraphicsTextureArray(LoopIndexArray(2)) = Nothing
+            '    Case Else
+            '        GraphicsTextureArray(LoopIndexArray(2)) = Nothing
+            'End Select
             PanelControl.Dispose()
         Next
         CollisionRegionArray(1) = CollisionRegionArray(0).Clone()
-        TimerArray(4).Dispose()
         StartRendering(1) = True
     End Sub
     Friend Sub UpdateFPS()

@@ -780,7 +780,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Level1MapData.txt">
+    <None Include="Resources\DebugRoomMapData.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

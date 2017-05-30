@@ -221,6 +221,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Level_1_Data
+        '''Textures=bkMaze.bmp,MazeBlock1.png.
+        '''</summary>
+        Friend ReadOnly Property DebugRoomMapData() As String
+            Get
+                Return ResourceManager.GetString("DebugRoomMapData", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Diving1() As System.Drawing.Bitmap
@@ -617,15 +627,6 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("LandingShooting2", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to .
-        '''</summary>
-        Friend ReadOnly Property Level1MapData() As String
-            Get
-                Return ResourceManager.GetString("Level1MapData", resourceCulture)
             End Get
         End Property
         
