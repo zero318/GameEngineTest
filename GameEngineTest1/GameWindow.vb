@@ -6,6 +6,7 @@ Public Class GameWindow
     Dim StartRendering() As Boolean = {False, False} 'Normal = 0 and Background = 1
     Dim FPS As Integer
     Dim GamePath As String = My.Application.Info.DirectoryPath
+    Dim ResourcesPath As String = GamePath & "\Resources\"
     Dim GameAreaGraphics(1) As Graphics
     Dim CustomDoubleBuffer As New BufferedGraphicsContext
     Dim CustomBackgroundBufferContext As New BufferedGraphicsContext
@@ -23,7 +24,7 @@ Public Class GameWindow
     Dim CollisionRegionLadders As New Region
     Dim GraphicsRectangleArray() As Rectangle
     Dim GraphicsTextureArray() As Image
-    Dim TextureArray() As Image = {Image.FromFile(GamePath & "\Resources\bkMaze.bmp"), Image.FromFile(GamePath & "\Resources\MazeBlock1.png"), Image.FromFile(GamePath & "\Resources\MazeBlock2.png"), Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerA.png"), Image.FromFile(GamePath & "\Resources\MazeCeilingBlockLayerB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerA.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockLayerB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightA.png"), Image.FromFile(GamePath & "\Resources\MazeFloorBlockSlopeRightB.png"), Image.FromFile(GamePath & "\Resources\MazeFloorSlopeRight.png")}
+    Dim TextureArray() As Image = {Image.FromFile(ResourcesPath & "bkMaze.bmp"), Image.FromFile(ResourcesPath & "MazeBlock1.png"), Image.FromFile(ResourcesPath & "MazeBlock2.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightB.png"), Image.FromFile(ResourcesPath & "MazeFloorSlopeRight.png")}
     Dim TextureBrushArray() As TextureBrush
     'Megaman specific variables start here
     Dim MegamanSpawnLocation As Integer = 2
@@ -510,11 +511,11 @@ Public Class GameWindow
                 Case = 0    'Standing
                     Select Case MegamanAnimationFrame
                         Case Is <= (MegamanBlinkRate - 3)
-                            MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Standing1.png")
+                            MegamanRectangleImage = Image.FromFile(ResourcesPath & "Standing1.png")
                         Case (MegamanBlinkRate - 2), (MegamanBlinkRate)
-                            MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Standing2.png")
+                            MegamanRectangleImage = Image.FromFile(ResourcesPath & "Standing2.png")
                         Case Is = (MegamanBlinkRate - 1)
-                            MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Standing3.png")
+                            MegamanRectangleImage = Image.FromFile(ResourcesPath & "Standing3.png")
                     End Select
                     If MegamanAnimationFrame < MegamanBlinkRate Then
                         MegamanAnimationFrame += 1
@@ -522,19 +523,19 @@ Public Class GameWindow
                         MegamanAnimationFrame = 1
                     End If
                 Case = 1    'Running
-                    MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Running" & MegamanAnimationFrame & ".png")
+                    MegamanRectangleImage = Image.FromFile(ResourcesPath & "Running" & MegamanAnimationFrame & ".png")
                     If MegamanAnimationFrame < 11 Then
                         MegamanAnimationFrame += 1
                     Else
                         MegamanAnimationFrame = 2 'The first frame is only for starting running
                     End If
                 Case = 2    'Jumping
-                    MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Jumping" & MegamanAnimationFrame & ".png")
+                    MegamanRectangleImage = Image.FromFile(ResourcesPath & "Jumping" & MegamanAnimationFrame & ".png")
                     If MegamanAnimationFrame < 5 Then
                         MegamanAnimationFrame += 1
                     End If
                 Case = 3    'Landing
-                    MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\Landing" & MegamanAnimationFrame & ".png")
+                    MegamanRectangleImage = Image.FromFile(ResourcesPath & "Landing" & MegamanAnimationFrame & ".png")
                     Select Case MegamanAnimationFrame
                         Case Is = 1
                             If ButtonHeld((MegamanAnimationArray(1) Mod 2)) = True Then
@@ -548,7 +549,7 @@ Public Class GameWindow
                             MegamanAnimationArray(0) = 0
                     End Select
                 Case = 4    'Warping In
-                    MegamanRectangleImage = Image.FromFile(GamePath & "\Resources\WarpIn" & MegamanAnimationFrame & ".png")
+                    MegamanRectangleImage = Image.FromFile(ResourcesPath & "WarpIn" & MegamanAnimationFrame & ".png")
                     If MegamanAnimationFrame < 7 Then
                         MegamanAnimationFrame += 1
                     Else

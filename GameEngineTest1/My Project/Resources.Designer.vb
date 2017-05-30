@@ -621,6 +621,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property Level1MapData() As String
+            Get
+                Return ResourceManager.GetString("Level1MapData", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to File Header:
         '''Dimensions: X, Y
         '''Tileset File Index: #
