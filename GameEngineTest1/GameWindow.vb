@@ -155,7 +155,7 @@ Public Class GameWindow
                                 .AccessibleName = SplitStrings(6)
                                 .BackColor = Color.FromName(SplitStrings(7))
                             End With
-                            Controls.Add(AddedPanels(LoopIndexArray(4)))
+                            GameArea.Controls.Add(AddedPanels(LoopIndexArray(4)))
                         Case "EndOfData"
                             EndReached = True
                         Case Else
@@ -164,7 +164,7 @@ Public Class GameWindow
                 Loop Until (MapFileLine Is Nothing) OrElse (EndReached = True)
             End Using
         Else
-
+            TextureArray = {Image.FromFile(ResourcesPath & "bkMaze.bmp"), Image.FromFile(ResourcesPath & "MazeBlock1.png"), Image.FromFile(ResourcesPath & "MazeBlock2.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightB.png"), Image.FromFile(ResourcesPath & "MazeFloorSlopeRight.png")}
         End If
         LoadPanels()
     End Sub
