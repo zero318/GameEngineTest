@@ -29,10 +29,9 @@ Public Class GameWindow
     Dim GraphicsRectangleArray() As Rectangle
     Dim GraphicsTextureArray() As Image
     Dim TextureArray(-1) As Image
-    'Dim TextureArray() As Image = {Image.FromFile(ResourcesPath & "bkMaze.bmp"), Image.FromFile(ResourcesPath & "MazeBlock1.png"), Image.FromFile(ResourcesPath & "MazeBlock2.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightB.png"), Image.FromFile(ResourcesPath & "MazeFloorSlopeRight.png")}
     Dim TextureBrushArray() As TextureBrush
     'Megaman specific variables start here
-    Dim MegamanSpawnLocation As Integer = 2
+    Dim MegamanSpawnLocation As Integer = 3
     Dim MegamanBlinkRate As Integer = 15
     Dim MegamanRectangle() As RectangleF = {New RectangleF(50, 400, 100, 100), New RectangleF(50, 400, 100, 100)}
     Dim MegamanCollisionRectangleTempArray() As RectangleF = {New RectangleF(0, 0, 0, 0), New RectangleF(0, 0, 0, 0), New RectangleF(0, 0, 0, 0), New RectangleF(0, 0, 0, 0), New RectangleF(0, 0, 0, 0), New RectangleF(0, 0, 0, 0)}
@@ -100,12 +99,6 @@ Public Class GameWindow
         Else
             MegamanVelocityMultiplier = 1
         End If
-        MegamanCollisionRectangleArray(0) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Top, MegamanRectangle(0).Left + 1, MegamanRectangle(0).Top + MegamanRectangle(0).Height) 'Left
-        MegamanCollisionRectangleArray(1) = RectangleF.FromLTRB((MegamanRectangle(0).Left + MegamanRectangle(0).Right) / 2, MegamanRectangle(0).Top, ((MegamanRectangle(0).Left + MegamanRectangle(0).Right) / 2) + 1, MegamanRectangle(0).Top + MegamanRectangle(0).Height) 'Vertical
-        MegamanCollisionRectangleArray(2) = RectangleF.FromLTRB(MegamanRectangle(0).Right, MegamanRectangle(0).Top, MegamanRectangle(0).Right + 1, MegamanRectangle(0).Top + MegamanRectangle(0).Height) 'Right
-        MegamanCollisionRectangleArray(3) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Top, MegamanRectangle(0).Left + MegamanRectangle(0).Width, MegamanRectangle(0).Top + 1) 'Top
-        MegamanCollisionRectangleArray(4) = RectangleF.FromLTRB(MegamanRectangle(0).Left, (MegamanRectangle(0).Top + MegamanRectangle(0).Bottom) / 2, MegamanRectangle(0).Left + MegamanRectangle(0).Width, ((MegamanRectangle(0).Top + MegamanRectangle(0).Bottom) / 2) + 1) 'Horizontal
-        MegamanCollisionRectangleArray(5) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Bottom, MegamanRectangle(0).Left + MegamanRectangle(0).Width, MegamanRectangle(0).Bottom + 1) 'Bottom
         LoadLevelMapFromFile()
     End Sub
     Friend Sub LoadLevelMapFromFile()
@@ -166,6 +159,12 @@ Public Class GameWindow
         Else
             TextureArray = {Image.FromFile(ResourcesPath & "bkMaze.bmp"), Image.FromFile(ResourcesPath & "MazeBlock1.png"), Image.FromFile(ResourcesPath & "MazeBlock2.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeCeilingBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockLayerB.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightA.png"), Image.FromFile(ResourcesPath & "MazeFloorBlockSlopeRightB.png"), Image.FromFile(ResourcesPath & "MazeFloorSlopeRight.png")}
         End If
+        MegamanCollisionRectangleArray(0) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Top, MegamanRectangle(0).Left + 1, MegamanRectangle(0).Top + MegamanRectangle(0).Height) 'Left
+        MegamanCollisionRectangleArray(1) = RectangleF.FromLTRB((MegamanRectangle(0).Left + MegamanRectangle(0).Right) / 2, MegamanRectangle(0).Top, ((MegamanRectangle(0).Left + MegamanRectangle(0).Right) / 2) + 1, MegamanRectangle(0).Top + MegamanRectangle(0).Height) 'Vertical
+        MegamanCollisionRectangleArray(2) = RectangleF.FromLTRB(MegamanRectangle(0).Right, MegamanRectangle(0).Top, MegamanRectangle(0).Right + 1, MegamanRectangle(0).Top + MegamanRectangle(0).Height) 'Right
+        MegamanCollisionRectangleArray(3) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Top, MegamanRectangle(0).Left + MegamanRectangle(0).Width, MegamanRectangle(0).Top + 1) 'Top
+        MegamanCollisionRectangleArray(4) = RectangleF.FromLTRB(MegamanRectangle(0).Left, (MegamanRectangle(0).Top + MegamanRectangle(0).Bottom) / 2, MegamanRectangle(0).Left + MegamanRectangle(0).Width, ((MegamanRectangle(0).Top + MegamanRectangle(0).Bottom) / 2) + 1) 'Horizontal
+        MegamanCollisionRectangleArray(5) = RectangleF.FromLTRB(MegamanRectangle(0).Left, MegamanRectangle(0).Bottom, MegamanRectangle(0).Left + MegamanRectangle(0).Width, MegamanRectangle(0).Bottom + 1) 'Bottom
         LoadPanels()
     End Sub
     Friend Sub LoadPanels()
@@ -198,32 +197,6 @@ Public Class GameWindow
             Else
                 GraphicsTextureArray(LoopIndexArray(2)) = Nothing
             End If
-            'Select Case PanelControl.AccessibleName
-            '    'Case "blMaze.bmp"
-            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(0)
-            '    'Case "MazeBlock1.png"
-            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(1)
-            '    'Case "MazeBlock2.png"
-            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(2)
-            '    'Case "MazeCeilingBlockLayerA.png"
-            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(3)
-            '    'Case "MazeCeilingBlockLayerB.png"
-            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(4)
-            '    'Case "MazeFloorBlockLayerA.png"
-            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(5)
-            '    'Case "MazeFloorBlockLayerB.png"
-            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(6)
-            '    'Case "MazeFloorBlockSlopeRightA.png"
-            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(7)
-            '    'Case "MazeFloorBlockSlopeRightB.png"
-            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(8)
-            '    'Case "MazeFloorSlopeRight.png"
-            '    '    GraphicsTextureArray(LoopIndexArray(2)) = TextureArray(9)
-            '    Case "Color"
-            '        GraphicsTextureArray(LoopIndexArray(2)) = Nothing
-            '    Case Else
-            '        GraphicsTextureArray(LoopIndexArray(2)) = Nothing
-            'End Select
             PanelControl.Dispose()
         Next
         CollisionRegionArray(1) = CollisionRegionArray(0).Clone()
