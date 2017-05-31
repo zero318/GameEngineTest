@@ -26,7 +26,7 @@ Public Class GameWindow
     Dim CollisionRegionArray() As Region = {New Region, New Region, New Region}
     Dim CollisionRegionLadders() As Region = {New Region, New Region}
     Dim CollisionRegionDoors() As Region = {New Region, New Region}
-    Dim CollisionRegionOneWay() As Region = {New Region, New Region}
+    Dim CollisionRegionOneWay() As Region = {New Region, New Region, New Region}
     Dim GraphicsRectangleArray() As Rectangle
     Dim GraphicsTextureArray() As Image
     Dim TextureArray(-1) As Image
@@ -198,6 +198,10 @@ Public Class GameWindow
                     CollisionRegionArray(0).Union(New GraphicsPath(New Point() {New Point(PanelControl.Left, PanelControl.Top), New Point(PanelControl.Right, PanelControl.Top), New Point(PanelControl.Right, PanelControl.Bottom)}, New Byte() {0, 1, 129}))
                 Case "SlopeCeilingLeft"
                     CollisionRegionArray(0).Union(New GraphicsPath(New Point() {New Point(PanelControl.Right, PanelControl.Top), New Point(PanelControl.Left, PanelControl.Top), New Point(PanelControl.Left, PanelControl.Bottom)}, New Byte() {0, 1, 129}))
+                Case "OneWaySlopeRight"
+                    CollisionRegionOneWay(0).Union(New GraphicsPath(New Point() {New Point(PanelControl.Left, PanelControl.Bottom), New Point(PanelControl.Left, PanelControl.Bottom + 5), New Point(PanelControl.Right, PanelControl.Top + 5), New Point(PanelControl.Right, PanelControl.Top)}, New Byte() {0, 1, 1, 129}))
+                Case "OneWaySlopeLeft"
+                    CollisionRegionOneWay(0).Union(New GraphicsPath(New Point() {New Point(PanelControl.Right, PanelControl.Bottom), New Point(PanelControl.Right, PanelControl.Bottom + 5), New Point(PanelControl.Left, PanelControl.Top + 5), New Point(PanelControl.Left, PanelControl.Top)}, New Byte() {0, 1, 1, 129}))
                 Case Else
                     CollisionRegionArray(0).Union(Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height))
             End Select
@@ -558,7 +562,9 @@ Public Class GameWindow
                 MegamanCollisionArray(5) = True
             End If
             '******************************************
-            '
+            'This section does some weird stuff involving one-way platfroms that I don't really understand.
+            'I copied some of the regular collision code, renamed some variables, and it just sort of worked.
+            'I have no idea why this makes collision work despite not measuring with rectangles.
             '******************************************
             If MegamanVelocityArray(1) >= 0 Then
                 If CollisionRegionOneWay(1).IsVisible((MegamanRectangle(0).Right - ((3 / 4) * MegamanRectangle(0).Width)), MegamanRectangle(0).Bottom) = True Then 'Test lower middle left bottom for ground
