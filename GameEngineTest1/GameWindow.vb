@@ -10,7 +10,6 @@ Public Class GameWindow
     Dim ResourcesPath As String = GamePath & "\Resources\"
     Dim LoadFromFile As Boolean = True 'True = LoadFromFile, False = LoadFromForm
     Dim StartingLevel As String = "DebugRoom"
-    'Dim LevelName As String
     Dim Tileset As String
     Dim GameAreaGraphics(1) As Graphics
     Dim CustomDoubleBuffer As New BufferedGraphicsContext
@@ -48,7 +47,7 @@ Public Class GameWindow
     Dim MegamanCollisionTempArray(1) As Integer 'Y = 0 and X = 1
     Dim MegamanLeft As Boolean
     Dim MegamanOnArray(4) As Boolean 'Ground = 0, Frame = 1, Ladder = 2, Door = 3, and OneWay = 4
-    Dim MegamanVelocityMultiplier As Integer
+    Dim VelocityMultiplier As Integer
     Dim MegamanVelocityArray(1) As Double 'X = 0 and Y = 1
     Dim MegamanAnimationArray() As Byte = {4, 0}
     Dim MegamanAnimationFrame As Byte = 1
@@ -57,6 +56,12 @@ Public Class GameWindow
     Dim MegamanHealth As Integer = 100
     Dim MegamanDead As Boolean
     Dim MegamanEnableGravity As Boolean = True
+    'These variables control shooting
+    Dim NewBullet As RectangleF
+    Dim BulletImage As Image
+    Dim BulletIndex(1) As Integer
+    Dim BulletList As New List(Of RectangleF)
+    Dim BulletLeftList As New List(Of Boolean)
     Protected Overrides Sub OnPaintBackground(ByVal e As PaintEventArgs)
         If PaintSomegroundOnArray(0) = True Then
             MyBase.OnPaintBackground(e)
@@ -103,9 +108,9 @@ Public Class GameWindow
             ScreenDpiArray(1) = GameWindowGraphics.DpiY
         End Using
         If ScreenDpiArray(0) >= 100 Then
-            MegamanVelocityMultiplier = 2
+            VelocityMultiplier = 2
         Else
-            MegamanVelocityMultiplier = 1
+            VelocityMultiplier = 1
         End If
         'MainWindow.LevelName = StartingLevel
         LoadLevelMap()
@@ -315,6 +320,9 @@ Public Class GameWindow
                     Case InputArray(5) 'X
                         If ButtonHeld(5) = False Then
                             ButtonHeld(5) = True
+                            NewBullet = RectangleF.FromLTRB((MegamanRectangle(0).Left + (MegamanRectangle(0).Width / 2)) + 25, (MegamanRectangle(0).Top + (MegamanRectangle(0).Height / 2)) + 12.5, (MegamanRectangle(0).Left + (MegamanRectangle(0).Width / 2)) - 25, (MegamanRectangle(0).Top + (MegamanRectangle(0).Height / 2)) - 12.5)
+                            BulletList.Add(NewBullet)
+                            BulletLeftList.Add(MegamanLeft)
                         End If
                 End Select
             End If
@@ -378,6 +386,18 @@ Public Class GameWindow
             If Not MegamanRectangleImage Is Nothing Then
                 CustomGraphicsBuffer.Graphics.DrawImageUnscaled(MegamanRectangleImage, ((MegamanRectangle(0).X + (MegamanRectangle(0).Width / 2)) - (((MegamanRectangleImage.Width / MegamanRectangleImage.HorizontalResolution) * ScreenDpiArray(0))) / 2), (MegamanRectangle(0).Y - (((MegamanRectangleImage.Height / MegamanRectangleImage.VerticalResolution) * ScreenDpiArray(1)) - MegamanRectangle(0).Height)))
             End If
+            If BulletList.Count > 0 Then
+                For Each Bullet In BulletList
+                    BulletIndex(1) = BulletList.IndexOf(Bullet)
+                    BulletImage = Image.FromFile(ResourcesPath & "Shot1.png")
+                    If BulletLeftList.Item(BulletIndex(1)) = False Then
+                        CustomGraphicsBuffer.Graphics.DrawImageUnscaled(BulletImage, ((Bullet.X + (Bullet.Width / 2)) - (((BulletImage.Width / BulletImage.HorizontalResolution) * ScreenDpiArray(0))) / 2), (Bullet.Y - (((BulletImage.Height / BulletImage.VerticalResolution) * ScreenDpiArray(1)) - Bullet.Height)))
+                    Else
+                        BulletImage.RotateFlip(RotateFlipType.RotateNoneFlipX)
+                        CustomGraphicsBuffer.Graphics.DrawImageUnscaled(BulletImage, ((Bullet.X + (Bullet.Width / 2)) - (((BulletImage.Width / BulletImage.HorizontalResolution) * ScreenDpiArray(0))) / 2), (Bullet.Y - (((BulletImage.Height / BulletImage.VerticalResolution) * ScreenDpiArray(1)) - Bullet.Height)))
+                    End If
+                Next
+            End If
             If MainWindow.DebugBoundingBoxes = True Then
                 CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Black, Rectangle.Ceiling(MegamanRectangle(0)))
                 CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Red, Rectangle.Ceiling(MegamanRectangle(1)))
@@ -403,6 +423,7 @@ Public Class GameWindow
             '3. Intersect with ordinary ground and slopes
             '4. Intersect with ladders
             '5. Intersect with doors
+            '6. Bullets
             '******************************************
             '******************************************
             'This section resets a few collision related variables to properly detect collision on the next frame.
@@ -457,7 +478,7 @@ Public Class GameWindow
             If MegamanAnimationArray(0) = 0 AndAlso MegamanVelocityArray(0) <> 0 Then
                 MegamanAnimationArray(0) = 1
             End If
-            MegamanRectangle(0).X = MegamanRectangle(0).X + (MegamanVelocityArray(0) * MegamanVelocityMultiplier)
+            MegamanRectangle(0).X = MegamanRectangle(0).X + (MegamanVelocityArray(0) * VelocityMultiplier)
             '******************************************
             'This section attempts to calculate a velocity vector.
             '******************************************
@@ -689,6 +710,21 @@ Public Class GameWindow
                     MegamanAnimationFrame = 5
                 End If
             End If
+            '******************************************
+            'Bullet Collision
+            '******************************************
+            For Each Bullet In BulletList.ToList()
+                BulletIndex(0) = BulletList.IndexOf(Bullet)
+                If BulletLeftList.Item(BulletIndex(0)) = False Then
+                    BulletList.Item(BulletIndex(0)) = RectangleF.FromLTRB(Bullet.Left + (9 * VelocityMultiplier), Bullet.Top, Bullet.Right + (9 * VelocityMultiplier), Bullet.Bottom)
+                Else
+                    BulletList.Item(BulletIndex(0)) = RectangleF.FromLTRB(Bullet.Left - (9 * VelocityMultiplier), Bullet.Top, Bullet.Right - (9 * VelocityMultiplier), Bullet.Bottom)
+                End If
+                If (CollisionRegionArray(1).IsVisible(Bullet.Left, Bullet.Top) = True) OrElse (CollisionRegionArray(1).IsVisible(Bullet.Left, Bullet.Bottom)) OrElse (CollisionRegionArray(1).IsVisible(Bullet.Right, Bullet.Top)) OrElse (CollisionRegionArray(1).IsVisible(Bullet.Right, Bullet.Bottom)) Then
+                    BulletLeftList.RemoveAt(BulletIndex(0))
+                    BulletList.RemoveAt(BulletIndex(0))
+                End If
+            Next
             '******************************************
             'This section creates a duplicate of the current terrain and intersects it with the collision rectangles to determine how far inside a wall the player moved
             'and then compares the collision rectangles to the character size to fix a few collision bugs.
