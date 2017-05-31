@@ -16,5 +16,6 @@ CreateTerrain=300,583,203,125,Ground,5,Red
 CreateTerrain=966,621,178,110,Ground,5,Red
 CreateTerrain=568,825,200,50,SlopeGroundRight,9,Blue
 CreateTerrain=200,583,100,292,Ladder,Color,DarkViolet
+CreateTerrain=200,583,100,5,OneWay,Color,Black
 CreateTerrain=340,750,125,1256,Door,Color,Gold
 EndOfData

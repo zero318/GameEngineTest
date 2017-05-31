@@ -24,8 +24,9 @@ Public Class GameWindow
     Dim TimerArray() As Timer = {New Timer(New TimerCallback(AddressOf AnimateMegamanRectangle), vbNull, Timeout.Infinite, Timeout.Infinite), New Timer(New TimerCallback(AddressOf MegamanRectanglePhysics), vbNull, Timeout.Infinite, Timeout.Infinite), New Timer(New TimerCallback(AddressOf UpdateThreadCount), vbNull, Timeout.Infinite, Timeout.Infinite), New Timer(New TimerCallback(AddressOf UpdateFPS), vbNull, Timeout.Infinite, Timeout.Infinite)} 'Animation = 0, Physics = 1, DebugLabel = 2, and FPS = 3
     Dim GameAreaRectangle As Rectangle
     Dim CollisionRegionArray() As Region = {New Region, New Region, New Region}
-    Dim CollisionRegionLadders() As Region = {New Region, New Region, New Region}
-    Dim CollisionRegionDoors() As Region = {New Region, New Region, New Region}
+    Dim CollisionRegionLadders() As Region = {New Region, New Region}
+    Dim CollisionRegionDoors() As Region = {New Region, New Region}
+    Dim CollisionRegionOneWay() As Region = {New Region, New Region}
     Dim GraphicsRectangleArray() As Rectangle
     Dim GraphicsTextureArray() As Image
     Dim TextureArray(-1) As Image
@@ -45,7 +46,7 @@ Public Class GameWindow
     Dim MegamanCollisionDetectionArray(1) As Integer 'X = 0 and Y = 1
     Dim MegamanCollisionTempArray(1) As Integer 'Y = 0 and X = 1
     Dim MegamanLeft As Boolean
-    Dim MegamanOnArray(3) As Boolean 'Ground = 0, Frame = 1, Ladder = 2, and Door = 3
+    Dim MegamanOnArray(4) As Boolean 'Ground = 0, Frame = 1, Ladder = 2, Door = 3, and OneWay = 4
     Dim MegamanVelocityMultiplier As Integer
     Dim MegamanVelocityArray(1) As Double 'X = 0 and Y = 1
     Dim MegamanAnimationArray() As Byte = {4, 0}
@@ -89,6 +90,7 @@ Public Class GameWindow
         CollisionRegionArray(0).Exclude(GameAreaRectangle)
         CollisionRegionLadders(0).Exclude(GameAreaRectangle)
         CollisionRegionDoors(0).Exclude(GameAreaRectangle)
+        CollisionRegionOneWay(0).Exclude(GameAreaRectangle)
         TimerArray(0).Change(TimerData(1), TimerData(0))
         If MainWindow.DebugHUDEnabled = True Then
             TimerArray(2).Change(TimerData(1), TimerData(0))
@@ -186,6 +188,8 @@ Public Class GameWindow
                     CollisionRegionLadders(0).Union(Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height))
                 Case "Door"
                     CollisionRegionDoors(0).Union(Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height))
+                Case "OneWay"
+                    CollisionRegionOneWay(0).Union(Rectangle.FromLTRB(PanelControl.Left, PanelControl.Top, PanelControl.Left + PanelControl.Width, PanelControl.Top + PanelControl.Height))
                 Case "SlopeGroundRight"
                     CollisionRegionArray(0).Union(New GraphicsPath(New Point() {New Point(PanelControl.Left, PanelControl.Bottom), New Point(PanelControl.Right, PanelControl.Bottom), New Point(PanelControl.Right, PanelControl.Top)}, New Byte() {0, 1, 129}))
                 Case "SlopeGroundLeft"
@@ -208,6 +212,7 @@ Public Class GameWindow
         CollisionRegionArray(1) = CollisionRegionArray(0).Clone()
         CollisionRegionLadders(1) = CollisionRegionLadders(0).Clone()
         CollisionRegionDoors(1) = CollisionRegionDoors(0).Clone()
+        CollisionRegionOneWay(1) = CollisionRegionOneWay(0).Clone()
         StartRendering(1) = True
     End Sub
     Friend Sub UpdateFPS()
@@ -278,14 +283,14 @@ Public Class GameWindow
                                 MegamanAnimationFrame = 1
                                 MegamanAnimationArray(0) = 5
                             End If
-                        ElseIf MegamanOnArray(0) = True OrElse MegamanEnableGravity = False Then
-                            MegamanEnableGravity = True
-                            MegamanVelocityArray(1) = -39.2
-                            MegamanOnArray(0) = False
-                            If MegamanAnimationArray(0) <> 2 Then
-                                MegamanAnimationFrame = 1
-                                MegamanAnimationArray(0) = 2    'Jump
-                            End If
+                            'ElseIf MegamanOnArray(0) = True OrElse MegamanEnableGravity = False Then
+                            '    MegamanEnableGravity = True
+                            '    MegamanVelocityArray(1) = -39.2
+                            '    MegamanOnArray(0) = False
+                            '    If MegamanAnimationArray(0) <> 2 Then
+                            '        MegamanAnimationFrame = 1
+                            '        MegamanAnimationArray(0) = 2    'Jump
+                            '    End If
                         End If
                     Case InputArray(3) 'Down
                         If MegamanOnArray(2) = True Then
@@ -357,6 +362,7 @@ Public Class GameWindow
             'CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Aqua, CollisionRegionArray(0))
             CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Green, CollisionRegionLadders(0))
             CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Orange, CollisionRegionDoors(0))
+            CustomBackgroundBuffer.Graphics.FillRegion(Brushes.Red, CollisionRegionOneWay(0))
             For LoopIndexArray(3) = 0 To (GraphicsRectangleArray.Length - 1)
                 If Not GraphicsTextureArray(LoopIndexArray(3)) Is Nothing Then
                     CustomBackgroundBuffer.Graphics.DrawImage(GraphicsTextureArray(LoopIndexArray(3)), GraphicsRectangleArray(LoopIndexArray(3))) '.GetBounds(GameAreaGraphics(0))) 'FillPath(TextureArray(GraphicsPathTextureArray(LoopIndexArray(3))), GraphicsPathLocationArray(LoopIndexArray(3)))
@@ -552,55 +558,112 @@ Public Class GameWindow
                 MegamanCollisionArray(5) = True
             End If
             '******************************************
-            'This section processes the specialized collision rectangles to detect whether the player has moved inside any walls.
+            '
+            '******************************************
+            If MegamanVelocityArray(1) >= 0 Then
+                If CollisionRegionOneWay(1).IsVisible((MegamanRectangle(0).Right - ((3 / 4) * MegamanRectangle(0).Width)), MegamanRectangle(0).Bottom) = True Then 'Test lower middle left bottom for ground
+                    MegamanOnArray(0) = True
+                End If
+                If CollisionRegionOneWay(1).IsVisible((MegamanRectangle(0).Right - ((1 / 2) * MegamanRectangle(0).Width)), MegamanRectangle(0).Bottom) = True Then 'Test middle bottom for ground
+                    MegamanOnArray(0) = True
+                    MegamanCollisionDetectionArray(1) = 0
+                    MegamanCollisionArray(7) = True
+                End If
+                If CollisionRegionOneWay(1).IsVisible((MegamanRectangle(0).Right - ((1 / 4) * MegamanRectangle(0).Width)), MegamanRectangle(0).Bottom) = True Then 'Test lower middle right for ground
+                    MegamanOnArray(0) = True
+                End If
+                If CollisionRegionOneWay(1).IsVisible(MegamanRectangle(0).Left, MegamanRectangle(0).Bottom) = True Then 'Test lower left
+                    If (MegamanAngleArray(0) >= 2 AndAlso MegamanAngleArray(0) <= 11) Then
+                        MegamanCollisionDetectionArray(1) -= 1
+                    End If
+                    If ((MegamanAngleArray(0) >= 6 AndAlso MegamanAngleArray(0) <= 10) OrElse MegamanAngleArray(0) = -1) AndAlso MegamanCollisionArray(0) = False Then
+                        MegamanOnArray(0) = True
+                    End If
+                    MegamanCollisionArray(6) = True
+                End If
+                If CollisionRegionOneWay(1).IsVisible(MegamanRectangle(0).Right, MegamanRectangle(0).Bottom) = True Then 'Test lower right
+                    If ((MegamanAngleArray(0) >= 1 AndAlso MegamanAngleArray(0) <= 5) OrElse (MegamanAngleArray(0) >= 8 AndAlso MegamanAngleArray(0) <= 12)) Then
+                        MegamanCollisionDetectionArray(1) -= 1
+                    End If
+                    If ((MegamanAngleArray(0) = 1 OrElse (MegamanAngleArray(0) >= 9 AndAlso MegamanAngleArray(0) <= 12)) OrElse MegamanAngleArray(0) = -1) AndAlso MegamanCollisionArray(2) = False Then
+                        MegamanOnArray(0) = True
+                    End If
+                    MegamanCollisionArray(8) = True
+                End If
+            End If
+            '******************************************
+            'This section processes the specialized collision rectangles to detect whether the player has moved inside ladders, doors, or one-way platforms.
             '******************************************
             Array.Clear(MegamanCollisionArray2, 0, 9)
             If CollisionRegionDoors(1).IsVisible(MegamanRectangle(0).Left, MegamanRectangle(0).Top) = True Then 'Test upper left
                 MegamanCollisionArray2(0) = 2
             ElseIf CollisionRegionLadders(1).IsVisible(MegamanRectangle(0).Left, MegamanRectangle(0).Top) = True Then 'Test upper left
                 MegamanCollisionArray2(0) = 1
+            ElseIf CollisionRegionOneWay(1).IsVisible(MegamanRectangle(0).Left, MegamanRectangle(0).Top) = True Then 'Test upper left
+                MegamanCollisionArray2(0) = 3
             End If
             If CollisionRegionDoors(1).IsVisible(MegamanRectangle(0).Right, MegamanRectangle(0).Top) = True Then 'Test upper right
                 MegamanCollisionArray2(2) = 2
             ElseIf CollisionRegionLadders(1).IsVisible(MegamanRectangle(0).Right, MegamanRectangle(0).Top) = True Then 'Test upper right
                 MegamanCollisionArray2(2) = 1
+            ElseIf CollisionRegionOneWay(1).IsVisible(MegamanRectangle(0).Right, MegamanRectangle(0).Top) = True Then 'Test upper right
+                MegamanCollisionArray2(2) = 3
             End If
             If CollisionRegionDoors(1).IsVisible((MegamanRectangle(0).Right - ((1 / 2) * MegamanRectangle(0).Width)), MegamanRectangle(0).Bottom) = True Then 'Test middle bottom for ground
                 MegamanCollisionArray2(7) = 2
             ElseIf CollisionRegionLadders(1).IsVisible((MegamanRectangle(0).Right - ((1 / 2) * MegamanRectangle(0).Width)), MegamanRectangle(0).Bottom) = True Then 'Test middle bottom for ground
                 MegamanCollisionArray2(7) = 1
+            ElseIf CollisionRegionOneWay(1).IsVisible((MegamanRectangle(0).Right - ((1 / 2) * MegamanRectangle(0).Width)), MegamanRectangle(0).Bottom) = True Then 'Test middle bottom for ground
+                MegamanCollisionArray2(7) = 3
             End If
             If CollisionRegionDoors(1).IsVisible(MegamanRectangle(0).Left, MegamanRectangle(0).Bottom) = True Then 'Test lower left
                 MegamanCollisionArray2(6) = 2
             ElseIf CollisionRegionLadders(1).IsVisible(MegamanRectangle(0).Left, MegamanRectangle(0).Bottom) = True Then 'Test lower left
                 MegamanCollisionArray2(6) = 1
+            ElseIf CollisionRegionOneWay(1).IsVisible(MegamanRectangle(0).Left, MegamanRectangle(0).Bottom) = True Then 'Test lower left
+                MegamanCollisionArray2(6) = 3
             End If
             If CollisionRegionDoors(1).IsVisible(MegamanRectangle(0).Right, MegamanRectangle(0).Bottom) = True Then 'Test lower right
                 MegamanCollisionArray2(8) = 2
             ElseIf CollisionRegionLadders(1).IsVisible(MegamanRectangle(0).Right, MegamanRectangle(0).Bottom) = True Then 'Test lower right
                 MegamanCollisionArray2(8) = 1
+            ElseIf CollisionRegionOneWay(1).IsVisible(MegamanRectangle(0).Right, MegamanRectangle(0).Bottom) = True Then 'Test lower right
+                MegamanCollisionArray2(8) = 3
             End If
             If CollisionRegionDoors(1).IsVisible((MegamanRectangle(0).Right - (MegamanRectangle(0).Width / 2)), MegamanRectangle(0).Top) = True Then 'Test middle top
                 MegamanCollisionArray2(1) = 2
             ElseIf CollisionRegionLadders(1).IsVisible((MegamanRectangle(0).Right - (MegamanRectangle(0).Width / 2)), MegamanRectangle(0).Top) = True Then 'Test middle top
                 MegamanCollisionArray2(1) = 1
+            ElseIf CollisionRegionOneWay(1).IsVisible((MegamanRectangle(0).Right - (MegamanRectangle(0).Width / 2)), MegamanRectangle(0).Top) = True Then 'Test middle top
+                MegamanCollisionArray2(1) = 3
             End If
             If CollisionRegionDoors(1).IsVisible(MegamanRectangle(0).Left, (MegamanRectangle(0).Bottom - (MegamanRectangle(0).Height / 2))) = True Then 'Test middle left
                 MegamanCollisionArray2(3) = 2
             ElseIf CollisionRegionLadders(1).IsVisible(MegamanRectangle(0).Left, (MegamanRectangle(0).Bottom - (MegamanRectangle(0).Height / 2))) = True Then 'Test middle left
                 MegamanCollisionArray2(3) = 1
+            ElseIf CollisionRegionOneWay(1).IsVisible(MegamanRectangle(0).Left, (MegamanRectangle(0).Bottom - (MegamanRectangle(0).Height / 2))) = True Then 'Test middle left
+                MegamanCollisionArray2(3) = 3
             End If
             If CollisionRegionDoors(1).IsVisible((MegamanRectangle(0).Right - (MegamanRectangle(0).Width / 2)), (MegamanRectangle(0).Bottom - (MegamanRectangle(0).Height / 2))) = True Then 'Test center
                 MegamanCollisionArray2(4) = 2
             ElseIf CollisionRegionLadders(1).IsVisible((MegamanRectangle(0).Right - (MegamanRectangle(0).Width / 2)), (MegamanRectangle(0).Bottom - (MegamanRectangle(0).Height / 2))) = True Then 'Test center
                 MegamanCollisionArray2(4) = 1
+            ElseIf CollisionRegionOneWay(1).IsVisible((MegamanRectangle(0).Right - (MegamanRectangle(0).Width / 2)), (MegamanRectangle(0).Bottom - (MegamanRectangle(0).Height / 2))) = True Then 'Test center
+                MegamanCollisionArray2(4) = 3
             End If
             If CollisionRegionDoors(1).IsVisible(MegamanRectangle(0).Right, (MegamanRectangle(0).Bottom - (MegamanRectangle(0).Height / 2))) = True Then 'Test middle right
                 MegamanCollisionArray2(5) = 2
             ElseIf CollisionRegionLadders(1).IsVisible(MegamanRectangle(0).Right, (MegamanRectangle(0).Bottom - (MegamanRectangle(0).Height / 2))) = True Then 'Test middle right
                 MegamanCollisionArray2(5) = 1
+            ElseIf CollisionRegionOneWay(1).IsVisible(MegamanRectangle(0).Right, (MegamanRectangle(0).Bottom - (MegamanRectangle(0).Height / 2))) = True Then 'Test middle right
+                MegamanCollisionArray2(5) = 3
             End If
-            MegamanOnArray(2) = False
+            '******************************************
+            'This section handles special physics for ladders, doors, and one-way platforms.
+            '******************************************
+            If Not (MegamanOnArray(2) = True AndAlso (MegamanCollisionArray2(1) = 3 OrElse MegamanCollisionArray2(7) = 3) AndAlso (MegamanCollisionArray2(3) = 3 OrElse MegamanCollisionArray2(5) = 3)) Then
+                MegamanOnArray(2) = False
+            End If
             MegamanOnArray(3) = False
             If MegamanCollisionArray2(1) = 2 AndAlso (MegamanCollisionArray2(3) = 2 OrElse MegamanCollisionArray2(5) = 2) AndAlso MegamanOnArray(0) = True Then
                 MegamanOnArray(3) = True
