@@ -9,7 +9,8 @@ Public Class GameWindow
     Dim GamePath As String = My.Application.Info.DirectoryPath
     Dim ResourcesPath As String = GamePath & "\Resources\"
     Dim LoadFromFile As Boolean = True 'True = LoadFromFile, False = LoadFromForm
-    Dim LevelName As String
+    Dim StartingLevel As String = "DebugRoom"
+    'Dim LevelName As String
     Dim Tileset As String
     Dim GameAreaGraphics(1) As Graphics
     Dim CustomDoubleBuffer As New BufferedGraphicsContext
@@ -87,10 +88,6 @@ Public Class GameWindow
         GameAreaRectangle = Rectangle.FromLTRB(GameArea.Left, GameArea.Top, GameArea.Left + GameArea.Width, GameArea.Top + GameArea.Height)
         GameAreaGraphics(0) = GameArea.CreateGraphics()
         GameAreaGraphics(1) = GameArea.CreateGraphics()
-        CollisionRegionArray(0).Exclude(GameAreaRectangle)
-        CollisionRegionLadders(0).Exclude(GameAreaRectangle)
-        CollisionRegionDoors(0).Exclude(GameAreaRectangle)
-        CollisionRegionOneWay(0).Exclude(GameAreaRectangle)
         TimerArray(0).Change(TimerData(1), TimerData(0))
         If MainWindow.DebugHUDEnabled = True Then
             TimerArray(2).Change(TimerData(1), TimerData(0))
@@ -110,21 +107,25 @@ Public Class GameWindow
         Else
             MegamanVelocityMultiplier = 1
         End If
-        LoadLevelMapFromFile()
+        'MainWindow.LevelName = StartingLevel
+        LoadLevelMap()
     End Sub
-    Friend Sub LoadLevelMapFromFile()
+    Friend Sub LoadLevelMap()
+        CollisionRegionArray(0).Exclude(GameAreaRectangle)
+        CollisionRegionLadders(0).Exclude(GameAreaRectangle)
+        CollisionRegionDoors(0).Exclude(GameAreaRectangle)
+        CollisionRegionOneWay(0).Exclude(GameAreaRectangle)
         If LoadFromFile = True Then
             For Each FormPanel As Panel In New List(Of Panel)(GameArea.Controls.OfType(Of Panel))
                 FormPanel.Dispose()
             Next
-            LevelName = "DebugRoom"
             Dim MapFileLine As String = ""
             Dim SplitStrings() As String
             Dim Delimitters() As Char = {"=", ","}
             Dim AddedPanels(0) As Panel
             Dim EndReached As Boolean
             LoopIndexArray(4) = -1
-            Using MapFile As StreamReader = New StreamReader(ResourcesPath & LevelName & "MapData.txt")
+            Using MapFile As StreamReader = New StreamReader(ResourcesPath & MainWindow.LevelName & "MapData.txt")
                 Do
                     ReDim SplitStrings(Nothing)
                     MapFileLine = MapFile.ReadLine()
@@ -277,7 +278,7 @@ Public Class GameWindow
                         End If
                     Case InputArray(2) 'Up
                         If MegamanOnArray(3) = True Then
-                            MessageBox.Show("Door")
+                            LoadNewArea()
                         ElseIf MegamanOnArray(2) = True Then
                             MegamanOnArray(0) = False
                             MegamanVelocityArray(1) = -25
@@ -844,6 +845,20 @@ Public Class GameWindow
     End Sub
     Private Sub GameOverYeah()
 
+    End Sub
+    Private Sub LoadNewArea()
+        'MessageBox.Show("Loading new area!")
+        StartRendering(1) = False
+        StartRendering(0) = False
+        CollisionRegionArray(0).Exclude(GameAreaRectangle)
+        CollisionRegionLadders(0).Exclude(GameAreaRectangle)
+        CollisionRegionDoors(0).Exclude(GameAreaRectangle)
+        CollisionRegionOneWay(0).Exclude(GameAreaRectangle)
+        Select Case MainWindow.LevelName
+            Case "DebugRoom"
+                MainWindow.LevelName = "DebugRoom2"
+        End Select
+        Hide()
     End Sub
     Private Sub GameWindow_Closing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         MainWindow.Close()

@@ -12,6 +12,8 @@
     Friend KeyboardInputThreas As Threading.Thread
     Friend CThread1Active As Boolean = False
     Friend CThread2Active As Boolean = False
+    Friend LevelName As String = "DebugRoom"
+    Friend GameExit As Boolean = False
     Private Sub MainWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load 'This replaces some placeholder text at runtime
         DebugStatusLabel.Text = "DEBUG: " & DebugEnabled
         MultithreadingStatusLabel.Text = "Multithreading: " & MultithreadingEnabled
@@ -163,8 +165,10 @@
     Private Sub StartGame()
         StartButton.Enabled = False
         Try
-            Hide()
-            GameWindow.ShowDialog()
+            Do
+                Hide()
+                GameWindow.ShowDialog()
+            Loop Until GameExit = True
         Catch ex As Exception
         End Try
         StartButton.Enabled = True

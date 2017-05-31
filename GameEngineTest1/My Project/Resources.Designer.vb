@@ -221,8 +221,31 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Level_1_Data
-        '''Textures=bkMaze.bmp,MazeBlock1.png.
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property DebugRoom2MapData() As String
+            Get
+                Return ResourceManager.GetString("DebugRoom2MapData", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Title=DebugRoom
+        '''Tileset=Maze
+        '''LoadImage=0=bkMaze.bmp
+        '''LoadImage=1=MazeBlock1.png
+        '''LoadImage=2=MazeBlock2.png
+        '''LoadImage=3=MazeCeilingBlockLayerA.png
+        '''LoadImage=4=MazeCeilingBlockLayerB.png
+        '''LoadImage=5=MazeFloorBlockLayerA.png
+        '''LoadImage=6=MazeFloorBlockLayerB.png
+        '''LoadImage=7=MazeFloorBlockSlopeRightA.png
+        '''LoadImage=8=MazeFloorBlockSlopeRightB.png
+        '''LoadImage=9=MazeFloorSlopeRight.png
+        '''PlayerStart=75,100
+        '''CreateTerrain=768,825,200,50,Ground,5,Red
+        '''CreateTerrain=300,583,203,125,Ground,5,Red
+        '''CreateTerrain=9 [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property DebugRoomMapData() As String
             Get
