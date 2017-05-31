@@ -405,6 +405,9 @@ Public Class GameWindow
                     CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Ceiling(MegamanCollisionRectangleArray(LoopIndexArray(0))))
                     CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Lime, Rectangle.Ceiling(MegamanCollisionRectangleTempArray(LoopIndexArray(0))))
                 Next
+                For Each Bullet In BulletList
+                    CustomGraphicsBuffer.Graphics.DrawRectangle(Pens.Orange, Rectangle.Ceiling(RectangleF.FromLTRB(Bullet.Left, Bullet.Top, Bullet.Right, Bullet.Bottom)))
+                Next
             End If
             CustomGraphicsBuffer.Render(GameAreaGraphics(0))
             Try
