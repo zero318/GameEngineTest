@@ -857,11 +857,13 @@ Public Class GameWindow
         Select Case MainWindow.LevelName
             Case "DebugRoom"
                 MainWindow.LevelName = "DebugRoom2"
+            Case "DebugRoom2"
+                MainWindow.GameExit = True
         End Select
-        Hide()
+        Dispose()
     End Sub
     Private Sub GameWindow_Closing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        MainWindow.Close()
+        MainWindow.GameExit = True
     End Sub
     Private Sub ThreadCountLabel_Click(sender As Object, e As EventArgs) Handles ThreadCountLabel.Click
         If LabelVisible(0) = True Then

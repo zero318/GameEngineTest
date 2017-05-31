@@ -165,10 +165,12 @@
     Private Sub StartGame()
         StartButton.Enabled = False
         Try
+            Hide()
             Do
-                Hide()
-                GameWindow.ShowDialog()
+                Dim GameForm As New GameWindow
+                GameForm.ShowDialog()
             Loop Until GameExit = True
+            Application.Exit()
         Catch ex As Exception
         End Try
         StartButton.Enabled = True
