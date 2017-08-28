@@ -63,16 +63,19 @@ Public Class GameWindow
     Dim BulletList As New List(Of RectangleF)
     Dim BulletLeftList As New List(Of Boolean)
     Protected Overrides Sub OnPaintBackground(ByVal e As PaintEventArgs)
+        'This section overrides how windows draws the screen so that it runs better for a game.
         If PaintSomegroundOnArray(0) = True Then
             MyBase.OnPaintBackground(e)
         End If
     End Sub
     Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+        'This section overrides how windows draws the screen so that it runs better for a game.
         If PaintSomegroundOnArray(1) = True Then
             MyBase.OnPaint(e)
         End If
     End Sub
     Private Sub GameWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'This section initializes the game area for the rest of the code.
         If SwapUpAndZ = False Then
             InputArray(2) = Keys.Z
             InputArray(4) = Keys.Up
@@ -116,6 +119,7 @@ Public Class GameWindow
         LoadLevelMap()
     End Sub
     Friend Sub LoadLevelMap()
+        'This section reads map data from the specified txt file in the game's resources.
         CollisionRegionArray(0).Exclude(GameAreaRectangle)
         CollisionRegionLadders(0).Exclude(GameAreaRectangle)
         CollisionRegionDoors(0).Exclude(GameAreaRectangle)
@@ -180,6 +184,7 @@ Public Class GameWindow
         LoadPanels()
     End Sub
     Friend Sub LoadPanels()
+        'This section takes the data from the previous section and uses it to create an arbitrary number of level components.
         Dim PanelList As List(Of Panel) = New List(Of Panel)(GameArea.Controls.OfType(Of Panel))
         ReDim GraphicsRectangleArray(PanelList.Count)
         ReDim GraphicsTextureArray(PanelList.Count)
@@ -226,6 +231,7 @@ Public Class GameWindow
         StartRendering(1) = True
     End Sub
     Friend Sub UpdateFPS()
+        'This section is used only during debugging.
         If StartRendering(0) = True Then
             Try
                 If LabelVisible(1) = True Then
@@ -239,6 +245,7 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub UpdateThreadCount()
+        'This section is used only during debugging. I tend to use it as an in-game watch window.
         If StartRendering(0) = True Then
             ThreadPool.GetAvailableThreads(ThreadInfoArray(0), ThreadInfoArray(1))
             Try
@@ -254,6 +261,7 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub GameWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        'This section reads when the player starts input from the keyboard.
         If StartRendering(0) = True Then
             If Not MegamanAnimationArray(0) = 4 Then
                 Select Case e.KeyCode
@@ -329,9 +337,10 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub GameWindow_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
-
+        'This section is currently unused.
     End Sub
     Private Sub GameWindow_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
+        'This section detects when the player ends input from the keyboard.
         If StartRendering(0) = True Then
             Select Case e.KeyCode   'Detects the released keys...
                 Case InputArray(0) 'Right
@@ -364,6 +373,7 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub GameWindow_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles Me.Paint
+        'This section handles rendering of graphics.
         If StartRendering(1) = True Then
             CustomBackgroundBuffer = CustomBackgroundBufferContext.Allocate(GameAreaGraphics(0), GameAreaRectangle)
             CustomGraphicsBuffer = CustomDoubleBuffer.Allocate(GameAreaGraphics(0), GameAreaRectangle)
@@ -418,6 +428,7 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub MegamanRectanglePhysics()
+        'This extremely large section is the main game loop for handling physics/collision/entity management.
         If StartRendering(0) = True Then
             '******************************************
             'Collision is handled in this order:
@@ -719,9 +730,9 @@ Public Class GameWindow
             For Each Bullet In BulletList.ToList()
                 BulletIndex(0) = BulletList.IndexOf(Bullet)
                 If BulletLeftList.Item(BulletIndex(0)) = False Then
-                    BulletList.Item(BulletIndex(0)) = RectangleF.FromLTRB(Bullet.Left + (9 * VelocityMultiplier), Bullet.Top, Bullet.Right + (9 * VelocityMultiplier), Bullet.Bottom)
+                    BulletList.Item(BulletIndex(0)) = RectangleF.FromLTRB(Bullet.Left + (18 * VelocityMultiplier), Bullet.Top, Bullet.Right + (18 * VelocityMultiplier), Bullet.Bottom)
                 Else
-                    BulletList.Item(BulletIndex(0)) = RectangleF.FromLTRB(Bullet.Left - (9 * VelocityMultiplier), Bullet.Top, Bullet.Right - (9 * VelocityMultiplier), Bullet.Bottom)
+                    BulletList.Item(BulletIndex(0)) = RectangleF.FromLTRB(Bullet.Left - (18 * VelocityMultiplier), Bullet.Top, Bullet.Right - (18 * VelocityMultiplier), Bullet.Bottom)
                 End If
                 If (CollisionRegionArray(1).IsVisible(Bullet.Left, Bullet.Top) = True) OrElse (CollisionRegionArray(1).IsVisible(Bullet.Left, Bullet.Bottom)) OrElse (CollisionRegionArray(1).IsVisible(Bullet.Right, Bullet.Top)) OrElse (CollisionRegionArray(1).IsVisible(Bullet.Right, Bullet.Bottom)) Then
                     BulletLeftList.RemoveAt(BulletIndex(0))
@@ -793,6 +804,7 @@ Public Class GameWindow
         End If
     End Sub
     Friend Sub AnimateMegamanRectangle()
+        'This section is the main game loop for handling animations and player states.
         If StartRendering(0) = True Then
             MegamanAnimationArray(1) = MegamanAnimationArray(0) * 2
             If MegamanLeft = True Then
@@ -880,12 +892,13 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub ResetEverything()
-
+        'Currently unused
     End Sub
     Private Sub GameOverYeah()
-
+        'Currently unused
     End Sub
     Private Sub LoadNewArea()
+        'This section initiates loading a new area.
         'MessageBox.Show("Loading new area!")
         StartRendering(1) = False
         StartRendering(0) = False
@@ -902,9 +915,11 @@ Public Class GameWindow
         Dispose()
     End Sub
     Private Sub GameWindow_Closing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        'This section closes the launcher when the game is closed.
         MainWindow.GameExit = True
     End Sub
     Private Sub ThreadCountLabel_Click(sender As Object, e As EventArgs) Handles ThreadCountLabel.Click
+        'This is only used during debugging
         If LabelVisible(0) = True Then
             LabelVisible(0) = False
         Else
@@ -912,6 +927,7 @@ Public Class GameWindow
         End If
     End Sub
     Private Sub FPSLabel_Click(sender As Object, e As EventArgs) Handles FPSLabel.Click
+        'This is only used during debugging
         If LabelVisible(1) = True Then
             LabelVisible(1) = False
         Else
